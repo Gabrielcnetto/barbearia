@@ -1,7 +1,7 @@
-
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/firebase_options.dart';
 import 'package:barbershop2/functions/createAccount.dart';
+import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
@@ -38,14 +38,14 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => MyProfileScreenFunctions(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => CreateAccount(),
         ),
         ChangeNotifierProvider(
           create: (_) => UserLoginApp(),
         ),
-      //  ChangeNotifierProvider(
-      //    create: (_) => MyProfileScreenFunctions(),
-    //    ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

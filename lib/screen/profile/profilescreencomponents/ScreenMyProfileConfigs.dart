@@ -1,4 +1,3 @@
-
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
@@ -7,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../functions/profileScreenFunctions.dart';
 
 class ScreenComponentsMyProfile extends StatefulWidget {
   const ScreenComponentsMyProfile({super.key});
@@ -21,24 +22,24 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    LoadUrlImageUserdb();
     userName;
-    print("o username do cara é: ${userName}");
+    LoadUrlImageUserdb();
+
+    print("o nome do peao: ${userName}");
   }
 
   String? userName;
   Future<void> LoadUrlImageUserdb() async {
- //   String? descUser = await MyProfileScreenFunctions().getNameUser();
+    String? descUser = await MyProfileScreenFunctions().getNameUser();
 
     setState(() {
- //     userName = descUser;
+      userName = descUser;
     });
   }
 
   final nomeControler = TextEditingController();
   final phoneNumberControler = TextEditingController();
   Future<void> setNameInControler() async {
-
     setState(() {
       nomeControler.text = userName ?? "Carregando...";
     });
@@ -192,9 +193,11 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
                     height: 30,
                   ),
                   InkWell(
-                    onTap: (){
-                      Provider.of<UserLoginApp>(context,listen: false).deslogar();
-                      Navigator.of(context).pushReplacementNamed(AppRoutesApp.VerificationLoginScreen01);
+                    onTap: () {
+                      Provider.of<UserLoginApp>(context, listen: false)
+                          .deslogar();
+                      Navigator.of(context).pushReplacementNamed(
+                          AppRoutesApp.VerificationLoginScreen01);
                     },
                     child: Container(
                       alignment: Alignment.center,
