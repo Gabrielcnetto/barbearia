@@ -48,14 +48,31 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        theme: ThemeData(
+          datePickerTheme: DatePickerThemeData(
+            backgroundColor: Colors.white,
+            cancelButtonStyle: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            confirmButtonStyle: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                TextStyle(color: Colors.black),
+              ),
+            ),
+          ),
+        ),
         debugShowCheckedModeBanner: false,
         title: Estabelecimento.nomeLocal,
         routes: {
           AppRoutesApp.VerificationLoginScreen01: (ctx) =>
-              VerificationLoginScreen01(),
+              const VerificationLoginScreen01(),
           AppRoutesApp.InitialScreenApp: (ctx) => const InitialScreenApp(),
           AppRoutesApp.LoginScreen01: (ctx) => const LoginScreen01(),
-          AppRoutesApp.HomeScreen01: (ctx) => HomeScreen01(),
+          AppRoutesApp.HomeScreen01: (ctx) => const HomeScreen01(),
           AppRoutesApp.RegisterAccountScreen: (ctx) =>
               const RegisterAccountScreen(),
         },

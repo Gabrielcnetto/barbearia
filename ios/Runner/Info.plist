@@ -8,6 +8,10 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Barbearia</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Você precisa liberar acesso, para conseguir enviar sua imagem de perfil.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Você precisa liberar acesso, para conseguir enviar sua imagem de perfil.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

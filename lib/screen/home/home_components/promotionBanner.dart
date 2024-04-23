@@ -15,7 +15,7 @@ class PromotionBannerComponents extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<PromocaoBanner> BannerList = promoBanner;
     return Padding(
-      padding: EdgeInsets.only(top: 25, left: 15),
+      padding: const EdgeInsets.only(top: 15, left: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +28,7 @@ class PromotionBannerComponents extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SingleChildScrollView(

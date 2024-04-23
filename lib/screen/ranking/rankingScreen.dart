@@ -5,6 +5,6 @@ class RankingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Ranking"),);
+    return const Center(child: Text("Ranking"),);
   }
 }

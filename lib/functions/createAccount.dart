@@ -22,11 +22,11 @@ class CreateAccount with ChangeNotifier {
     );
 
     String userIdCreate = await authSettings.currentUser!.uid;
-    print("userid:${userIdCreate}");
     await dataBaseFirestore.collection("usuarios").doc(userIdCreate).set({
       'userName': userName,
       'userEmail': email,
       'PhoneNumber': "",
+      "urlImagem": "",
     });
     notifyListeners();
   }

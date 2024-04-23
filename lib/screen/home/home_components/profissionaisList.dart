@@ -20,7 +20,7 @@ class ProfissionaisList extends StatelessWidget {
     final List<Profissionais> _listProfs = profList;
 
     return Container(
-      padding: EdgeInsets.only(top: 25, left: 15, right: 15),
+      padding: const EdgeInsets.only(top: 25, left: 15, right: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -61,45 +61,11 @@ class ProfissionaisList extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Positioned(
-                              left: 29,
-                              bottom: 0,
-                              child: Container(
-                                width: 50,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    width: 0.2,
-                                    color: Colors.grey.shade100,
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.grade,
-                                      color: Colors.orangeAccent,
-                                      size: 17,
-                                    ),
-                                    Text(
-                                      "${prof.NotaProff}",
-                                      style: GoogleFonts.openSans(
-                                        textStyle: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Estabelecimento.secondaryColor,
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                           
+         
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Column(
@@ -107,7 +73,7 @@ class ProfissionaisList extends StatelessWidget {
                             Text(
                               prof.nomeProf,
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
                                 ),

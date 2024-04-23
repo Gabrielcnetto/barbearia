@@ -1,7 +1,8 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:flutter/material.dart';
 
-class CircularProgressWithImage extends StatelessWidget {
+class CircularProgressWithImage extends StatefulWidget {
   final double progress;
   final String imageUrl;
   final double imageSize;
@@ -15,27 +16,34 @@ class CircularProgressWithImage extends StatelessWidget {
   });
 
   @override
+  State<CircularProgressWithImage> createState() => _CircularProgressWithImageState();
+}
+
+class _CircularProgressWithImageState extends State<CircularProgressWithImage> {
+
+  @override
   Widget build(BuildContext context) {
+    
     return Center(
       child: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: imageSize + 15,
-            height: imageSize  + 15,
+            width: widget.imageSize + 15,
+            height: widget.imageSize  + 15,
             child: CircularProgressIndicator(
-              value: progress,
-              strokeWidth: widghTela / 55,
+              value: widget.progress,
+              strokeWidth: widget.widghTela / 55,
               backgroundColor: Colors.grey,
               valueColor: AlwaysStoppedAnimation<Color>(Estabelecimento.primaryColor),
             ),
           ),
           ClipOval(
             child: SizedBox(
-              width: imageSize,
-              height: imageSize,
+              width: widget.imageSize,
+              height: widget.imageSize,
               child: Image.network(
-                imageUrl,
+                widget.imageUrl,
                 fit: BoxFit.cover,
               ),
             ),

@@ -23,7 +23,6 @@ class _RegisterAccountScreenState extends State<RegisterAccountScreen> {
       password: passwordControler.text,
       userName: userNameControler.text,
     );
-    print("TESTE BOTAO");
   }
 
   bool showPass = true;

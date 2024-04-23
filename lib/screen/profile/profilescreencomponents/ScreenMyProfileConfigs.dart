@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../functions/profileScreenFunctions.dart';
@@ -22,26 +25,132 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<MyProfileScreenFunctions>(context, listen: false).getUserName();
+    Provider.of<MyProfileScreenFunctions>(context, listen: false).getPhone();
+    phoneNumber;
     userName;
-    LoadUrlImageUserdb();
-
-    print("o nome do peao: ${userName}");
+    urlImagePhoto;
+    loadUserPhone();
+    loadUserName();
+    urlImageFuncion();
   }
 
+  Future<void> setandonewnome() async {
+    setState(() {});
+    Provider.of<MyProfileScreenFunctions>(context, listen: false).newName(
+      newName: nomeControler.text,
+    );
+    setState(() {});
+  }
+
+    Future<void> setandoPhone() async {
+    setState(() {});
+    Provider.of<MyProfileScreenFunctions>(context, listen: false).setPhone(
+      phoneNumber: phoneNumberControler.text,
+    );
+    setState(() {});
+  }
+
+
+  //GET USERNAME - INICIO
   String? userName;
-  Future<void> LoadUrlImageUserdb() async {
-    String? descUser = await MyProfileScreenFunctions().getNameUser();
+  Future<void> loadUserName() async {
+    String? usuario = await MyProfileScreenFunctions().getUserName();
+
+    if (userName != null) {
+    } else {
+      const Text('N/A');
+    }
 
     setState(() {
-      userName = descUser;
+      userName = usuario;
+      setInControler();
     });
   }
 
+  void setInControler() {
+    nomeControler.text = userName!;
+  }
+
+  //GET USERNAME - FINAL
+  //GET NUMERO - INCIO
+  String? phoneNumber;
+  Future<void> loadUserPhone() async {
+    String? number = await MyProfileScreenFunctions().getPhone();
+
+    if (phoneNumber != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      phoneNumber = number;
+      setPhone();
+    });
+  }
+
+  void setPhone() {
+    phoneNumberControler.text = phoneNumber!;
+  }
+
+  //GET NUMERO - FINAL
   final nomeControler = TextEditingController();
   final phoneNumberControler = TextEditingController();
-  Future<void> setNameInControler() async {
+
+  //funcao geral de enviar ao db a foto nova
+
+  Future<void> setNewimageOnDB() async {
+    final String photo = await image!.path;
+    await Provider.of<MyProfileScreenFunctions>(context, listen: false)
+        .setImageProfile(
+      urlImage: File(photo),
+    );
+  }
+
+  //GET IMAGEM DO PERFIL - INICIO(CAMERA)
+  XFile? image;
+
+  Future<void> getProfileImageCamera() async {
+    final picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
     setState(() {
-      nomeControler.text = userName ?? "Carregando...";
+      image = pickedFile;
+    });
+    await setNewimageOnDB();
+  }
+
+  //GET IMAGEM DO PERFIL - FINAL(CAMERA)
+  Future<void> getProfileImageBiblio() async {
+    final picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 1080,
+      maxWidth: 1080,
+    );
+    setState(() {
+      image = pickedFile;
+    });
+    await setNewimageOnDB();
+  }
+  //final biblioteca
+
+  //get da imagem de perfil
+  String? urlImagePhoto;
+  Future<void> urlImageFuncion() async {
+    String? number = await MyProfileScreenFunctions().getUserImage();
+
+    if (urlImagePhoto != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      urlImagePhoto = number;
+      setPhone();
     });
   }
 
@@ -65,7 +174,7 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
           Positioned(
             bottom: 0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.elliptical(50, 50),
@@ -80,157 +189,209 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
             top: 120,
             right: 130,
             left: 130,
-            child: Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(80),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(80),
-                child: Image.network(
-                  "https://forbes.com.br/wp-content/uploads/2024/04/mark-zuckerberg-768x512.jpeg",
-                  fit: BoxFit.cover,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 120,
+                  height: 120,
+                  child: urlImagePhoto != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(80),
+                          child: Image.network(
+                            "${urlImagePhoto}",
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(80),
+                          child: Image.network(
+                            Estabelecimento.defaultAvatar,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                 ),
-              ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      child: const Icon(Icons.camera),
+                      onTap: getProfileImageCamera,
+                    ),
+                    InkWell(
+                      child: const Icon(Icons.photo_library),
+                      onTap: getProfileImageBiblio,
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
           Positioned(
-            top: 255,
+            top: 290,
             right: 40,
             left: 40,
             child: Container(
-              padding: EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               width: double.infinity,
               height: heighScreen,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //inicio -> FORMULARIO COM O NOME
-                  Text(
-                    "Seu Nome",
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey.shade800,
-                    )),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(
-                        width: 0.5,
-                        color: Colors.grey.shade300,
-                      ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //inicio -> FORMULARIO COM O NOME
+                    Text(
+                      "Seu Nome",
+                      style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade800,
+                      )),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: nomeControler,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.edit,
-                          size: 20,
-                          color: Estabelecimento.primaryColor,
-                        ),
-                      ],
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  //Fim -> FORMULARIO COM O NOME
-                  SizedBox(
-                    height: 10,
-                  ),
-                  //inicio -> FORMULARIO COM O TELEFONE
-                  Text(
-                    "Número WhatsApp",
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.grey.shade800,
-                    )),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(
-                        width: 0.5,
-                        color: Colors.grey.shade300,
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: phoneNumberControler,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.edit,
-                          size: 20,
-                          color: Estabelecimento.primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                  //Fim -> FORMULARIO COM O TELEFONE
-                  SizedBox(
-                    height: 30,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Provider.of<UserLoginApp>(context, listen: false)
-                          .deslogar();
-                      Navigator.of(context).pushReplacementNamed(
-                          AppRoutesApp.VerificationLoginScreen01);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      height: 60,
+                    Container(
                       decoration: BoxDecoration(
-                        color: Estabelecimento.primaryColor,
                         borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          width: 0.5,
+                          color: Colors.grey.shade300,
+                        ),
                       ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "Deslogar",
-                            style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Estabelecimento.contraPrimaryColor,
-                            )),
+                          Expanded(
+                            child: TextFormField(
+                              controller: nomeControler,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(
-                            Icons.logout,
-                            size: 22,
-                            color: Estabelecimento.contraPrimaryColor,
+                          InkWell(
+                            onTap: setandonewnome,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.save,
+                                  size: 20,
+                                  color: Estabelecimento.primaryColor,
+                                ),
+                                const Text(
+                                  "Salvar",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  )
-                ],
+                    //Fim -> FORMULARIO COM O NOME
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    //inicio -> FORMULARIO COM O TELEFONE
+                    Text(
+                      "Número WhatsApp",
+                      style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade800,
+                      )),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          width: 0.5,
+                          color: Colors.grey.shade300,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: phoneNumberControler,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: setandoPhone,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.save,
+                                  size: 20,
+                                  color: Estabelecimento.primaryColor,
+                                ),
+                                const Text(
+                                  "Salvar",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    //Fim -> FORMULARIO COM O TELEFONE
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Provider.of<UserLoginApp>(context, listen: false)
+                            .deslogar();
+                        Navigator.of(context).pushReplacementNamed(
+                            AppRoutesApp.VerificationLoginScreen01);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Estabelecimento.primaryColor,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Deslogar",
+                              style: GoogleFonts.openSans(
+                                  textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Estabelecimento.contraPrimaryColor,
+                              )),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Icon(
+                              Icons.logout,
+                              size: 22,
+                              color: Estabelecimento.contraPrimaryColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
