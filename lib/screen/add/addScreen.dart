@@ -128,7 +128,6 @@ class _AddScreenState extends State<AddScreen> {
     phoneNumber;
     loadUserPhone();
     print("o numero dele é ${phoneNumber}");
-    
   }
 
   String? userName;
@@ -172,6 +171,7 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
+  String? hourSetForUser;
   @override
   Widget build(BuildContext context) {
     final widhScren = MediaQuery.of(context).size.width;
@@ -795,7 +795,7 @@ class _AddScreenState extends State<AddScreen> {
                             if (dataSelectedInModal != null)
                               Container(
                                 width: double.infinity,
-                                height: heighScreen * 0.74,
+                                height: heighScreen * 0.64,
                                 child: GridView.builder(
                                   itemCount: _horariosLivres.length,
                                   gridDelegate:
@@ -814,6 +814,9 @@ class _AddScreenState extends State<AddScreen> {
                                           selectedIndex = selectedIndex == index
                                               ? -1
                                               : index;
+
+                                          hourSetForUser =
+                                              _horariosLivres[index].horario;
                                         });
                                       },
                                       child: Padding(
@@ -849,8 +852,47 @@ class _AddScreenState extends State<AddScreen> {
                                     );
                                   },
                                 ),
-                              )
+                              ),
                             //CONTAINER DA HORA - FIM
+                            //botao do agendar - inicio
+
+                            if (hourSetForUser != null)
+                              Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Estabelecimento.primaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.symmetric(vertical: 20),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Agendar",
+                                      style: GoogleFonts.openSans(
+                                          textStyle: TextStyle(
+                                        color:
+                                            Estabelecimento.contraPrimaryColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      )),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Estabelecimento.contraPrimaryColor,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            //botao do agendar - fim
                           ],
                         ),
                       ),
