@@ -1,12 +1,17 @@
+import 'dart:math';
+
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
 import 'package:barbershop2/classes/profissionais.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({super.key});
@@ -16,6 +21,17 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userName;
+    loadUserName();
+
+    phoneNumber;
+    loadUserPhone();
+  }
+
   bool sobrancelha = true;
 
   void sobrancelhaTrue() {
@@ -77,7 +93,10 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   DateTime? dataSelectedInModal;
-  void ShowModalData() {
+  Future<void> ShowModalData() async {
+    setState(() {
+      dataSelectedInModal = null;
+    });
     showDatePicker(
       context: context,
       firstDate: DateTime.now(),
@@ -88,29 +107,30 @@ class _AddScreenState extends State<AddScreen> {
       try {
         setState(() {
           dataSelectedInModal = selectUserDate;
+          loadListCortes();
         });
       } catch (e) {
         return showDialog(
-            context: context,
-            builder: (ctx) {
-              return AlertDialog(
-                title: Text('Erro'),
-                content: Text("${e}"),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Fecha o modal
-                    },
-                    child: Text('OK'),
-                  ),
-                ],
-              );
-            });
+          context: context,
+          builder: (ctx) {
+            return AlertDialog(
+              title: Text('Erro'),
+              content: Text("${e}"),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Fecha o modal
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     });
   }
 
-  final List<Horarios> _horariosLivres = hourLists;
   int selectedIndex = -1;
   Map<int, Color> itemColors = {};
   Map<int, Color> _textColor = {};
@@ -118,17 +138,6 @@ class _AddScreenState extends State<AddScreen> {
   //controlers
   final nomeControler = TextEditingController();
   final numberControler = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    userName;
-    loadUserName();
-    phoneNumber;
-    loadUserPhone();
-    print("o numero dele é ${phoneNumber}");
-  }
 
   String? userName;
   Future<void> loadUserName() async {
@@ -172,6 +181,64 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   String? hourSetForUser;
+
+  Future<void> CreateAgendamento() async {
+    Provider.of<CorteProvider>(context, listen: false)
+        .AgendamentoCortePrincipalFunctions(
+      CorteClass(
+        clientName: nomeControler.text,
+        id: Random().nextDouble().toString(),
+        numeroContato: numberControler.text,
+        sobrancelha: sobrancelha,
+        diaCorte: dataSelectedInModal!,
+        horarioCorte: hourSetForUser!,
+      ),
+    );
+  }
+
+  //Fazendo o filtro para exibir quais horarios estao disponíveis
+  List<Horarios> _horariosLivres = hourLists;
+  List<Horarios> horarioFinal = [];
+  //Aqui pegamos o dia selecionado, e usamos para buscar os dados no banco de dados
+  //a funcao abaixo é responsavel por pegar o dia, entrar no provider e pesquisar os horarios daquele dia selecionado
+  Future<void> loadListCortes() async {
+    List<Horarios> listaTemporaria = List.from(_horariosLivres);
+    //pega o dia selecionado pelo cliente
+
+    DateTime? mesSelecionado = dataSelectedInModal;
+
+    //se o dia selecionado nao conter erro, executa a busca
+    if (mesSelecionado != null) {
+      try {
+        await Provider.of<CorteProvider>(context, listen: false)
+            .loadCortesDataBaseFuncionts(
+          mesSelecionado,
+          mesSelecionado.day,
+        );
+        List<Horarios> listaCort =
+            await Provider.of<CorteProvider>(context, listen: false)
+                .horariosListLoad;
+
+        for (var horario in listaCort) {
+          print("horarios do provider: ${horario.horario}");
+          listaTemporaria.removeWhere((atributosFixo) {
+            return atributosFixo.horario == horario.horario;
+          });
+        }
+        setState(() {
+          horarioFinal = List.from(listaTemporaria);
+        });
+        setState(() {});
+
+        print("este e o tamanho da lista final: ${horarioFinal.length}");
+      } catch (e) {
+        print("nao consegu realizar, erro: ${e}");
+      }
+    } else {
+      print("problemas na hora ou dia");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final widhScren = MediaQuery.of(context).size.width;
@@ -720,7 +787,9 @@ class _AddScreenState extends State<AddScreen> {
                               height: 5,
                             ),
                             InkWell(
-                              onTap: ShowModalData,
+                              onTap: () {
+                                ShowModalData();
+                              },
                               child: Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
@@ -795,9 +864,11 @@ class _AddScreenState extends State<AddScreen> {
                             if (dataSelectedInModal != null)
                               Container(
                                 width: double.infinity,
-                                height: heighScreen * 0.64,
+                                //  height: heighScreen * 0.64,
                                 child: GridView.builder(
-                                  itemCount: _horariosLivres.length,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: horarioFinal.length,
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -816,7 +887,7 @@ class _AddScreenState extends State<AddScreen> {
                                               : index;
 
                                           hourSetForUser =
-                                              _horariosLivres[index].horario;
+                                              horarioFinal[index].horario;
                                         });
                                       },
                                       child: Padding(
@@ -839,7 +910,7 @@ class _AddScreenState extends State<AddScreen> {
                                           ),
                                           padding: EdgeInsets.all(10),
                                           child: Text(
-                                            "${_horariosLivres[index].horario}",
+                                            "${horarioFinal[index].horario}",
                                             style: GoogleFonts.openSans(
                                                 textStyle: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -857,36 +928,45 @@ class _AddScreenState extends State<AddScreen> {
                             //botao do agendar - inicio
 
                             if (hourSetForUser != null)
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Estabelecimento.primaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: EdgeInsets.symmetric(vertical: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Agendar",
-                                      style: GoogleFonts.openSans(
-                                          textStyle: TextStyle(
-                                        color:
-                                            Estabelecimento.contraPrimaryColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                      )),
+                              InkWell(
+                                onTap: CreateAgendamento,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Estabelecimento.primaryColor,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                    SizedBox(
-                                      width: 15,
+                                    padding: EdgeInsets.symmetric(vertical: 20),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Agendar",
+                                          style: GoogleFonts.openSans(
+                                              textStyle: TextStyle(
+                                            color: Estabelecimento
+                                                .contraPrimaryColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600,
+                                          )),
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward,
+                                          color: Estabelecimento
+                                              .contraPrimaryColor,
+                                          size: 20,
+                                        ),
+                                      ],
                                     ),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Estabelecimento.contraPrimaryColor,
-                                      size: 20,
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             SizedBox(
