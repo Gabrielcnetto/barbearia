@@ -11,13 +11,13 @@ class CorteProvider with ChangeNotifier {
   final authSettings = FirebaseAuth.instance;
 
   //ENVIANDO O CORTE PARA AS LISTAS NO BANCO DE DADOS - INICIO
-  Future<void> AgendamentoCortePrincipalFunctions(CorteClass corte) async {
+  Future<void> AgendamentoCortePrincipalFunctions({required CorteClass corte, required DateTime selectDateForUser}) async {
     print("entrei na funcao");
-    DateTime dateNow = DateTime.now();
-    print(dateNow);
+    
     await initializeDateFormatting('pt_BR');
     int diaCorteSelect = corte.diaCorte.day;
-    String monthName = DateFormat('MMMM', 'pt_BR').format(dateNow);
+    String monthName = await DateFormat('MMMM', 'pt_BR').format(selectDateForUser);
+    print(monthName);
     print("entrei na funcao");
     try {
       //adicionado lista principal de cortes do dia
@@ -33,6 +33,7 @@ class CorteProvider with ChangeNotifier {
         "sobrancelha": corte.sobrancelha,
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
+        "profissionalSelect": corte.profissionalSelect,
       });
 
       //adicionado allcuts
@@ -43,6 +44,7 @@ class CorteProvider with ChangeNotifier {
         "sobrancelha": corte.sobrancelha,
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
+        "profissionalSelect": corte.profissionalSelect,
       });
       final userId = await authSettings.currentUser!.uid;
       final myCortes = await database
@@ -56,6 +58,7 @@ class CorteProvider with ChangeNotifier {
         "sobrancelha": corte.sobrancelha,
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
+        "profissionalSelect": corte.profissionalSelect,
       });
       //adicionado aos meus cortes
     } catch (e) {
@@ -71,7 +74,7 @@ class CorteProvider with ChangeNotifier {
   //
   Future<void> loadCortesDataBaseFuncionts(
       DateTime mesSelecionado, int DiaSelecionado) async {
-        _horariosListLoad.clear();
+    _horariosListLoad.clear();
     await initializeDateFormatting('pt_BR');
 
     String monthName = DateFormat('MMMM', 'pt_BR').format(mesSelecionado);
@@ -88,14 +91,12 @@ class CorteProvider with ChangeNotifier {
       } else {
         _horariosListLoad.clear();
         for (var doc in docs) {
-          
           String documentName = doc.id;
           _horariosListLoad.add(
             Horarios(horario: documentName, id: ""),
           );
-          
         }
-       DiaSelecionado = 0;
+        DiaSelecionado = 0;
       }
     } catch (e) {
       print(e);

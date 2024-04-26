@@ -6,6 +6,7 @@ import 'package:barbershop2/classes/horarios.dart';
 import 'package:barbershop2/classes/profissionais.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -185,15 +186,22 @@ class _AddScreenState extends State<AddScreen> {
   Future<void> CreateAgendamento() async {
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
-      CorteClass(
-        clientName: nomeControler.text,
-        id: Random().nextDouble().toString(),
-        numeroContato: numberControler.text,
-        sobrancelha: sobrancelha,
-        diaCorte: dataSelectedInModal!,
-        horarioCorte: hourSetForUser!,
-      ),
-    );
+            corte: CorteClass(
+              clientName: nomeControler.text,
+              id: Random().nextDouble().toString(),
+              numeroContato: numberControler.text,
+              sobrancelha: sobrancelha,
+              diaCorte: dataSelectedInModal!,
+              horarioCorte: hourSetForUser!,
+              profissionalSelect: isMarcelo
+                  ? "${profList[0].nomeProf}"
+                  : isGabriel
+                      ? "${profList[1].nomeProf}"
+                      : isLucas
+                          ? "${profList[2].nomeProf}"
+                          : "",
+            ),
+            selectDateForUser: dataSelectedInModal!);
   }
 
   //Fazendo o filtro para exibir quais horarios estao disponíveis
@@ -237,6 +245,250 @@ class _AddScreenState extends State<AddScreen> {
     } else {
       print("problemas na hora ou dia");
     }
+  }
+
+  void showModalConfirmAgend() {
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) {
+          return ConstrainedBox(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.7),
+            child: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height / 1,
+              padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 22,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Resumo do agendamento",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Revise os dados",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Estabelecimento.secondaryColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(217, 217, 217, 0.2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //nome
+                          Text(
+                            "Nome do Cliente",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(144, 144, 144, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            nomeControler.text,
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+
+                          //contato
+                          Text(
+                            "Contato",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(144, 144, 144, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            numberControler.text,
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          //data
+                          SizedBox(
+                            height: 15,
+                          ),
+                          //contato
+                          Text(
+                            "Data",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(144, 144, 144, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            DateFormat("dd/MM/yyy")
+                                .format(dataSelectedInModal!),
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          //Horario
+                          Text(
+                            "Horário",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(144, 144, 144, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            hourSetForUser!,
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          //profissional
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            "Profissional",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromRGBO(144, 144, 144, 1),
+                              ),
+                            ),
+                          ),
+
+                          Text(
+                            isMarcelo == true
+                                ? "${profList[0].nomeProf}"
+                                : isGabriel == true
+                                    ? "${profList[1].nomeProf}"
+                                    : isLucas == true
+                                        ? "${profList[2].nomeProf}"
+                                        : "Não Definido",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      CreateAgendamento();
+                      Navigator.of(context).pushReplacementNamed(
+                          AppRoutesApp.ConfirmScreenCorte);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Estabelecimento.primaryColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Agendar",
+                              style: GoogleFonts.openSans(
+                                  textStyle: TextStyle(
+                                color: Estabelecimento.contraPrimaryColor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              )),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Estabelecimento.contraPrimaryColor,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -929,7 +1181,7 @@ class _AddScreenState extends State<AddScreen> {
 
                             if (hourSetForUser != null)
                               InkWell(
-                                onTap: CreateAgendamento,
+                                onTap: showModalConfirmAgend,
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 15),
                                   child: Container(
@@ -946,7 +1198,7 @@ class _AddScreenState extends State<AddScreen> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Agendar",
+                                          "Próximo",
                                           style: GoogleFonts.openSans(
                                               textStyle: TextStyle(
                                             color: Estabelecimento

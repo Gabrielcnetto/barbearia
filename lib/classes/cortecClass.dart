@@ -7,10 +7,12 @@ class CorteClass {
   final bool sobrancelha;
   final DateTime diaCorte;
   final String horarioCorte;
+  final String profissionalSelect;
   CorteClass({
     required this.clientName,
     required this.id,
     required this.numeroContato,
+    required this.profissionalSelect,
     required this.diaCorte,
     required this.horarioCorte,
     required this.sobrancelha,

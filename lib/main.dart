@@ -5,6 +5,7 @@ import 'package:barbershop2/functions/createAccount.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:barbershop2/screen/add/confirmscreen/ConfirmScreenCorte.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
 import 'package:barbershop2/screen/inicio/initialScreen.dart';
 import 'package:barbershop2/screen/login/loginScreen.dart';
@@ -79,6 +80,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutesApp.HomeScreen01: (ctx) => const HomeScreen01(),
           AppRoutesApp.RegisterAccountScreen: (ctx) =>
               const RegisterAccountScreen(),
+          AppRoutesApp.ConfirmScreenCorte: (ctx) => ConfirmScreenCorte(),
         },
       ),
     );
