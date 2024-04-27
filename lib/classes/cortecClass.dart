@@ -6,6 +6,7 @@ class CorteClass {
   final String numeroContato;
   final bool sobrancelha;
   final DateTime diaCorte;
+  final int ramdomCode;
   final String horarioCorte;
   final String profissionalSelect;
   CorteClass({
@@ -16,5 +17,6 @@ class CorteClass {
     required this.diaCorte,
     required this.horarioCorte,
     required this.sobrancelha,
+    required this.ramdomCode,
   });
 }

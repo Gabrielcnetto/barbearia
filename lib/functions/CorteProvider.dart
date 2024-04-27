@@ -11,12 +11,14 @@ class CorteProvider with ChangeNotifier {
   final authSettings = FirebaseAuth.instance;
 
   //ENVIANDO O CORTE PARA AS LISTAS NO BANCO DE DADOS - INICIO
-  Future<void> AgendamentoCortePrincipalFunctions({required CorteClass corte, required DateTime selectDateForUser}) async {
+  Future<void> AgendamentoCortePrincipalFunctions(
+      {required CorteClass corte, required DateTime selectDateForUser}) async {
     print("entrei na funcao");
-    
+
     await initializeDateFormatting('pt_BR');
     int diaCorteSelect = corte.diaCorte.day;
-    String monthName = await DateFormat('MMMM', 'pt_BR').format(selectDateForUser);
+    String monthName =
+        await DateFormat('MMMM', 'pt_BR').format(selectDateForUser);
     print(monthName);
     print("entrei na funcao");
     try {
@@ -34,6 +36,7 @@ class CorteProvider with ChangeNotifier {
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
+        "ramdomNumber": corte.ramdomCode,
       });
 
       //adicionado allcuts
@@ -45,6 +48,7 @@ class CorteProvider with ChangeNotifier {
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
+        "ramdomNumber": corte.ramdomCode,
       });
       final userId = await authSettings.currentUser!.uid;
       final myCortes = await database
@@ -59,6 +63,7 @@ class CorteProvider with ChangeNotifier {
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
+        "ramdomNumber": corte.ramdomCode,
       });
       //adicionado aos meus cortes
     } catch (e) {
@@ -106,4 +111,48 @@ class CorteProvider with ChangeNotifier {
     notifyListeners();
   }
   //CARREGANDO OS CORTES E FAZENDO A VERIFICACAO - FIM
+
+  //load dos cortes do usuario, e eadicionando a uma list - INICIO
+
+  List<CorteClass> _historyList = [];
+  List<CorteClass> get userCortesTotal => [..._historyList];
+  Future<void> loadHistoryCortes() async {
+    try {
+      QuerySnapshot querySnapshot = await database
+          .collection('meusCortes/${authSettings.currentUser!.uid}/lista')
+          .get();
+
+      _historyList = querySnapshot.docs.map((doc) {
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+        Timestamp? timestamp;
+        if (data != null) {
+          timestamp = data['diaCorte'] as Timestamp?;
+        }
+
+        DateTime diaCorte = timestamp?.toDate() ?? DateTime.now();
+        print("clientName:${data?['ramdomNumber']}");
+      
+        // Acessando os atributos diretamente usando []
+        return CorteClass(
+          clientName: data?['clientName'],
+          id: data?['id'],
+          numeroContato: data?['numeroContato'],
+          profissionalSelect: data?['profissionalSelect'],
+          diaCorte: diaCorte, // Usando o atributo diaCorte
+          horarioCorte: data?['horarioCorte'],
+          sobrancelha: data?['sobrancelha'],
+          ramdomCode: data?['ramdomNumber'],
+        );
+      }).toList();
+
+      // Ordenar os dados pela data
+      _historyList.sort((a, b) => a.diaCorte.compareTo(b.diaCorte));
+
+      notifyListeners();
+    } catch (e) {
+      print('Erro ao carregar os dados do Firebase: $e');
+    }
+  }
 }
+  //load dos cortes do usuario, e eadicionando a uma list - FIM

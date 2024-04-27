@@ -1,5 +1,7 @@
 
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/classes/cortecClass.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/screen/add/addScreen.dart';
 import 'package:barbershop2/screen/calendar/calendarScreen.dart';
 import 'package:barbershop2/screen/home/homeOnlyWidgets.dart';
@@ -24,13 +26,14 @@ class _HomeScreen01State extends State<HomeScreen01> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<CorteProvider>(context,listen: false).loadHistoryCortes();
     _screensSelect = [
       {
         'tela': const HomeOnlyWidgets(),
       },
-      {
-        'tela': const CalendarScreen(),
-      },
+    //  {
+    //    'tela': const CalendarScreen(),
+    //  },
       {
         'tela': const AddScreen(),
       },
@@ -56,22 +59,27 @@ class _HomeScreen01State extends State<HomeScreen01> {
         height: 50,
         animationDuration: const Duration(milliseconds: 100),
         onTap: attScren,
+
         backgroundColor: Estabelecimento.primaryColor,
         items: const [
           Icon(
             Icons.home,
+            size: 32,
           ),
-          Icon(
-            Icons.calendar_month,
-          ),
+      //    Icon(
+      //      Icons.calendar_month,
+       //   ),
           Icon(
             Icons.add,
+           size: 32,
           ),
           Icon(
             Icons.stars,
+             size: 32,
           ),
           Icon(
             Icons.account_circle,
+             size: 32,
           ),
         ],
       ),

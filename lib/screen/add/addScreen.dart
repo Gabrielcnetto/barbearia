@@ -184,9 +184,12 @@ class _AddScreenState extends State<AddScreen> {
   String? hourSetForUser;
 
   Future<void> CreateAgendamento() async {
+    var rng = new Random();
+    int number = rng.nextInt(90000) + 10000;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
             corte: CorteClass(
+              ramdomCode: number,
               clientName: nomeControler.text,
               id: Random().nextDouble().toString(),
               numeroContato: numberControler.text,
@@ -199,7 +202,7 @@ class _AddScreenState extends State<AddScreen> {
                       ? "${profList[1].nomeProf}"
                       : isLucas
                           ? "${profList[2].nomeProf}"
-                          : "",
+                          : "Não Definido",
             ),
             selectDateForUser: dataSelectedInModal!);
   }

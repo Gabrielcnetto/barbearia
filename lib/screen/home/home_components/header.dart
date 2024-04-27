@@ -1,10 +1,14 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/classes/cortecClass.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/screen/home/home_components/profissionalCode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'circularProgressIndicLevel.dart';
 
@@ -26,9 +30,12 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    userProfileIsOk;
     urlImagePhoto;
+    VerifyImageUser();
     userName;
     urlImageFuncion();
+    Provider.of<CorteProvider>(context, listen: false).userCortesTotal;
   }
 
   String? urlImagePhoto;
@@ -36,6 +43,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     String? number = await MyProfileScreenFunctions().getUserImage();
 
     if (urlImagePhoto != null) {
+      print("imagem do usuario nao definidida");
     } else {
       const Text('N/A');
     }
@@ -44,6 +52,18 @@ class _HomePageHeaderState extends State<HomePageHeader> {
       urlImagePhoto = number;
       loadUserName();
     });
+  }
+  bool? userProfileIsOk;
+  void VerifyImageUser(){
+    if(urlImagePhoto !=null){
+      setState(() {
+        userProfileIsOk =true;
+      });
+    } else{
+      setState(() {
+        userProfileIsOk = false;
+      });
+    }
   }
 
   String? userName;
@@ -73,6 +93,8 @@ class _HomePageHeaderState extends State<HomePageHeader> {
 
   @override
   Widget build(BuildContext context) {
+    CorteClass _listaCortesUsuario =
+        Provider.of<CorteProvider>(context, listen: false).userCortesTotal[0];
     final tamanhoTela = MediaQuery.of(context).size;
 
     double heighTelaFinal = tamanhoTela.height;
@@ -82,6 +104,8 @@ class _HomePageHeaderState extends State<HomePageHeader> {
         : heighTelaFinal < 500
             ? heighTelaFinal / 2.1
             : heighTelaFinal / 1.9;
+
+    //PEGANDO O CODIGO ATIVO
 
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -165,6 +189,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                           ),
                           CircularProgressWithImage(
                             progress: 0.8,
+                            imageUserOk: userProfileIsOk!,
                             imageSize: widget.widhTela / 5.5,
                             widghTela: widget.widhTela,
                             imageUrl: urlImagePhoto != null
@@ -178,183 +203,17 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 ),
               ),
             ),
-            Positioned(
-              child: Card(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                elevation: 2,
-                child: Container(
-                  width: widget.widhTela,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  height: widget.widhTela / 2.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    border: Border.all(
-                      width: 0.2,
-                      color: Colors.black.withOpacity(0.1),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Próximo agendamento",
-                            style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                              color: Estabelecimento.secondaryColor,
-                              fontWeight: FontWeight.w500,
-                            )),
-                          ),
-                          Icon(
-                            Icons.chevron_right,
-                            color: Estabelecimento.secondaryColor,
-                            size: 20,
-                          )
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(90),
-                              child: Container(
-                                width: 90,
-                                height: 90,
-                                child: Image.network(
-                                  "https://img.odcdn.com.br/wp-content/uploads/2024/03/mark-zuckerberg.jpg",
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            width: widget.widhTela / 4,
-                            height: widget.heighTela / 1.5 * 0.2,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "Profissional:",
-                                    style: GoogleFonts.openSans(
-                                      textStyle: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "Eduardo",
-                                    style: GoogleFonts.openSans(),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Com Sobrancelha",
-                                style: GoogleFonts.openSans(
-                                  textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "15 fev - 17:50",
-                                style: GoogleFonts.openSans(
-                                  textStyle: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 13,
-                                      color: Colors.black),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.green.shade200
-                                          .withOpacity(0.4),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    child: Text(
-                                      "R\$50,00",
-                                      style: GoogleFonts.openSans(
-                                        textStyle: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 13,
-                                            color: Colors.green),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Estabelecimento.primaryColor,
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Ver Código",
-                                          style: GoogleFonts.openSans(
-                                            textStyle: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 13,
-                                                color: Estabelecimento
-                                                    .contraPrimaryColor),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+            ProfissionalCode(
+              corte: CorteClass(
+                clientName: "${_listaCortesUsuario.clientName}",
+                id: "${_listaCortesUsuario.id}",
+                numeroContato: "${_listaCortesUsuario.numeroContato}",
+                profissionalSelect: "${_listaCortesUsuario.profissionalSelect}",
+                diaCorte: _listaCortesUsuario.diaCorte,
+                horarioCorte: "${_listaCortesUsuario.horarioCorte}",
+                sobrancelha: _listaCortesUsuario.sobrancelha,
+                ramdomCode: _listaCortesUsuario.ramdomCode,
               ),
-              bottom: 0,
-              left: 25,
-              right: 25,
             )
           ],
         ),
