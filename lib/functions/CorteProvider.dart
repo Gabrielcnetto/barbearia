@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,7 +31,10 @@ class CorteProvider with ChangeNotifier {
           .collection("${diaCorteSelect}")
           .doc(corte.horarioCorte)
           .set({
+        'isActive': corte.isActive,
+        "diaDoCorte": corte.DiaDoCorte,
         "id": corte.id,
+        "dataCreateAgendamento": corte.dateCreateAgendamento,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
         "sobrancelha": corte.sobrancelha,
@@ -37,11 +42,15 @@ class CorteProvider with ChangeNotifier {
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
         "ramdomNumber": corte.ramdomCode,
+        "monthName": monthName,
       });
 
       //adicionado allcuts
       final addAllcuts = await database.collection("allCuts").add({
         "id": corte.id,
+        'isActive': corte.isActive,
+        "diaDoCorte": corte.DiaDoCorte,
+        "dataCreateAgendamento": corte.dateCreateAgendamento,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
         "sobrancelha": corte.sobrancelha,
@@ -49,6 +58,7 @@ class CorteProvider with ChangeNotifier {
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
         "ramdomNumber": corte.ramdomCode,
+        "monthName": monthName,
       });
       final userId = await authSettings.currentUser!.uid;
       final myCortes = await database
@@ -57,13 +67,17 @@ class CorteProvider with ChangeNotifier {
           .collection("lista")
           .add({
         "id": corte.id,
+        'isActive': corte.isActive,
+        "diaDoCorte": corte.DiaDoCorte,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
         "sobrancelha": corte.sobrancelha,
         "diaCorte": corte.diaCorte,
+        "dataCreateAgendamento": corte.dateCreateAgendamento,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
         "ramdomNumber": corte.ramdomCode,
+        "monthName": monthName,
       });
       //adicionado aos meus cortes
     } catch (e) {
@@ -114,10 +128,17 @@ class CorteProvider with ChangeNotifier {
 
   //load dos cortes do usuario, e eadicionando a uma list - INICIO
 
+  final StreamController<List<CorteClass>> _cortesController =
+      StreamController<List<CorteClass>>.broadcast();
+
+  Stream<List<CorteClass>> get cortesStream => _cortesController.stream;
+
   List<CorteClass> _historyList = [];
   List<CorteClass> get userCortesTotal => [..._historyList];
   Future<void> loadHistoryCortes() async {
     try {
+      // Emite a lista atualizada através do StreamController
+   
       QuerySnapshot querySnapshot = await database
           .collection('meusCortes/${authSettings.currentUser!.uid}/lista')
           .get();
@@ -127,27 +148,38 @@ class CorteProvider with ChangeNotifier {
 
         Timestamp? timestamp;
         if (data != null) {
-          timestamp = data['diaCorte'] as Timestamp?;
+          timestamp = data['dataCreateAgendamento'] as Timestamp?;
         }
 
         DateTime diaCorte = timestamp?.toDate() ?? DateTime.now();
-        print("clientName:${data?['ramdomNumber']}");
-      
+        //CONVERTENDO O DIA DO CORTE AGORA
+        Timestamp? diafinalCorte;
+        if (data != null) {
+          timestamp = data['diaCorte'] as Timestamp?;
+        }
+
+        DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
         // Acessando os atributos diretamente usando []
         return CorteClass(
+          isActive: data?["isActive"],
+          DiaDoCorte: data?["diaDoCorte"],
+          NomeMes: data?["monthName"],
+          dateCreateAgendamento: diaCorte,
           clientName: data?['clientName'],
           id: data?['id'],
           numeroContato: data?['numeroContato'],
           profissionalSelect: data?['profissionalSelect'],
-          diaCorte: diaCorte, // Usando o atributo diaCorte
+          diaCorte: diaCorteFinal, // Usando o atributo diaCorte
           horarioCorte: data?['horarioCorte'],
           sobrancelha: data?['sobrancelha'],
           ramdomCode: data?['ramdomNumber'],
         );
       }).toList();
-
+         _cortesController.add(_historyList);
       // Ordenar os dados pela data
-      _historyList.sort((a, b) => a.diaCorte.compareTo(b.diaCorte));
+      _historyList.sort((a, b) {
+        return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
+      });
 
       notifyListeners();
     } catch (e) {

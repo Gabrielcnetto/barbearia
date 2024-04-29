@@ -1,4 +1,3 @@
-
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
@@ -26,14 +25,14 @@ class _HomeScreen01State extends State<HomeScreen01> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<CorteProvider>(context,listen: false).loadHistoryCortes();
+    Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
     _screensSelect = [
       {
         'tela': const HomeOnlyWidgets(),
       },
-    //  {
-    //    'tela': const CalendarScreen(),
-    //  },
+      //  {
+      //    'tela': const CalendarScreen(),
+      //  },
       {
         'tela': const AddScreen(),
       },
@@ -55,33 +54,35 @@ class _HomeScreen01State extends State<HomeScreen01> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 50,
-        animationDuration: const Duration(milliseconds: 100),
-        onTap: attScren,
-
-        backgroundColor: Estabelecimento.primaryColor,
-        items: const [
-          Icon(
-            Icons.home,
-            size: 32,
-          ),
-      //    Icon(
-      //      Icons.calendar_month,
-       //   ),
-          Icon(
-            Icons.add,
-           size: 32,
-          ),
-          Icon(
-            Icons.stars,
-             size: 32,
-          ),
-          Icon(
-            Icons.account_circle,
-             size: 32,
-          ),
-        ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: CurvedNavigationBar(
+          height: 50,
+          animationDuration: const Duration(milliseconds: 100),
+          onTap: attScren,
+          backgroundColor: Estabelecimento.primaryColor,
+          items: const [
+            Icon(
+              Icons.home,
+              size: 32,
+            ),
+            //    Icon(
+            //      Icons.calendar_month,
+            //   ),
+            Icon(
+              Icons.add,
+              size: 32,
+            ),
+            Icon(
+              Icons.stars,
+              size: 32,
+            ),
+            Icon(
+              Icons.account_circle,
+              size: 32,
+            ),
+          ],
+        ),
       ),
       backgroundColor: Colors.white,
       body: _screensSelect![screen]['tela'] as Widget,

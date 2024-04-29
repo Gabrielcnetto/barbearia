@@ -1,4 +1,8 @@
+import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/screen/home/home_components/StreamHaveItems.dart';
+import 'package:barbershop2/screen/home/home_components/homeHeaderSemItens.dart';
+import 'package:barbershop2/screen/home/home_components/home_noItenswithLoading.dart';
 import 'package:barbershop2/screen/home/home_components/profissionaisList.dart';
 import 'package:barbershop2/screen/home/home_components/promotionBanner.dart';
 import 'package:flutter/material.dart';
@@ -18,22 +22,32 @@ class _HomeOnlyWidgetsState extends State<HomeOnlyWidgets> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<CorteProvider>(context,listen:false).userCortesTotal;
+    Provider.of<CorteProvider>(context, listen: false).userCortesTotal;
+    print("carreguei a geral dos widgets home");
   }
+
   @override
   Widget build(BuildContext context) {
     double widhtTela = MediaQuery.of(context).size.width;
     double heighTela = MediaQuery.of(context).size.height;
+    bool existList = Provider.of<CorteProvider>(context, listen: false)
+                .userCortesTotal
+                .length >=
+            1
+        ? true
+        : false;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HomePageHeader(
-              heighTela: heighTela,
-              widhTela: widhtTela,
-            ),
+               StreamHaveItens(
+            
+                 heighTela: heighTela,
+                 widhTela: widhtTela,
+               ),
+          
             ProfissionaisList(
               heighScreen: heighTela,
               widhScreen: widhtTela,

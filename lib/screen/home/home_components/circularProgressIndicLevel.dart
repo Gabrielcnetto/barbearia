@@ -6,7 +6,7 @@ class CircularProgressWithImage extends StatefulWidget {
   final double progress;
   final String imageUrl;
   final double imageSize;
-  final bool imageUserOk;
+ 
   final double widghTela;
 
   CircularProgressWithImage({
@@ -14,7 +14,7 @@ class CircularProgressWithImage extends StatefulWidget {
     required this.imageUrl,
     required this.widghTela,
     this.imageSize = 100.0,
-    required this.imageUserOk,
+  
   });
 
   @override

@@ -1,34 +1,24 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
-import 'package:barbershop2/classes/cortecClass.dart';
-import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
-import 'package:barbershop2/screen/home/home_components/profissionalCode.dart';
+import 'package:barbershop2/screen/home/home_components/circularProgressIndicLevel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import 'circularProgressIndicLevel.dart';
-
-class HomePageHeader extends StatefulWidget {
+class Home_noItensWithLoadin extends StatefulWidget {
   final double widhTela;
   final double heighTela;
-  
-
-  const HomePageHeader({
+  const Home_noItensWithLoadin({
     super.key,
     required this.heighTela,
     required this.widhTela,
-   
   });
 
   @override
-  State<HomePageHeader> createState() => _HomePageHeaderState();
+  State<Home_noItensWithLoadin> createState() => _Home_noItensWithLoadinState();
 }
 
-class _HomePageHeaderState extends State<HomePageHeader> {
+class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
   @override
   void initState() {
     // TODO: implement initState
@@ -38,7 +28,6 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     VerifyImageUser();
     userName;
     urlImageFuncion();
-   
   }
 
   String? urlImagePhoto;
@@ -95,30 +84,20 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     });
   }
 
-  CorteClass? _listaCortesUsuario;
   @override
   Widget build(BuildContext context) {
-    CorteClass _listaCortesUsuario =
-        Provider.of<CorteProvider>(context, listen: false).userCortesTotal[0];
-
-    List<CorteClass> listaGeral =
-        Provider.of<CorteProvider>(context, listen: false).userCortesTotal;
     final tamanhoTela = MediaQuery.of(context).size;
-    print(_listaCortesUsuario == null ? "o item é null" : "nao é null");
-    double heighTelaFinal = tamanhoTela.height;
 
+    double heighTelaFinal = tamanhoTela.height;
     final double setHeigh = heighTelaFinal > 800
         ? heighTelaFinal / 2.3
         : heighTelaFinal < 500
             ? heighTelaFinal / 2.1
             : heighTelaFinal / 1.9;
-
-    //PEGANDO O CODIGO ATIVO
-
     return ConstrainedBox(
       constraints: BoxConstraints(
-        minHeight: setHeigh,
-        maxHeight: setHeigh,
+        minHeight: setHeigh * 0.85,
+        maxHeight: setHeigh * 0.85,
         minWidth: widget.widhTela,
         maxWidth: widget.widhTela,
       ),
@@ -205,28 +184,19 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-            ProfissionalCode(
-              corte: CorteClass(
-                isActive: _listaCortesUsuario.isActive,
-                DiaDoCorte: _listaCortesUsuario.DiaDoCorte,
-                NomeMes: _listaCortesUsuario.NomeMes,
-                dateCreateAgendamento:
-                    _listaCortesUsuario.dateCreateAgendamento,
-                clientName: "${_listaCortesUsuario.clientName}",
-                id: "${_listaCortesUsuario.id}",
-                numeroContato: "${_listaCortesUsuario.numeroContato}",
-                profissionalSelect: "${_listaCortesUsuario.profissionalSelect}",
-                diaCorte: _listaCortesUsuario.diaCorte,
-                horarioCorte: "${_listaCortesUsuario.horarioCorte}",
-                sobrancelha: _listaCortesUsuario.sobrancelha,
-                ramdomCode: _listaCortesUsuario.ramdomCode,
+            Positioned(bottom: 0,
+              child: Container(
+                width: widget.widhTela,
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                height: widget.widhTela / 2.3,
+                child: CircularProgressIndicator.adaptive(),
               ),
-            )
+            ),
           ],
         ),
       ),

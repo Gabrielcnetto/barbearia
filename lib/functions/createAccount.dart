@@ -26,7 +26,7 @@ class CreateAccount with ChangeNotifier {
       'userName': userName,
       'userEmail': email,
       'PhoneNumber': "",
-      "urlImagem": "",
+      "urlImagem": "https://static.vecteezy.com/ti/vetor-gratis/p1/9292244-default-avatar-icon-vector-of-social-media-user-vetor.jpg",
     });
     notifyListeners();
   }

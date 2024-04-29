@@ -77,6 +77,7 @@ flutter:
     - imagesOfApp/banners/banner01.avif
     - imagesOfApp/banners/banner02.avif
     - imagesOfApp/banners/telaagenda.jpg
+    - imagesOfApp/barbeiros/naodefinidoimage.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

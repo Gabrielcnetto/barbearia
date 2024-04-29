@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -184,11 +185,20 @@ class _AddScreenState extends State<AddScreen> {
   String? hourSetForUser;
 
   Future<void> CreateAgendamento() async {
+        await initializeDateFormatting('pt_BR');
+
+      String monthName =
+        await DateFormat('MMMM', 'pt_BR').format(dataSelectedInModal!);
     var rng = new Random();
     int number = rng.nextInt(90000) + 10000;
+    int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
             corte: CorteClass(
+              isActive: true,
+              DiaDoCorte: diaDoCorte,
+              NomeMes: monthName,
+              dateCreateAgendamento: DateTime.now(),
               ramdomCode: number,
               clientName: nomeControler.text,
               id: Random().nextDouble().toString(),
@@ -1121,6 +1131,7 @@ class _AddScreenState extends State<AddScreen> {
                                 width: double.infinity,
                                 //  height: heighScreen * 0.64,
                                 child: GridView.builder(
+                                  padding: EdgeInsets.only(top: 5),
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: horarioFinal.length,
