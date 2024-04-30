@@ -1,0 +1,278 @@
+import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/classes/cortecClass.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/screen/home/home_components/header.dart';
+import 'package:barbershop2/screen/home/home_components/homeHeaderSemItens.dart';
+import 'package:barbershop2/screen/home/home_components/home_noItenswithLoading.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+class providerLoadingHistoryList extends StatefulWidget {
+  final double widhtScreen;
+  final double heighScren;
+  final CorteClass corte;
+  const providerLoadingHistoryList({
+    super.key,
+    required this.corte,
+    required this.heighScren,
+    required this.widhtScreen,
+  });
+
+  @override
+  State<providerLoadingHistoryList> createState() =>
+      _providerLoadingHistoryListState();
+}
+
+bool exibirInformacoes = false;
+
+class _providerLoadingHistoryListState
+    extends State<providerLoadingHistoryList> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        width: widget.widhtScreen,
+        height:exibirInformacoes ?  widget.heighScren * 0.24 : widget.heighScren * 0.094,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Estabelecimento.primaryColor.withOpacity(0.2),
+        ),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.elliptical(25, 25),
+                          topRight: Radius.elliptical(25, 25),
+                          bottomLeft: Radius.elliptical(25, 25),
+                          bottomRight: Radius.elliptical(25, 25),
+                        ),
+                        color: Estabelecimento.primaryColor.withOpacity(0.35),
+                      ),
+                      child: Icon(
+                        Icons.history,
+                        size: 25,
+                        color: Estabelecimento.contraPrimaryColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Corte Realizado",
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              "${widget.corte.DiaDoCorte} de ${widget.corte.NomeMes} de ${widget.corte.dateCreateAgendamento.year}",
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black45,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      exibirInformacoes = !exibirInformacoes;
+                    });
+                  },
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Icon(
+                        exibirInformacoes
+                            ? Icons.expand_more
+                            : Icons.chevron_right,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (exibirInformacoes == true)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Container(
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      //INICIO PROFF
+                      Row(
+                        children: [
+                          Text(
+                            "Profissional:",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "${widget.corte.profissionalSelect}",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      //FIM PROF
+                      SizedBox(
+                        height: 5,
+                      ),
+                      //INICIO SOBRANCELHA
+                      Row(
+                        children: [
+                          Text(
+                            "Sobrancelha:",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "${widget.corte.sobrancelha == true ? "Sim" : "Não"}",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      //FIM SOBRANCELHA
+      
+                      SizedBox(
+                        height: 5,
+                      ),
+                      //INICIO DO PRECO
+                      Row(
+                        children: [
+                          Text(
+                            "Preço:",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.green.shade200.withOpacity(0.4),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: Text(
+                              "R\$35,00",
+                              style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 13,
+                                    color: Colors.green),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      //FIM DO PRECO
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "EasePoints:",
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.grey.shade800,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.blue.shade200.withOpacity(0.4),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: Text(
+                              "+3 pontos",
+                              style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+          ],
+        ),
+      ),
+    );
+  }
+}

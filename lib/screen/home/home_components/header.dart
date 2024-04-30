@@ -15,13 +15,11 @@ import 'circularProgressIndicLevel.dart';
 class HomePageHeader extends StatefulWidget {
   final double widhTela;
   final double heighTela;
-  
 
   const HomePageHeader({
     super.key,
     required this.heighTela,
     required this.widhTela,
-   
   });
 
   @override
@@ -38,7 +36,8 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     VerifyImageUser();
     userName;
     urlImageFuncion();
-   
+    Provider.of<CorteProvider>(context, listen: false).userCortesTotal;
+    Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes;
   }
 
   String? urlImagePhoto;
@@ -98,6 +97,9 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   CorteClass? _listaCortesUsuario;
   @override
   Widget build(BuildContext context) {
+    int PointOfClient = Provider.of<CorteProvider>(context, listen: false)
+        .userCortesTotal
+        .length;
     CorteClass _listaCortesUsuario =
         Provider.of<CorteProvider>(context, listen: false).userCortesTotal[0];
 
@@ -184,7 +186,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                                 ),
                               ),
                               Text(
-                                "Você Possui 13 Pontos",
+                                "Você Possui ${PointOfClient * 3} Pontos",
                                 style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w500,

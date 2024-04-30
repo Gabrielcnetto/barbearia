@@ -25,6 +25,7 @@ class _HomeScreen01State extends State<HomeScreen01> {
   void initState() {
     // TODO: implement initState
     super.initState();
+  
     Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
     _screensSelect = [
       {
@@ -37,7 +38,7 @@ class _HomeScreen01State extends State<HomeScreen01> {
         'tela': const AddScreen(),
       },
       {
-        'tela': const RankingScreen(),
+        'tela': const HistoryScreen(),
       },
       {
         'tela': const ProfileScreen(),
@@ -74,7 +75,7 @@ class _HomeScreen01State extends State<HomeScreen01> {
               size: 32,
             ),
             Icon(
-              Icons.stars,
+              Icons.timeline,
               size: 32,
             ),
             Icon(
