@@ -5,7 +5,7 @@ import 'package:barbershop2/screen/add/addScreen.dart';
 import 'package:barbershop2/screen/calendar/calendarScreen.dart';
 import 'package:barbershop2/screen/home/homeOnlyWidgets.dart';
 import 'package:barbershop2/screen/profile/profileScreen.dart';
-import 'package:barbershop2/screen/ranking/rankingScreen.dart';
+import 'package:barbershop2/screen/History/History.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,9 +1,11 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/screen/home/home_components/circularProgressIndicLevel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class Home_noItensWithLoadin extends StatefulWidget {
   final double widhTela;
@@ -23,6 +25,8 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    ajustePoints();
+    valorPoints;
     userProfileIsOk;
     urlImagePhoto;
     VerifyImageUser();
@@ -83,7 +87,21 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
       finalName = userFirst;
     });
   }
+  double valorPoints = 0;
+  Future<void> ajustePoints() async {
+    int PointOfClient = Provider.of<CorteProvider>(context, listen: false)
+        .userCortesTotal
+        .length;
+    setState(() {
+      valorPoints = PointOfClient.toDouble();
+      valorPoints = valorPoints % 12;
+    });
+  }
 
+  double calcularProgresso() {
+    // Calcula o progresso com base nos pontos acumulados
+    return valorPoints / 12.0;
+  }
   @override
   Widget build(BuildContext context) {
     final tamanhoTela = MediaQuery.of(context).size;
@@ -163,7 +181,7 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
                                 ),
                               ),
                               Text(
-                                "Você Possui 13 Pontos",
+                                  "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
                                 style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w500,
@@ -175,7 +193,11 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
                             ],
                           ),
                           CircularProgressWithImage(
-                            progress: 0.8,
+                            totalCortes: Provider.of<CorteProvider>(context,
+                                    listen: false)
+                                .userCortesTotal
+                                .length,
+                            progress: calcularProgresso(),
                             imageSize: widget.widhTela / 5.5,
                             widghTela: widget.widhTela,
                             imageUrl: urlImagePhoto != null

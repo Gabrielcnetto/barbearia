@@ -5,6 +5,7 @@ import 'package:barbershop2/screen/home/home_components/homeHeaderSemItens.dart'
 import 'package:barbershop2/screen/home/home_components/home_noItenswithLoading.dart';
 import 'package:barbershop2/screen/home/home_components/profissionaisList.dart';
 import 'package:barbershop2/screen/home/home_components/promotionBanner.dart';
+import 'package:barbershop2/screen/home/ranking/rankingHome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,18 +43,20 @@ class _HomeOnlyWidgetsState extends State<HomeOnlyWidgets> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-               StreamHaveItens(
-            
-                 heighTela: heighTela,
-                 widhTela: widhtTela,
-               ),
-          
+            StreamHaveItens(
+              heighTela: heighTela,
+              widhTela: widhtTela,
+            ),
             ProfissionaisList(
               heighScreen: heighTela,
               widhScreen: widhtTela,
             ),
             PromotionBannerComponents(
               widhtTela: widhtTela,
+            ),
+            RankingHome(
+              heighScreen: heighTela,
+              widhScreen: widhtTela,
             ),
           ],
         ),

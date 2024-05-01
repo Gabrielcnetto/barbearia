@@ -1,19 +1,19 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/screen/home/home_components/circularProgressIndicLevel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeHeaderSemLista extends StatefulWidget {
   final double widhTela;
   final double heighTela;
 
-
   const HomeHeaderSemLista({
     super.key,
     required this.heighTela,
     required this.widhTela,
-   
   });
 
   @override
@@ -25,6 +25,8 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    ajustePoints();
+    valorPoints;
     userProfileIsOk;
     urlImagePhoto;
     VerifyImageUser();
@@ -84,6 +86,22 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
     setState(() {
       finalName = userFirst;
     });
+  }
+
+  double valorPoints = 0;
+  Future<void> ajustePoints() async {
+    int PointOfClient = Provider.of<CorteProvider>(context, listen: false)
+        .userCortesTotal
+        .length;
+    setState(() {
+      valorPoints = PointOfClient.toDouble();
+      valorPoints = valorPoints % 12;
+    });
+  }
+
+  double calcularProgresso() {
+    // Calcula o progresso com base nos pontos acumulados
+    return valorPoints / 12.0;
   }
 
   @override
@@ -165,7 +183,7 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
                                 ),
                               ),
                               Text(
-                                "Você Possui 13 Pontos",
+                                  "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
                                 style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w500,
@@ -177,7 +195,11 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
                             ],
                           ),
                           CircularProgressWithImage(
-                            progress: 0.8,
+                            totalCortes: Provider.of<CorteProvider>(context,
+                                    listen: false)
+                                .userCortesTotal
+                                .length,
+                            progress: calcularProgresso(),
                             imageSize: widget.widhTela / 5.5,
                             widghTela: widget.widhTela,
                             imageUrl: urlImagePhoto != null

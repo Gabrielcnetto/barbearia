@@ -25,10 +25,11 @@ class providerLoadingHistoryList extends StatefulWidget {
       _providerLoadingHistoryListState();
 }
 
-bool exibirInformacoes = false;
+
 
 class _providerLoadingHistoryListState
     extends State<providerLoadingHistoryList> {
+      bool exibirInformacoes = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +38,7 @@ class _providerLoadingHistoryListState
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         width: widget.widhtScreen,
-        height:exibirInformacoes ?  widget.heighScren * 0.24 : widget.heighScren * 0.094,
+        height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.12,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Estabelecimento.primaryColor.withOpacity(0.2),

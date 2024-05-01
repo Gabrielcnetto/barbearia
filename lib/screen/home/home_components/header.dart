@@ -31,6 +31,8 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    valorPoints;
+    ajustePoints();
     userProfileIsOk;
     urlImagePhoto;
     VerifyImageUser();
@@ -95,11 +97,25 @@ class _HomePageHeaderState extends State<HomePageHeader> {
   }
 
   CorteClass? _listaCortesUsuario;
-  @override
-  Widget build(BuildContext context) {
+
+  double valorPoints = 0;
+  Future<void> ajustePoints() async {
     int PointOfClient = Provider.of<CorteProvider>(context, listen: false)
         .userCortesTotal
         .length;
+    setState(() {
+      valorPoints = PointOfClient.toDouble();
+      valorPoints = valorPoints % 12;
+    });
+  }
+
+  double calcularProgresso() {
+    // Calcula o progresso com base nos pontos acumulados
+    return valorPoints / 12.0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     CorteClass _listaCortesUsuario =
         Provider.of<CorteProvider>(context, listen: false).userCortesTotal[0];
 
@@ -186,7 +202,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                                 ),
                               ),
                               Text(
-                                "Você Possui ${PointOfClient * 3} Pontos",
+                                "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
                                 style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w500,
@@ -198,7 +214,11 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                             ],
                           ),
                           CircularProgressWithImage(
-                            progress: 0.8,
+                            totalCortes: Provider.of<CorteProvider>(context,
+                                    listen: false)
+                                .userCortesTotal
+                                .length,
+                            progress: calcularProgresso(),
                             imageSize: widget.widhTela / 5.5,
                             widghTela: widget.widhTela,
                             imageUrl: urlImagePhoto != null
