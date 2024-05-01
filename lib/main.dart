@@ -3,6 +3,7 @@ import 'package:barbershop2/firebase_options.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/createAccount.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/functions/rankingProviderHome.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/add/confirmscreen/ConfirmScreenCorte.dart';
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (_) => CorteProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RankingProvider(),
         ),
       ],
       child: MaterialApp(

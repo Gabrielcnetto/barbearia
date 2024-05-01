@@ -1,5 +1,6 @@
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/functions/rankingProviderHome.dart';
 import 'package:barbershop2/screen/home/home_components/StreamHaveItems.dart';
 import 'package:barbershop2/screen/home/home_components/homeHeaderSemItens.dart';
 import 'package:barbershop2/screen/home/home_components/home_noItenswithLoading.dart';
@@ -9,6 +10,7 @@ import 'package:barbershop2/screen/home/ranking/rankingHome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../classes/GeralUser.dart';
 import 'home_components/header.dart';
 
 class HomeOnlyWidgets extends StatefulWidget {
@@ -24,11 +26,17 @@ class _HomeOnlyWidgetsState extends State<HomeOnlyWidgets> {
     // TODO: implement initState
     super.initState();
     Provider.of<CorteProvider>(context, listen: false).userCortesTotal;
-    print("carreguei a geral dos widgets home");
+    Provider.of<RankingProvider>(context, listen: false).loadingListUsers();
+    Provider.of<RankingProvider>(context, listen: false).listaUsers;
+    List<GeralUser> userList =
+        Provider.of<RankingProvider>(context, listen: false).listaUsers;
   }
 
   @override
   Widget build(BuildContext context) {
+    int rankingTamanho =
+        Provider.of<RankingProvider>(context, listen: true).listaUsers.length;
+
     double widhtTela = MediaQuery.of(context).size.width;
     double heighTela = MediaQuery.of(context).size.height;
     bool existList = Provider.of<CorteProvider>(context, listen: false)
@@ -54,10 +62,12 @@ class _HomeOnlyWidgetsState extends State<HomeOnlyWidgets> {
             PromotionBannerComponents(
               widhtTela: widhtTela,
             ),
-            RankingHome(
-              heighScreen: heighTela,
-              widhScreen: widhtTela,
-            ),
+            rankingTamanho >= 5
+                ? RankingHome(
+                    heighScreen: heighTela,
+                    widhScreen: widhtTela,
+                  )
+                : Text("Alterar a Lista"),
           ],
         ),
       ),

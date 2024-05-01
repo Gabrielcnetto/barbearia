@@ -79,7 +79,13 @@ class CorteProvider with ChangeNotifier {
         "ramdomNumber": corte.ramdomCode,
         "monthName": monthName,
       });
+
       //adicionado aos meus cortes
+      final updateLenghCortesInProfile =
+          await database.collection("usuarios").doc(userId).update({
+        "totalCortes": FieldValue.increment(
+            1), //update do int para +1 atualizando ototal de cortes
+      });
     } catch (e) {
       print("ocorreu isto:${e}");
     }
@@ -138,7 +144,7 @@ class CorteProvider with ChangeNotifier {
   Future<void> loadHistoryCortes() async {
     try {
       // Emite a lista atualizada através do StreamController
-   
+
       QuerySnapshot querySnapshot = await database
           .collection('meusCortes/${authSettings.currentUser!.uid}/lista')
           .get();
@@ -175,7 +181,7 @@ class CorteProvider with ChangeNotifier {
           ramdomCode: data?['ramdomNumber'],
         );
       }).toList();
-         _cortesController.add(_historyList);
+      _cortesController.add(_historyList);
       // Ordenar os dados pela data
       _historyList.sort((a, b) {
         return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
