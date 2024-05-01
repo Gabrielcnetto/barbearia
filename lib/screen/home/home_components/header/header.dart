@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'circularProgressIndicLevel.dart';
+import '../circularProgressIndicLevel.dart';
 
 class HomePageHeader extends StatefulWidget {
   final double widhTela;

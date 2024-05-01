@@ -38,6 +38,203 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
     });
   }
 
+  void showModalWithCode() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext ctx) {
+          String numberGeral = widget.corte.ramdomCode.toString();
+          var num1 = int.parse(numberGeral[0]);
+          var num2 = int.parse(numberGeral[1]);
+          var num3 = int.parse(numberGeral[2]);
+          var num4 = int.parse(numberGeral[3]);
+          var num5 = int.parse(numberGeral[4]);
+          return Container(
+            width: double.infinity,
+            child: Container(
+              padding: EdgeInsets.only(top: 15, left: 20, right: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      width: 80,
+                      height: 10,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Text(
+                    "Código Único",
+                    style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Apresente o código abaixo ao seu barbeiro antes de realizar seu procedimento.",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        //DIGITO 1 - INICIO
+                        Container(
+                          padding: EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                Estabelecimento.primaryColor.withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "${num1}",
+                            style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Estabelecimento.contraPrimaryColor,
+                              fontSize: 16,
+                            )),
+                          ),
+                        ),
+                        //DIGITO 1 - FIM
+                        //DIGITO 2 - INICIO
+                        Container(
+                          padding: EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                Estabelecimento.primaryColor.withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "${num2}",
+                            style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Estabelecimento.contraPrimaryColor,
+                              fontSize: 16,
+                            )),
+                          ),
+                        ),
+                        //DIGITO 2 - FIM
+
+                        //DIGITO 3 - INICIO
+                        Container(
+                          padding: EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                Estabelecimento.primaryColor.withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "${num3}",
+                            style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Estabelecimento.contraPrimaryColor,
+                              fontSize: 16,
+                            )),
+                          ),
+                        ),
+                        //DIGITO 3 - FIM
+                        //DIGITO 4 - INICIO
+                        Container(
+                          padding: EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                Estabelecimento.primaryColor.withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "${num4}",
+                            style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Estabelecimento.contraPrimaryColor,
+                              fontSize: 16,
+                            )),
+                          ),
+                        ),
+                        //DIGITO 4 - FIM
+
+                        //DIGITO 5 - INICIO
+                        Container(
+                          padding: EdgeInsets.all(22),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                Estabelecimento.primaryColor.withOpacity(0.3),
+                          ),
+                          child: Text(
+                            "${num5}",
+                            style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Estabelecimento.contraPrimaryColor,
+                              fontSize: 16,
+                            )),
+                          ),
+                        ),
+                        //DIGITO 5 - FIM
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width / 1.3,
+                      height: 50,
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Estabelecimento.primaryColor,
+                      ),
+                      child: Text(
+                        "Voltar",
+                        style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Estabelecimento.contraPrimaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     double widhTela = MediaQuery.of(context).size.width;
@@ -201,14 +398,17 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "Ver Código",
-                                  style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 13,
-                                        color:
-                                            Estabelecimento.contraPrimaryColor),
+                                InkWell(
+                                  onTap: showModalWithCode,
+                                  child: Text(
+                                    "Ver Código",
+                                    style: GoogleFonts.openSans(
+                                      textStyle: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 13,
+                                          color: Estabelecimento
+                                              .contraPrimaryColor),
+                                    ),
                                   ),
                                 ),
                               ],

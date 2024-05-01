@@ -1,8 +1,8 @@
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
-import 'package:barbershop2/screen/home/home_components/header.dart';
-import 'package:barbershop2/screen/home/home_components/homeHeaderSemItens.dart';
-import 'package:barbershop2/screen/home/home_components/home_noItenswithLoading.dart';
+import 'package:barbershop2/screen/home/home_components/header/header.dart';
+import 'package:barbershop2/screen/home/home_components/header/homeHeaderSemItens.dart';
+import 'package:barbershop2/screen/home/home_components/header/home_noItenswithLoading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

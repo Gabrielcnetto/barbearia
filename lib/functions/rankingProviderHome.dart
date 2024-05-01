@@ -26,7 +26,8 @@ class RankingProvider with ChangeNotifier {
         );
         
       }).toList();
-      
+      // Ordenar a lista em ordem decrescente com base no totalCortes
+    _listaUsers.sort((a, b) => (b.listacortes ?? 0).compareTo(a.listacortes ?? 0));
     } catch (e) {
       print("houve um erro ao carregar a lista do ranking: ${e}");
     }
