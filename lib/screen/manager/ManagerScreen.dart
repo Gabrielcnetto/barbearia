@@ -1,3 +1,4 @@
+import 'package:barbershop2/screen/manager/components/Blocks.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -67,6 +68,7 @@ class ManagerScreenView extends StatelessWidget {
                   ),
                 ),
               ),
+              BlocksManagerComponent(),
             ],
           ),
         ),
