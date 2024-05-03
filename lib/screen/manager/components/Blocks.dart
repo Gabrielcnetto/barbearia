@@ -137,7 +137,7 @@ class BlocksManagerComponent extends StatelessWidget {
                         SizedBox(
                           height: 5,
                         ),
-                                               Expanded(
+                        Expanded(
                           child: Container(
                             alignment: Alignment.center,
                             width: double.infinity,
