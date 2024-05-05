@@ -1,10 +1,71 @@
+import 'package:barbershop2/classes/cortecClass.dart';
+import 'package:barbershop2/functions/managerScreenFunctions.dart';
+import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class BlocksManagerComponent extends StatelessWidget {
+import '../../../classes/GeralUser.dart';
+
+class BlocksManagerComponent extends StatefulWidget {
   const BlocksManagerComponent({super.key});
+
+  @override
+  State<BlocksManagerComponent> createState() => _BlocksManagerComponentState();
+}
+
+class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadTotalClientes();
+    totalCortesNomES;
+    loadTotalcortesmes();
+    totalClientes;
+    mesAtual;
+    loadAtualMonth();
+
+  }
+
+  int? totalClientes;
+  void loadTotalClientes() async {
+    List<GeralUser> listClientes =
+        await Provider.of<ManagerScreenFunctions>(context, listen: false)
+            .clientesLista;
+
+    setState(() {
+      totalClientes = listClientes.length;
+    });
+  }
+  //
+
+  int? totalCortesNomES;
+  void loadTotalcortesmes() async {
+    List<CorteClass> listCortesfinal =
+        await Provider.of<ManagerScreenFunctions>(context, listen: false)
+            .listaCortes;
+
+    setState(() {
+      totalCortesNomES = listCortesfinal.length;
+    });
+  }
+
+  String? mesAtual;
+  Future<void> loadAtualMonth() async {
+    final DateTime dataAtual = DateTime.now();
+    await initializeDateFormatting('pt_BR');
+
+    String monthName = DateFormat('MMMM', 'pt_BR').format(dataAtual);
+
+    setState(() {
+      mesAtual = monthName;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +106,7 @@ class BlocksManagerComponent extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          "300",
+                          "${totalClientes}",
                           style: GoogleFonts.openSans(
                             textStyle: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -108,7 +169,9 @@ class BlocksManagerComponent extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Text(
-                                  "13 cortes",
+                                  totalCortesNomES! > 1
+                                      ? "${totalCortesNomES} cortes"
+                                      : "${totalCortesNomES} corte",
                                   style: GoogleFonts.openSans(
                                     textStyle: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -121,7 +184,7 @@ class BlocksManagerComponent extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Text(
-                                  "Agendados em Maio",
+                                  "Agendados em ${mesAtual ?? "Carregando..."}",
                                   style: GoogleFonts.openSans(
                                     textStyle: TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -166,7 +229,9 @@ class BlocksManagerComponent extends StatelessWidget {
                                   height: 5,
                                 ),
                                 Text(
-                                  "R\$2.500,00",
+                                  totalCortesNomES! >= 1
+                                      ? "R\$${totalCortesNomES! * 35},00"
+                                      : "R\$0,00",
                                   style: GoogleFonts.openSans(
                                     textStyle: TextStyle(
                                       fontWeight: FontWeight.bold,

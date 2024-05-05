@@ -40,7 +40,7 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
         } else {
           final List<CorteClass>? cortes = snapshot.data;
 
-          if (cortes != null && cortes.isNotEmpty) {
+          if (cortes != null && cortes.isNotEmpty && cortes[0].isActive == true) {
             // Se houver itens na lista, mostre o widget correspondente
             return HomePageHeader(
               heighTela: widget.heighTela,

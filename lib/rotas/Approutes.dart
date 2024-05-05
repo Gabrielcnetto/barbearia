@@ -5,4 +5,5 @@ class AppRoutesApp {
   static const HomeScreen01 = "/HomeScreen01";
   static const RegisterAccountScreen = "/RegisterAccountScreen";
   static const ConfirmScreenCorte = "ConfirmScreenCorte";
+  static const ManagerScreenView = "/ManagerScreenView";
 }

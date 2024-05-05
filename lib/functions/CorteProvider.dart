@@ -5,6 +5,7 @@ import 'package:barbershop2/classes/horarios.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -46,7 +47,7 @@ class CorteProvider with ChangeNotifier {
       });
 
       //adicionado allcuts
-      final addAllcuts = await database.collection("allCuts").add({
+      final addAllcuts = await database.collection("allCuts").doc(monthName).collection("all").add({
         "id": corte.id,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
@@ -192,5 +193,9 @@ class CorteProvider with ChangeNotifier {
       print('Erro ao carregar os dados do Firebase: $e');
     }
   }
+
+  //ATUALIZANDO O ITEM ISACTIVE(TELA DO MANAGER)
+  
 }
-  //load dos cortes do usuario, e eadicionando a uma list - FIM
+
+//load dos cortes do usuario, e eadicionando a uma list - FIM

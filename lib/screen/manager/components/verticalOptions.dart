@@ -1,7 +1,14 @@
+import 'dart:ffi';
+
 import 'package:barbershop2/classes/Estabelecimento.dart';
+import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:barbershop2/screen/manager/ManagerScreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ManagerVerticalOptions extends StatefulWidget {
   const ManagerVerticalOptions({super.key});
@@ -16,11 +23,102 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
   final num3 = TextEditingController();
   final num4 = TextEditingController();
   final num5 = TextEditingController();
-  FocusNode goto1Form = FocusNode();
-  FocusNode goto2Form = FocusNode();
-  FocusNode goto3Form = FocusNode();
-  FocusNode goto4Form = FocusNode();
-  FocusNode goto5Form = FocusNode();
+
+  String? ramdomcodeUse;
+  void setandocode() {
+    setState(() {
+      ;
+    });
+  }
+
+  void _showErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text("Código Validado"),
+          content: Text("Presença do Cliente Confirmada"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => ManagerScreenView(),
+                    fullscreenDialog: true,
+                  ),
+                );
+              },
+              child: Text("Fechar"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> setAndMyCortesIsActive() async {
+    final String codeForUse =
+        await num1.text + num2.text + num3.text + num4.text + num5.text;
+    print("o codigo do barberiro foi ${codeForUse}");
+    final database = FirebaseFirestore.instance;
+    //=> Puxando os id´s do usuário
+    QuerySnapshot querySnapshot = await database.collection("usuarios").get();
+    //=> Dividindo os dados do firebase em snapshots
+    List<DocumentSnapshot> docs = querySnapshot.docs;
+    if (docs.isEmpty) {
+      print("Nenhum documento encontrado");
+    } else {
+      for (var userDoc in docs) {
+        try {
+          //=> Acessando o item de todos os usuário(histórico)
+          //a partir dos id´s coletados, entra em cada 1 e atualiza os atributos na pasta interna
+          QuerySnapshot open = await database
+              .collection("meusCortes")
+              .doc(userDoc.id)
+              .collection("lista")
+              .get();
+
+          //=> Dividindo os dados do firebase em snapshots(histórico)
+          List<DocumentSnapshot> openDocs = open.docs;
+          if (openDocs.isEmpty) {
+            print("Nenhum documento encontrado na lista de cortes");
+          } else {
+            for (var itemDoc in openDocs) {
+              print('entrei no for');
+              Map<String, dynamic> data =
+                  itemDoc.data() as Map<String, dynamic>;
+              if (data != null) {
+                print('Data não é nulo');
+                // Convertendo o ramdomNumber para String antes da comparação
+                if (data['ramdomNumber'].toString() == codeForUse) {
+                  print('Encontrei o corte correspondente');
+                  // Atualizando o documento no Firestore
+                  await database
+                      .collection("meusCortes")
+                      .doc(userDoc.id)
+                      .collection("lista")
+                      .doc(itemDoc.id)
+                      .update({'isActive': false});
+                  Future.delayed(Duration.zero, () {
+                    _showErrorDialog(context);
+                  });
+                  print('função de troca bool executada');
+                  break;
+                } else if (data['ramdomNumber'].toString() != codeForUse) {
+                  print('O ramdomNumber não corresponde');
+            
+                }
+              } else {
+                print('Data é nulo');
+              }
+            }
+          }
+        } catch (e) {
+          print("Erro ao atualizar o documento: $e");
+        }
+      }
+    }
+  }
 
   void showVerificationModalManager() {
     showModalBottomSheet(
@@ -216,21 +314,24 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                alignment: Alignment.center,
-                width: MediaQuery.of(context).size.width / 1.3,
-                height: 50,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Estabelecimento.primaryColor,
-                ),
-                child: Text(
-                  "Registrar ",
-                  style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Estabelecimento.contraPrimaryColor,
+              InkWell(
+                onTap: setAndMyCortesIsActive,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  height: 50,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Estabelecimento.primaryColor,
+                  ),
+                  child: Text(
+                    "Registrar ",
+                    style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Estabelecimento.contraPrimaryColor,
+                      ),
                     ),
                   ),
                 ),

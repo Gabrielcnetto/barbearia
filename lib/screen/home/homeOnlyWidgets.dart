@@ -7,6 +7,7 @@ import 'package:barbershop2/screen/home/home_components/header/home_noItenswithL
 import 'package:barbershop2/screen/home/home_components/profissionaisList.dart';
 import 'package:barbershop2/screen/home/home_components/promotionBanner.dart';
 import 'package:barbershop2/screen/home/ranking/rankingHome.dart';
+import 'package:barbershop2/screen/home/ranking/semUsuarios.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +68,7 @@ class _HomeOnlyWidgetsState extends State<HomeOnlyWidgets> {
                     heighScreen: heighTela,
                     widhScreen: widhtTela,
                   )
-                : Text("Alterar a Lista"),
+                : RankingSemUsuarios(),
           ],
         ),
       ),

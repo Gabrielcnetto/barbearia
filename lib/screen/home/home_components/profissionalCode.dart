@@ -193,11 +193,12 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                           child: Text(
                             "${num5}",
                             style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: Estabelecimento.contraPrimaryColor,
-                              fontSize: 16,
-                            )),
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Estabelecimento.contraPrimaryColor,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
                         ),
                         //DIGITO 5 - FIM
@@ -205,7 +206,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                     ),
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pop();
                     },
                     child: Container(
