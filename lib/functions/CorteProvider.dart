@@ -95,11 +95,15 @@ class CorteProvider with ChangeNotifier {
   //ENVIANDO O CORTE PARA AS LISTAS NO BANCO DE DADOS - FIM
 
   //CARREGANDO OS CORTES E FAZENDO A VERIFICACAO - INICIO
+
+
   List<Horarios> _horariosListLoad = [];
   List<Horarios> get horariosListLoad => [..._horariosListLoad];
   //
   Future<void> loadCortesDataBaseFuncionts(
+  
       DateTime mesSelecionado, int DiaSelecionado) async {
+   
     _horariosListLoad.clear();
     await initializeDateFormatting('pt_BR');
 
@@ -121,6 +125,7 @@ class CorteProvider with ChangeNotifier {
           _horariosListLoad.add(
             Horarios(horario: documentName, id: ""),
           );
+         
         }
         DiaSelecionado = 0;
       }

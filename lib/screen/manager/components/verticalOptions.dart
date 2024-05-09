@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
@@ -106,7 +105,6 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                   break;
                 } else if (data['ramdomNumber'].toString() != codeForUse) {
                   print('O ramdomNumber não corresponde');
-            
                 }
               } else {
                 print('Data é nulo');
@@ -352,7 +350,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Opcões Avançadas",
+              "Opções Avançadas",
               style: GoogleFonts.openSans(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w700,
@@ -404,6 +402,72 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: Text(
                                 "Código disponível no Dispositivo de seu cliente.",
+                                overflow: TextOverflow.visible,
+                                style: GoogleFonts.openSans(
+                                  textStyle: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.grey.shade500,
+                                      fontSize: 13),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      child: Icon(
+                        Icons.chevron_right,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              onTap: (){
+                Navigator.of(context).pushNamed(AppRoutesApp.GeralViewAgenda);
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(32, 32, 32, 0.1),
+                    borderRadius: BorderRadius.circular(15)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color.fromRGBO(32, 32, 32, 0.2),
+                          ),
+                          child: Icon(Icons.calendar_month),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Conferir Agenda Mensal",
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: Text(
+                                "Registre agendamentos externos e visualize Horários disponíveis.",
                                 overflow: TextOverflow.visible,
                                 style: GoogleFonts.openSans(
                                   textStyle: TextStyle(

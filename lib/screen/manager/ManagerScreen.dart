@@ -2,6 +2,7 @@ import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
 import 'package:barbershop2/screen/manager/components/Blocks.dart';
+import 'package:barbershop2/screen/manager/components/agendaDia/CortesHojeLista.dart';
 import 'package:barbershop2/screen/manager/components/verticalOptions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,104 +63,107 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => HomeScreen01(),
-                          fullscreenDialog: true,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => HomeScreen01(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey.shade200,
                         ),
-                      );
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey.shade200,
-                      ),
-                      child: Icon(
-                        Icons.arrow_back_ios,
-                        size: 15,
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          size: 15,
+                        ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Funcionário",
-                            style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black54,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Funcionário",
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            "${userName ?? "Carregando..."}",
-                            style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
+                            Text(
+                              "${userName ?? "Carregando..."}",
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        width: 75,
-                        height: 75,
-                    
-                        child: urlImagePhoto != null
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(45),
-                              child: Image.network(
-                                  urlImagePhoto!,
-                                  fit: BoxFit.cover,
-                                ),
-                            )
-                            : ClipRRect(
-                              borderRadius: BorderRadius.circular(45),
-                              child: Image.asset(
-                                  Estabelecimento.defaultAvatar,
-                                  fit: BoxFit.cover,
-                                ),
-                            ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                "Dashboard",
-                style: GoogleFonts.openSans(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                    fontSize: 22,
+                          ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 75,
+                          height: 75,
+                      
+                          child: urlImagePhoto != null
+                              ? ClipRRect(
+                                borderRadius: BorderRadius.circular(45),
+                                child: Image.network(
+                                    urlImagePhoto!,
+                                    fit: BoxFit.cover,
+                                  ),
+                              )
+                              : ClipRRect(
+                                borderRadius: BorderRadius.circular(45),
+                                child: Image.asset(
+                                    Estabelecimento.defaultAvatar,
+                                    fit: BoxFit.cover,
+                                  ),
+                              ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Text(
+                  "Dashboard",
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                      fontSize: 22,
+                    ),
                   ),
                 ),
-              ),
-              BlocksManagerComponent(),
-              ManagerVerticalOptions(),
-            ],
+                BlocksManagerComponent(),
+                ManagerVerticalOptions(),
+                CortesHojeLista(),
+              ],
+            ),
           ),
         ),
       ),
