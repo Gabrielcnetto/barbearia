@@ -41,7 +41,7 @@ class ManagerScreenFunctions with ChangeNotifier {
     print(monthName);
 
     QuerySnapshot querySnapshot = await database
-        .collection("allCuts")
+        .collection("totalCortes")
         .doc("${monthName}")
         .collection("all")
         .get();

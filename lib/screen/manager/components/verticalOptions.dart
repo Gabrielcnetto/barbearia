@@ -1,4 +1,3 @@
-
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
@@ -7,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ManagerVerticalOptions extends StatefulWidget {
@@ -58,14 +59,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
   Future<void> setAndMyCortesIsActive() async {
     final String codeForUse =
         await num1.text + num2.text + num3.text + num4.text + num5.text;
-    print("o codigo do barberiro foi ${codeForUse}");
+
     final database = FirebaseFirestore.instance;
     //=> Puxando os id´s do usuário
     QuerySnapshot querySnapshot = await database.collection("usuarios").get();
     //=> Dividindo os dados do firebase em snapshots
     List<DocumentSnapshot> docs = querySnapshot.docs;
     if (docs.isEmpty) {
-      print("Nenhum documento encontrado");
     } else {
       for (var userDoc in docs) {
         try {
@@ -80,17 +80,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
           //=> Dividindo os dados do firebase em snapshots(histórico)
           List<DocumentSnapshot> openDocs = open.docs;
           if (openDocs.isEmpty) {
-            print("Nenhum documento encontrado na lista de cortes");
           } else {
             for (var itemDoc in openDocs) {
-              print('entrei no for');
               Map<String, dynamic> data =
                   itemDoc.data() as Map<String, dynamic>;
               if (data != null) {
-                print('Data não é nulo');
                 // Convertendo o ramdomNumber para String antes da comparação
                 if (data['ramdomNumber'].toString() == codeForUse) {
-                  print('Encontrei o corte correspondente');
                   // Atualizando o documento no Firestore
                   await database
                       .collection("meusCortes")
@@ -101,20 +97,56 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                   Future.delayed(Duration.zero, () {
                     _showErrorDialog(context);
                   });
-                  print('função de troca bool executada');
+
                   break;
-                } else if (data['ramdomNumber'].toString() != codeForUse) {
-                  print('O ramdomNumber não corresponde');
-                }
-              } else {
-                print('Data é nulo');
-              }
+                } else if (data['ramdomNumber'].toString() != codeForUse) {}
+              } else {}
             }
           }
         } catch (e) {
-          print("Erro ao atualizar o documento: $e");
+          print("Erro ao atualizar o documento Fora do allcuts: $e");
         }
       }
+    }
+  }
+
+  //fazendo tmb na allcuts
+  Future<void> setAndMyCortesIsActiveAllCuts() async {
+    final DateTime dataAtual = DateTime.now();
+    final int diaAtual = dataAtual.day;
+    await initializeDateFormatting('pt_BR');
+
+    String monthName = DateFormat('MMMM', 'pt_BR').format(dataAtual);
+        print("allCuts/${monthName}/${diaAtual}");
+    final String codeForUse =
+        await num1.text + num2.text + num3.text + num4.text + num5.text;
+
+    final database = FirebaseFirestore.instance;
+    try {
+      print("entrei no try");
+      QuerySnapshot querySnapshot = await database
+          .collection("allCuts")
+          .doc(monthName)
+          .collection("$diaAtual")
+          .get();
+      if(querySnapshot.docs.isEmpty){
+        print("nao há nada na lista");
+      } else {
+      List<DocumentSnapshot> documents = querySnapshot.docs;
+      for (DocumentSnapshot document in documents) {
+        print("entrei no for");
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        if (data != null && data['ramdomNumber'].toString() == codeForUse) {
+          // Encontrou o documento correspondente, atualize o atributo 'isActive' para false
+          await document.reference.update({'isActive': false});
+          // Faça qualquer outra operação necessária aqui
+          print('Documento atualizado com sucesso');
+          break; // Se você só precisa atualizar um documento, pode sair do loop aqui
+        }
+      }
+      }
+    } catch (e) {
+      print("Erro ao acessar/atualizar documentos: $e");
     }
   }
 
@@ -313,7 +345,10 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                 height: 30,
               ),
               InkWell(
-                onTap: setAndMyCortesIsActive,
+                onTap: () async {
+                  setAndMyCortesIsActive();
+                  await setAndMyCortesIsActiveAllCuts();
+                },
                 child: Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width / 1.3,
@@ -428,7 +463,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               height: 10,
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 Navigator.of(context).pushNamed(AppRoutesApp.GeralViewAgenda);
               },
               child: Container(

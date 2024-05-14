@@ -23,14 +23,14 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
   }
 
   Future<void> loadCortesAtualDayForManager() async {
-    print("iniciei a funcao do load pronto");
-    Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
+    print("Entrei na funcao do load Manager Widget");
+    Provider.of<CorteProvider>(context, listen: false).loadHistoryCortesManagerScreen();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Provider.of<CorteProvider>(context, listen: false).cortesStream,
+        stream: Provider.of<CorteProvider>(context, listen: false).CorteslistaManager,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(

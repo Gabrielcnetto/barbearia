@@ -18,10 +18,18 @@ class CortesHojeLista extends StatefulWidget {
 
 
 class _CortesHojeListaState extends State<CortesHojeLista> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   Provider.of<CorteProvider>(context, listen: false).horariosListLoad;
+  }
 
 
   @override
   Widget build(BuildContext context) {
+     int diaAtual = DateTime.now().day;
+         int mesAtual = DateTime.now().month;
     final List<Horarios> _horariosLOad =
         Provider.of<CorteProvider>(context, listen: false).horariosListLoad;
     return Container(
@@ -48,7 +56,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                     borderRadius: BorderRadius.circular(30)),
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                 child: Text(
-                  "Dia 03/04",
+                  "Dia ${diaAtual ?? "Carregando..."}/0${mesAtual ?? "Carregando..."}",
                   style: GoogleFonts.openSans(
                     textStyle: TextStyle(
                       fontWeight: FontWeight.w700,

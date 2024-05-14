@@ -47,7 +47,11 @@ class CorteProvider with ChangeNotifier {
       });
 
       //adicionado allcuts
-      final addAllcuts = await database.collection("allCuts").doc(monthName).collection("all").add({
+      final addAllcuts = await database
+          .collection("allCuts")
+          .doc(monthName)
+          .collection("${diaCorteSelect}")
+          .add({
         "id": corte.id,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
@@ -61,6 +65,25 @@ class CorteProvider with ChangeNotifier {
         "ramdomNumber": corte.ramdomCode,
         "monthName": monthName,
       });
+            final addTotalCortes = await database
+          .collection("totalCortes")
+          .doc(monthName)
+          .collection("all")
+          .add({
+        "id": corte.id,
+        'isActive': corte.isActive,
+        "diaDoCorte": corte.DiaDoCorte,
+        "dataCreateAgendamento": corte.dateCreateAgendamento,
+        "clientName": corte.clientName,
+        "numeroContato": corte.numeroContato,
+        "sobrancelha": corte.sobrancelha,
+        "diaCorte": corte.diaCorte,
+        "horarioCorte": corte.horarioCorte,
+        "profissionalSelect": corte.profissionalSelect,
+        "ramdomNumber": corte.ramdomCode,
+        "monthName": monthName,
+      });
+      //adicionando em lista aleatoria apenas para soma:
       final userId = await authSettings.currentUser!.uid;
       final myCortes = await database
           .collection("meusCortes")
@@ -96,14 +119,11 @@ class CorteProvider with ChangeNotifier {
 
   //CARREGANDO OS CORTES E FAZENDO A VERIFICACAO - INICIO
 
-
   List<Horarios> _horariosListLoad = [];
   List<Horarios> get horariosListLoad => [..._horariosListLoad];
   //
   Future<void> loadCortesDataBaseFuncionts(
-  
       DateTime mesSelecionado, int DiaSelecionado) async {
-   
     _horariosListLoad.clear();
     await initializeDateFormatting('pt_BR');
 
@@ -125,7 +145,6 @@ class CorteProvider with ChangeNotifier {
           _horariosListLoad.add(
             Horarios(horario: documentName, id: ""),
           );
-         
         }
         DiaSelecionado = 0;
       }
@@ -199,8 +218,72 @@ class CorteProvider with ChangeNotifier {
     }
   }
 
-  //ATUALIZANDO O ITEM ISACTIVE(TELA DO MANAGER)
-  
+  //CARREGANDO A LISTA DO DIA, PARA EXIBIR NA TELA DE MANAGER (lista 2) - INICIO
+    final StreamController<List<CorteClass>> _CorteslistaManager =
+      StreamController<List<CorteClass>>.broadcast();
+
+  Stream<List<CorteClass>> get CorteslistaManager => _CorteslistaManager.stream;
+
+  List<CorteClass> _managerListCortes = [];
+  List<CorteClass> get managerListCortes => [..._managerListCortes];
+  Future<void> loadHistoryCortesManagerScreen() async {
+    print("Entrei na funcao do load Manager");
+    try {
+      print("Entrei no try do manager");
+      // Emite a lista atualizada através do StreamController
+      DateTime MomentoAtual = DateTime.now();
+      await initializeDateFormatting('pt_BR');
+      int diaAtual = MomentoAtual.day;
+      String monthName = DateFormat('MMMM', 'pt_BR').format(MomentoAtual);
+      QuerySnapshot querySnapshot = await database
+          .collection('allCuts/${monthName}/${diaAtual}')
+          .get();
+
+      _managerListCortes = querySnapshot.docs.map((doc) {
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+        Timestamp? timestamp;
+        if (data != null) {
+          timestamp = data['dataCreateAgendamento'] as Timestamp?;
+        }
+
+        DateTime diaCorte = timestamp?.toDate() ?? DateTime.now();
+        //CONVERTENDO O DIA DO CORTE AGORA
+        Timestamp? diafinalCorte;
+        if (data != null) {
+          timestamp = data['diaCorte'] as Timestamp?;
+        }
+
+        DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
+        // Acessando os atributos diretamente usando []
+        return CorteClass(
+          isActive: data?["isActive"],
+          DiaDoCorte: data?["diaDoCorte"],
+          NomeMes: data?["monthName"],
+          dateCreateAgendamento: diaCorte,
+          clientName: data?['clientName'],
+          id: data?['id'],
+          numeroContato: data?['numeroContato'],
+          profissionalSelect: data?['profissionalSelect'],
+          diaCorte: diaCorteFinal, // Usando o atributo diaCorte
+          horarioCorte: data?['horarioCorte'],
+          sobrancelha: data?['sobrancelha'],
+          ramdomCode: data?['ramdomNumber'],
+        );
+      }).toList();
+      _CorteslistaManager.add(_managerListCortes);
+      // Ordenar os dados pela data
+      _managerListCortes.sort((a, b) {
+        return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
+      });
+
+      notifyListeners();
+    } catch (e) {
+      print('Erro ao carregar os dados do Firebase do Manager: $e');
+    }
+  }
+
+  //CARREGANDO ALISTA DO DIA, PARA EXIBIR NA TELA DO MANAGER(LISTA2) - FIM
 }
 
 //load dos cortes do usuario, e eadicionando a uma list - FIM

@@ -23,6 +23,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Provider.of<ManagerScreenFunctions>(context,listen:false);
     loadTotalClientes();
     totalCortesNomES;
     loadTotalcortesmes();
