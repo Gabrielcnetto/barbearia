@@ -3,14 +3,18 @@ import 'dart:math';
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
+import 'package:barbershop2/functions/providerFilterStrings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ItemComponentHour extends StatefulWidget {
+
   final CorteClass Corte;
   const ItemComponentHour({
     super.key,
+
     required this.Corte,
   });
 
@@ -34,6 +38,10 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    GetAndConfigprofffilter();
+    setState(() {
+      
+    });
   }
 
   // Função para abrir o navegador
@@ -45,13 +53,22 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
     }
   }
 
+  String proffGet = "";
+  void GetAndConfigprofffilter() {
+    setState(() {
+      proffGet = "${Provider.of<ProviderFilterManager>(context,listen: false).filtroParaUsar}";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Color _randomColor = _generateRandomLightColor();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
-      child: widget.Corte.isActive == true && widget.Corte.isActive != false
+      child: widget.Corte.isActive == true &&
+                widget.Corte.isActive != false &&
+                (proffGet.isEmpty || proffGet == widget.Corte.profissionalSelect)
           ? Container(
               decoration: BoxDecoration(
                   color: _randomColor, borderRadius: BorderRadius.circular(25)),
@@ -193,40 +210,45 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           )
                         ],
                       ),
-                      widget.Corte.numeroContato.isEmpty ? Container( ):
-                      InkWell(
-                        onTap: (){
-                          _launchURL("https://api.whatsapp.com/send?phone=${widget.Corte.numeroContato}text=Opa!");
-                        },
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                          decoration: BoxDecoration(
-                              color: Colors.green.shade600,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Contato Urgência",
-                                style: GoogleFonts.openSans(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
+                      widget.Corte.numeroContato.isEmpty
+                          ? Container()
+                          : InkWell(
+                              onTap: () {
+                                _launchURL(
+                                    "https://api.whatsapp.com/send?phone=${widget.Corte.numeroContato}text=Opa!");
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 1),
+                                decoration: BoxDecoration(
+                                    color: Colors.green.shade600,
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "Contato Urgência",
+                                      style: GoogleFonts.openSans(
+                                        textStyle: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.08,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.08,
+                                      child: Image.asset(
+                                          "imagesOfApp/whatsaaplogo.png"),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.08,
-                                height: MediaQuery.of(context).size.height * 0.08,
-                                child:
-                                    Image.asset("imagesOfApp/whatsaaplogo.png"),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
+                            )
                     ],
                   )
                 ],

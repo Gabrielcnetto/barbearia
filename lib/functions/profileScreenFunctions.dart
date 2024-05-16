@@ -72,7 +72,38 @@ class MyProfileScreenFunctions with ChangeNotifier {
   }
 
   //get da imagem do perfil
-    Future<String?> getUserImage() async {
+    Future<bool?> getUserIsManager() async {
+    if (authSettings.currentUser != null) {
+      final String uidUser = await authSettings.currentUser!.uid;
+      bool? ismManager;
+
+      await db.collection("usuarios").doc(uidUser).get().then((event) {
+        if (event.exists) {
+          Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+
+          ismManager = data['isManager'];
+          
+        } else {}
+        return ismManager;
+      });
+      return ismManager;
+    }
+
+    return null;
+  }
+  //attnome
+  Future<void> newName({required String newName})async{
+    db.collection("usuarios").doc(authSettings.currentUser!.uid).update({
+      "userName": newName,
+     });
+  }
+    Future<void> setPhone({required String phoneNumber})async{
+    db.collection("usuarios").doc(authSettings.currentUser!.uid).update({
+      "PhoneNumber": phoneNumber,
+     });
+  }
+    //Pegando o bool do isManager - INICIO
+        Future<String?> getUserImage() async {
     if (authSettings.currentUser != null) {
       final String uidUser = await authSettings.currentUser!.uid;
       String? urlImagem;
@@ -91,15 +122,5 @@ class MyProfileScreenFunctions with ChangeNotifier {
 
     return null;
   }
-  //attnome
-  Future<void> newName({required String newName})async{
-    db.collection("usuarios").doc(authSettings.currentUser!.uid).update({
-      "userName": newName,
-     });
-  }
-    Future<void> setPhone({required String phoneNumber})async{
-    db.collection("usuarios").doc(authSettings.currentUser!.uid).update({
-      "PhoneNumber": phoneNumber,
-     });
-  }
+    //Pegando o bool do isManager - INICIO
 }

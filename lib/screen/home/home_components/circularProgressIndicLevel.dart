@@ -26,7 +26,28 @@ class CircularProgressWithImage extends StatefulWidget {
 }
 
 class _CircularProgressWithImageState extends State<CircularProgressWithImage> {
-  bool isManager = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isManager;
+    loadUserIsManager();
+  }
+  bool? isManager;
+
+  Future<void> loadUserIsManager() async {
+    bool? bolIsManager = await MyProfileScreenFunctions().getUserIsManager();
+
+    if (isManager != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      isManager = bolIsManager!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

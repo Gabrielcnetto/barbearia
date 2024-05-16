@@ -4,6 +4,7 @@ import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/createAccount.dart';
 import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/functions/providerFilterStrings.dart';
 import 'package:barbershop2/functions/rankingProviderHome.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
@@ -12,7 +13,6 @@ import 'package:barbershop2/screen/home/homeScreen01.dart';
 import 'package:barbershop2/screen/inicio/initialScreen.dart';
 import 'package:barbershop2/screen/login/loginScreen.dart';
 import 'package:barbershop2/screen/manager/ManagerScreen.dart';
-import 'package:barbershop2/screen/manager/geralViewSchedule.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +61,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (_) => ManagerScreenFunctions(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => ProviderFilterManager(),
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -92,7 +95,7 @@ class _MyAppState extends State<MyApp> {
               const RegisterAccountScreen(),
           AppRoutesApp.ConfirmScreenCorte: (ctx) => ConfirmScreenCorte(),
           AppRoutesApp.ManagerScreenView: (ctx) => ManagerScreenView(),
-          AppRoutesApp.GeralViewAgenda: (ctx)=>GeralViewAgenda(),
+     
         },
       ),
     );

@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DiaListaComponent extends StatefulWidget {
+  
   const DiaListaComponent({
+  
     super.key,
   });
 
@@ -20,17 +22,22 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
     // TODO: implement initState
     super.initState();
     loadCortesAtualDayForManager();
+  
   }
+
+ 
 
   Future<void> loadCortesAtualDayForManager() async {
     print("Entrei na funcao do load Manager Widget");
-    Provider.of<CorteProvider>(context, listen: false).loadHistoryCortesManagerScreen();
+    Provider.of<CorteProvider>(context, listen: false)
+        .loadHistoryCortesManagerScreen();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: Provider.of<CorteProvider>(context, listen: false).CorteslistaManager,
+        stream: Provider.of<CorteProvider>(context, listen: false)
+            .CorteslistaManager,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -45,6 +52,7 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
                 children: cortes.map((corte) {
                   return ItemComponentHour(
                     Corte: corte,
+                   
                   );
                 }).toList(),
               );

@@ -7,6 +7,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenComponentsMyProfile();
+    return SingleChildScrollView(child: const ScreenComponentsMyProfile());
   }
 }
