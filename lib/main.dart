@@ -95,7 +95,6 @@ class _MyAppState extends State<MyApp> {
               const RegisterAccountScreen(),
           AppRoutesApp.ConfirmScreenCorte: (ctx) => ConfirmScreenCorte(),
           AppRoutesApp.ManagerScreenView: (ctx) => ManagerScreenView(),
-     
         },
       ),
     );

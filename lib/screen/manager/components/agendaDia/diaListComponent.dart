@@ -22,7 +22,7 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
     // TODO: implement initState
     super.initState();
     loadCortesAtualDayForManager();
-  
+
   }
 
  
@@ -51,6 +51,7 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
               return Column(
                 children: cortes.map((corte) {
                   return ItemComponentHour(
+                    key: Key(corte.id),
                     Corte: corte,
                    
                   );

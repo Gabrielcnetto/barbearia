@@ -54,8 +54,8 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
     setState(() {
       urlImagePhoto = urlPhoto;
     });
-  }
-
+  } 
+  final String fotoPadraoUserError = "https://firebasestorage.googleapis.com/v0/b/easecortebaseversion-7100f.appspot.com/o/systemFotos%2FdefaultImages%2Fdefaultuser.jpeg?alt=media&token=d74b47d1-e4e8-40fb-a683-e65dbeedddc2";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +100,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Funcionário",
+                              "Profissional",
                               style: GoogleFonts.openSans(
                                 textStyle: TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -125,22 +125,21 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                         Container(
                           width: 75,
                           height: 75,
-                      
-                          child: urlImagePhoto != null
+                          child: urlImagePhoto == null
                               ? ClipRRect(
-                                borderRadius: BorderRadius.circular(45),
-                                child: Image.network(
+                                  borderRadius: BorderRadius.circular(45),
+                                  child: Image.network(
+                                    "${fotoPadraoUserError}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ) 
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(45),
+                                  child: Image.network(
                                     urlImagePhoto!,
                                     fit: BoxFit.cover,
                                   ),
-                              )
-                              : ClipRRect(
-                                borderRadius: BorderRadius.circular(45),
-                                child: Image.asset(
-                                    Estabelecimento.defaultAvatar,
-                                    fit: BoxFit.cover,
-                                  ),
-                              ),
+                                ),
                         ),
                       ],
                     ),

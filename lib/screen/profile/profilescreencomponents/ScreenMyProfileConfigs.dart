@@ -33,6 +33,9 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
     loadUserPhone();
     loadUserName();
     urlImageFuncion();
+    setState(() {
+      
+    });
   }
 
   Future<void> setandonewnome() async {
@@ -43,14 +46,13 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
     setState(() {});
   }
 
-    Future<void> setandoPhone() async {
+  Future<void> setandoPhone() async {
     setState(() {});
     Provider.of<MyProfileScreenFunctions>(context, listen: false).setPhone(
       phoneNumber: phoneNumberControler.text,
     );
     setState(() {});
   }
-
 
   //GET USERNAME - INICIO
   String? userName;
@@ -98,13 +100,102 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
   final phoneNumberControler = TextEditingController();
 
   //funcao geral de enviar ao db a foto nova
+  void showModalPhtoNew() {
+    setState(() {
+      
+    });
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) {
+          return Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  child: Image.asset(
+                    "imagesOfApp/shine.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Sua foto de perfil foi Atualizada!",
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Uhuu! Vamos ver como ficou sua nova foto?\nEla pode levar até 5 segundos para atualizar!",
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 80, left: 20, right: 20),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Estabelecimento.primaryColor,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        "Voltar ao perfil",
+                        style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Estabelecimento.contraPrimaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+  }
 
   Future<void> setNewimageOnDB() async {
+    setState(() {
+      
+    });
     final String photo = await image!.path;
-    await Provider.of<MyProfileScreenFunctions>(context, listen: false)
-        .setImageProfile(
-      urlImage: File(photo),
-    );
+    try {
+      if (photo != null) {
+        showModalPhtoNew();
+        await Provider.of<MyProfileScreenFunctions>(context, listen: false)
+            .setImageProfile(
+          urlImage: File(photo),
+        );
+      }
+    } catch (e) {
+      print("erro: $e");
+    }
   }
 
   //GET IMAGEM DO PERFIL - INICIO(CAMERA)

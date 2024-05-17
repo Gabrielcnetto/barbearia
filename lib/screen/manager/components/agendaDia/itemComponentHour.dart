@@ -64,12 +64,13 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
   Widget build(BuildContext context) {
     Color _randomColor = _generateRandomLightColor();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: widget.Corte.isActive == true &&
-                widget.Corte.isActive != false &&
-                (proffGet.isEmpty || proffGet == widget.Corte.profissionalSelect)
-          ? Container(
+    return widget.Corte.isActive == true &&
+              widget.Corte.isActive != false &&
+              (proffGet.isEmpty || proffGet == widget.Corte.profissionalSelect)
+        ? Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Container(
+            key: Key(widget.Corte.id),
               decoration: BoxDecoration(
                   color: _randomColor, borderRadius: BorderRadius.circular(25)),
               width: MediaQuery.of(context).size.width * 1,
@@ -215,7 +216,8 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           : InkWell(
                               onTap: () {
                                 _launchURL(
-                                    "https://api.whatsapp.com/send?phone=${widget.Corte.numeroContato}text=Opa!");
+                                  "https://api.whatsapp.com/send?phone=55${widget.Corte.numeroContato}");
+                                   
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -227,7 +229,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "Contato Urgência",
+                                      "Entrar em contato",
                                       style: GoogleFonts.openSans(
                                         textStyle: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -253,8 +255,10 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                   )
                 ],
               ),
-            )
-          : Container(),
-    );
+            ),
+        )
+        : SizedBox.shrink(
+          key: Key(widget.Corte.id),
+        );
   }
 }

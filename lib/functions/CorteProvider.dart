@@ -65,7 +65,7 @@ class CorteProvider with ChangeNotifier {
         "ramdomNumber": corte.ramdomCode,
         "monthName": monthName,
       });
-            final addTotalCortes = await database
+      final addTotalCortes = await database
           .collection("totalCortes")
           .doc(monthName)
           .collection("all")
@@ -219,7 +219,7 @@ class CorteProvider with ChangeNotifier {
   }
 
   //CARREGANDO A LISTA DO DIA, PARA EXIBIR NA TELA DE MANAGER (lista 2) - INICIO
-    final StreamController<List<CorteClass>> _CorteslistaManager =
+  final StreamController<List<CorteClass>> _CorteslistaManager =
       StreamController<List<CorteClass>>.broadcast();
 
   Stream<List<CorteClass>> get CorteslistaManager => _CorteslistaManager.stream;
@@ -235,9 +235,8 @@ class CorteProvider with ChangeNotifier {
       await initializeDateFormatting('pt_BR');
       int diaAtual = MomentoAtual.day;
       String monthName = DateFormat('MMMM', 'pt_BR').format(MomentoAtual);
-      QuerySnapshot querySnapshot = await database
-          .collection('allCuts/${monthName}/${diaAtual}')
-          .get();
+      QuerySnapshot querySnapshot =
+          await database.collection('allCuts/${monthName}/${diaAtual}').get();
 
       _managerListCortes = querySnapshot.docs.map((doc) {
         Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
@@ -272,9 +271,14 @@ class CorteProvider with ChangeNotifier {
         );
       }).toList();
       _CorteslistaManager.add(_managerListCortes);
+      
       // Ordenar os dados pela data
       _managerListCortes.sort((a, b) {
         return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
+      });
+      _managerListCortes.sort((a, b) {
+        // Aqui, estamos comparando os horários de corte como strings
+        return a.horarioCorte.compareTo(b.horarioCorte);
       });
 
       notifyListeners();
