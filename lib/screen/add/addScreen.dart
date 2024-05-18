@@ -53,43 +53,47 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   final List<Profissionais> _profList = profList;
-  bool isMarcelo = false;
-  bool isGabriel = false;
-  bool isLucas = false;
+  bool isBarbeiro1 = false;
+  bool isBarbeiro2 = false;
+  bool isBarbeiro3 = false;
 
-  void setMarcelo() {
-    if (isMarcelo == true) {
+  void setBarber1() {
+    if (isBarbeiro1 == true) {
       null;
     } else {
       setState(() {
-        isMarcelo = true;
-        isGabriel = false;
-        isLucas = false;
+        isBarbeiro1 = true;
+        isBarbeiro2 = false;
+        isBarbeiro3 = false;
+        dataSelectedInModal = null;
+      });
+    }
+  
+ 
+  }
+
+  void setBarber2() {
+    if (isBarbeiro2 == true) {
+      null;
+    } else {
+      setState(() {
+        isBarbeiro2 = true;
+        isBarbeiro1 = false;
+ dataSelectedInModal = null;
+        isBarbeiro3 = false;
       });
     }
   }
 
-  void setGabriel() {
-    if (isGabriel == true) {
+  void setBarber3() {
+    if (isBarbeiro3 == true) {
       null;
     } else {
       setState(() {
-        isGabriel = true;
-        isMarcelo = false;
-
-        isLucas = false;
-      });
-    }
-  }
-
-  void setLucas() {
-    if (isLucas == true) {
-      null;
-    } else {
-      setState(() {
-        isLucas = true;
-        isGabriel = false;
-        isMarcelo = false;
+        isBarbeiro3 = true;
+        isBarbeiro2 = false;
+        isBarbeiro1 = false;
+         dataSelectedInModal = null;
       });
     }
   }
@@ -194,6 +198,13 @@ class _AddScreenState extends State<AddScreen> {
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
+          nomeBarbeiro: isBarbeiro1
+                  ? "${profList[0].nomeProf}"
+                  : isBarbeiro2
+                      ? "${profList[1].nomeProf}"
+                      : isBarbeiro3
+                          ? "${profList[2].nomeProf}"
+                          : "Não Definido",
             corte: CorteClass(
               isActive: true,
               DiaDoCorte: diaDoCorte,
@@ -206,11 +217,11 @@ class _AddScreenState extends State<AddScreen> {
               sobrancelha: sobrancelha,
               diaCorte: dataSelectedInModal!,
               horarioCorte: hourSetForUser!,
-              profissionalSelect: isMarcelo
+              profissionalSelect: isBarbeiro1
                   ? "${profList[0].nomeProf}"
-                  : isGabriel
+                  : isBarbeiro2
                       ? "${profList[1].nomeProf}"
-                      : isLucas
+                      : isBarbeiro3
                           ? "${profList[2].nomeProf}"
                           : "Não Definido",
             ),
@@ -223,6 +234,7 @@ class _AddScreenState extends State<AddScreen> {
   //Aqui pegamos o dia selecionado, e usamos para buscar os dados no banco de dados
   //a funcao abaixo é responsavel por pegar o dia, entrar no provider e pesquisar os horarios daquele dia selecionado
   Future<void> loadListCortes() async {
+    horarioFinal.clear();
     List<Horarios> listaTemporaria = List.from(_horariosLivres);
     //pega o dia selecionado pelo cliente
 
@@ -233,8 +245,15 @@ class _AddScreenState extends State<AddScreen> {
       try {
         await Provider.of<CorteProvider>(context, listen: false)
             .loadCortesDataBaseFuncionts(
-          mesSelecionado,
-          mesSelecionado.day,
+          mesSelecionado: mesSelecionado,
+          DiaSelecionado: mesSelecionado.day,
+          Barbeiroselecionado: isBarbeiro1
+                  ? "${profList[0].nomeProf}"
+                  : isBarbeiro2
+                      ? "${profList[1].nomeProf}"
+                      : isBarbeiro3
+                          ? "${profList[2].nomeProf}"
+                          : "Não Definido"
         );
         List<Horarios> listaCort =
             await Provider.of<CorteProvider>(context, listen: false)
@@ -242,6 +261,12 @@ class _AddScreenState extends State<AddScreen> {
 
         for (var horario in listaCort) {
           print("horarios do provider: ${horario.horario}");
+
+          //faz a verificação se o horario esta disponivel para
+
+
+
+
           listaTemporaria.removeWhere((atributosFixo) {
             return atributosFixo.horario == horario.horario;
           });
@@ -435,11 +460,11 @@ class _AddScreenState extends State<AddScreen> {
                           ),
 
                           Text(
-                            isMarcelo == true
+                            isBarbeiro1 == true
                                 ? "${profList[0].nomeProf}"
-                                : isGabriel == true
+                                : isBarbeiro2 == true
                                     ? "${profList[1].nomeProf}"
-                                    : isLucas == true
+                                    : isBarbeiro3 == true
                                         ? "${profList[2].nomeProf}"
                                         : "Não Definido",
                             style: GoogleFonts.openSans(
@@ -824,7 +849,7 @@ class _AddScreenState extends State<AddScreen> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: setMarcelo,
+                                      onTap: setBarber1,
                                       child: Container(
                                         width: widhScren * 0.25,
                                         height: 130,
@@ -844,7 +869,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 ),
                                               ),
                                             ),
-                                            if (isMarcelo)
+                                            if (isBarbeiro1)
                                               Positioned(
                                                 top: 0,
                                                 bottom: 0,
@@ -888,7 +913,7 @@ class _AddScreenState extends State<AddScreen> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: setGabriel,
+                                      onTap: setBarber2,
                                       child: Container(
                                         width: widhScren * 0.25,
                                         height: 130,
@@ -908,7 +933,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 ),
                                               ),
                                             ),
-                                            if (isGabriel)
+                                            if (isBarbeiro2)
                                               Positioned(
                                                 top: 0,
                                                 bottom: 0,
@@ -952,7 +977,7 @@ class _AddScreenState extends State<AddScreen> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: setLucas,
+                                      onTap: setBarber3,
                                       child: Container(
                                         width: widhScren * 0.25,
                                         height: 130,
@@ -972,7 +997,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 ),
                                               ),
                                             ),
-                                            if (isLucas)
+                                            if (isBarbeiro3)
                                               Positioned(
                                                 top: 0,
                                                 bottom: 0,
@@ -1021,6 +1046,7 @@ class _AddScreenState extends State<AddScreen> {
                               height: 25,
                             ),
                             //CONTAINER DO PROFISSIONAL - INICIO
+                            if(isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false)
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -1051,6 +1077,7 @@ class _AddScreenState extends State<AddScreen> {
                             SizedBox(
                               height: 5,
                             ),
+                            if(isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false)
                             InkWell(
                               onTap: () {
                                 ShowModalData();

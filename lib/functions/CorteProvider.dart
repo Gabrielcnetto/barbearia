@@ -15,7 +15,9 @@ class CorteProvider with ChangeNotifier {
 
   //ENVIANDO O CORTE PARA AS LISTAS NO BANCO DE DADOS - INICIO
   Future<void> AgendamentoCortePrincipalFunctions(
-      {required CorteClass corte, required DateTime selectDateForUser}) async {
+      {required CorteClass corte,
+      required DateTime selectDateForUser,
+      required String nomeBarbeiro}) async {
     print("entrei na funcao");
 
     await initializeDateFormatting('pt_BR');
@@ -24,12 +26,16 @@ class CorteProvider with ChangeNotifier {
         await DateFormat('MMMM', 'pt_BR').format(selectDateForUser);
     print(monthName);
     print("entrei na funcao");
+   final nomeBarber = Uri.encodeFull(nomeBarbeiro);
+
     try {
       //adicionado lista principal de cortes do dia
       final addOnDB = await database
           .collection("agenda")
           .doc(monthName)
           .collection("${diaCorteSelect}")
+          .doc(nomeBarber)
+          .collection("all")
           .doc(corte.horarioCorte)
           .set({
         'isActive': corte.isActive,
@@ -122,39 +128,91 @@ class CorteProvider with ChangeNotifier {
   List<Horarios> _horariosListLoad = [];
   List<Horarios> get horariosListLoad => [..._horariosListLoad];
   //
-  Future<void> loadCortesDataBaseFuncionts(
-      DateTime mesSelecionado, int DiaSelecionado) async {
+  Future<void> loadCortesDataBaseFuncionts({required DateTime mesSelecionado,
+      required int DiaSelecionado,required String Barbeiroselecionado}) async {
     _horariosListLoad.clear();
     await initializeDateFormatting('pt_BR');
 
     String monthName = DateFormat('MMMM', 'pt_BR').format(mesSelecionado);
+      final nomeBarber = Uri.encodeFull(Barbeiroselecionado);
 
-    QuerySnapshot querySnapshot = await database
-        .collection("agenda")
-        .doc(monthName)
-        .collection("${DiaSelecionado}")
-        .get();
-    List<DocumentSnapshot> docs = querySnapshot.docs;
     try {
-      if (docs.isEmpty) {
-        print("nao tem dados no docs procurado");
-      } else {
-        _horariosListLoad.clear();
-        for (var doc in docs) {
-          String documentName = doc.id;
-          _horariosListLoad.add(
-            Horarios(horario: documentName, id: ""),
-          );
-        }
-        DiaSelecionado = 0;
-      }
-    } catch (e) {
-      print(e);
-    }
-    print("o tamanho da lista é de provider ${_horariosListLoad.length}");
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection("agenda")
+          .doc(monthName)
+          .collection("${DiaSelecionado}")
+          .doc(nomeBarber)
+          .collection("all")
+          .get();
 
-    notifyListeners();
+      List<Horarios> horarios = querySnapshot.docs.map((doc) {
+        return Horarios(
+          horario: doc.id,
+          id: "",
+        );
+      }).toList();
+      for(var hor in _horariosListLoad){
+        print("horario da lista preenchido: ${hor.horario}");
+      }
+      _horariosListLoad = horarios;
+      notifyListeners();
+      DiaSelecionado = 0;
+    } catch (e) {
+      print("o erro especifico é: ${e}");
+    } // Notifica os ouvintes sobre a mudança nos dados
   }
+
+  /* Future<void> loadCortesDataBaseFuncionts(DateTime mesSelecionado,
+  
+
+  // Acessar diretamente o documento "gabriel"
+  DocumentReference<Map<String, dynamic>> documentReference = database
+      .collection("agenda")
+      .doc(monthName)
+      .collection("${DiaSelecionado}")
+      .doc("gabriel");
+
+  // Tentar ler o documento de forma assíncrona e tratar erros
+  try {
+    DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await documentReference.get();
+
+    // Verificar se o documento existe e se não está vazio
+    if (documentSnapshot.exists || documentSnapshot.data() != null) {
+      Map<String, dynamic> documentData = documentSnapshot.data()!; // Obter dados do documento
+      List<String> horarios = []; // Lista para armazenar os horários
+
+      // Extrair os horários dos dados do documento
+      documentData.forEach((key, value) {
+        if (key != "id") { // Ignorar o ID do documento
+          horarios.add(key); // Adicionar o horário à lista
+        }
+      });
+
+      // Ordenar os horários
+      horarios.sort((a, b) => a.compareTo(b)); // Ordenação alfabética
+
+      // Atualizar a lista de horários
+      _horariosListLoad.clear();
+      horarios.forEach((horario) {
+        _horariosListLoad.add(
+          Horarios(horario: horario, id: ""),
+        );
+      });
+
+      DiaSelecionado = 0; // Atualizar DiaSelecionado
+    } else {
+      print("O documento não existe ou está vazio");
+    }
+  } catch (error) {
+    print("Erro ao ler documento: ${error}");
+  }
+
+  print("O tamanho da lista é de provider ${_horariosListLoad.length}");
+
+  notifyListeners();
+}
+*/
+
   //CARREGANDO OS CORTES E FAZENDO A VERIFICACAO - FIM
 
   //load dos cortes do usuario, e eadicionando a uma list - INICIO
@@ -271,7 +329,7 @@ class CorteProvider with ChangeNotifier {
         );
       }).toList();
       _CorteslistaManager.add(_managerListCortes);
-      
+
       // Ordenar os dados pela data
       _managerListCortes.sort((a, b) {
         return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
