@@ -273,7 +273,7 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
                 ),
               ),
               width: widhScren,
-              height: heighScreen / 1.5,
+              height: heighScreen * 0.76,
             ),
           ),
           Positioned(

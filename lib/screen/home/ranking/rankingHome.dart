@@ -149,12 +149,14 @@ class _RankingHomeState extends State<RankingHome> {
                               bottomRight: Radius.elliptical(45, 45),
                             ),
                             child: top2User != null
-                               ? Container(width: 90,height: 90,
-                                  child: Image.network(
+                                ? Container(
+                                    width: widget.widhScreen / 3.8,
+                                    height: widget.heighScreen * 0.14,
+                                    child: Image.network(
                                       "${top2User!.urlImage}",
                                       fit: BoxFit.cover,
                                     ),
-                                )
+                                  )
                                 : Image.asset(
                                     Estabelecimento.defaultAvatar,
                                     fit: BoxFit.cover,
@@ -185,7 +187,7 @@ class _RankingHomeState extends State<RankingHome> {
                         ),
                       ),
                       Positioned(
-                        top: 105,
+                          top: MediaQuery.of(context).size.height * 0.16,
                         child: Column(
                           children: [
                             Text(
@@ -262,12 +264,14 @@ class _RankingHomeState extends State<RankingHome> {
                               bottomRight: Radius.elliptical(45, 45),
                             ),
                             child: top1User!.urlImage != null
-                                ? Container(width: 90,height: 90,
-                                  child: Image.network(
+                                ? Container(
+                                    width: widget.widhScreen / 3.8,
+                                    height: widget.heighScreen * 0.14,
+                                    child: Image.network(
                                       "${top1User!.urlImage}",
                                       fit: BoxFit.cover,
                                     ),
-                                )
+                                  )
                                 : Image.asset(
                                     Estabelecimento.defaultAvatar,
                                     fit: BoxFit.cover,
@@ -319,7 +323,7 @@ class _RankingHomeState extends State<RankingHome> {
                         ),
                       ),
                       Positioned(
-                        top: 105,
+                      top: MediaQuery.of(context).size.height * 0.16,
                         child: Column(
                           children: [
                             Text(
@@ -396,12 +400,14 @@ class _RankingHomeState extends State<RankingHome> {
                               bottomRight: Radius.elliptical(45, 45),
                             ),
                             child: top3User!.urlImage != null
-                                ? Container(width: 90,height: 90,
-                                  child: Image.network(
+                                ? Container(
+                                    width: widget.widhScreen / 3.8,
+                                    height: widget.heighScreen * 0.14,
+                                    child: Image.network(
                                       "${top3User!.urlImage}",
                                       fit: BoxFit.cover,
                                     ),
-                                )
+                                  )
                                 : Image.asset(
                                     Estabelecimento.defaultAvatar,
                                     fit: BoxFit.cover,
@@ -432,7 +438,7 @@ class _RankingHomeState extends State<RankingHome> {
                         ),
                       ),
                       Positioned(
-                        top: 105,
+                        top: MediaQuery.of(context).size.height * 0.16,
                         child: Column(
                           children: [
                             Text(

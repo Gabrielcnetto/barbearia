@@ -38,12 +38,13 @@ class _providerLoadingHistoryListState
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         width: widget.widhtScreen,
-        height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.12,
+        height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.1,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Estabelecimento.primaryColor.withOpacity(0.2),
         ),
         child: Column(
+          mainAxisAlignment:exibirInformacoes ? MainAxisAlignment.start: MainAxisAlignment.center,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

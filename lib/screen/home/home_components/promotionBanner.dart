@@ -42,7 +42,7 @@ class PromotionBannerComponents extends StatelessWidget {
                     height: 120,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(17),
-                      child: Image.asset(
+                      child: Image.network(
                         banner.AssetUrl,
                         fit: BoxFit.cover,
                       ),
