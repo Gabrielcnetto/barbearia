@@ -51,7 +51,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
           return Container(
             width: double.infinity,
             child: Container(
-              padding: EdgeInsets.only(top: 15, left: 20, right: 20),
+              padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -68,20 +68,20 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Text(
                     "Código Único",
                     style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                         fontSize: 18,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
@@ -95,7 +95,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -106,7 +106,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                       children: [
                         //DIGITO 1 - INICIO
                         Container(
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -125,7 +125,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                         //DIGITO 1 - FIM
                         //DIGITO 2 - INICIO
                         Container(
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -145,7 +145,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
 
                         //DIGITO 3 - INICIO
                         Container(
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -164,7 +164,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                         //DIGITO 3 - FIM
                         //DIGITO 4 - INICIO
                         Container(
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -184,7 +184,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
 
                         //DIGITO 5 - INICIO
                         Container(
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -213,7 +213,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                       alignment: Alignment.center,
                       width: MediaQuery.of(context).size.width / 1.3,
                       height: 50,
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Estabelecimento.primaryColor,

@@ -31,7 +31,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.only(top: 20, right: 15, left: 15),
+        padding: const EdgeInsets.only(top: 20, right: 15, left: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -44,14 +44,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       Text(
                         "Seu Histórico de Cortes",
                         style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Color.fromRGBO(32, 32, 32, 1),
                             fontSize: 15,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Container(
@@ -60,7 +60,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           "Visualize o histórico de Cortes que você já realizou conosco",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Color.fromRGBO(144, 144, 144, 1),
                               fontSize: 13,
@@ -72,7 +72,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               _listaCortes.isEmpty
@@ -89,7 +89,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             Text(
                               "Realize seu Primeiro Agendamento",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),

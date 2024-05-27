@@ -74,7 +74,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
               decoration: BoxDecoration(
                   color: _randomColor, borderRadius: BorderRadius.circular(25)),
               width: MediaQuery.of(context).size.width * 1,
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -92,11 +92,11 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                         child: Text(
                           "${widget.Corte.profissionalSelect}",
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.white,
                               fontSize: 13,
@@ -107,7 +107,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                       Text(
                         "${Estabelecimento.nomeLocal}",
                         style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                             fontSize: 18,
@@ -116,7 +116,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -136,13 +136,13 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
                         "${widget.Corte.clientName}",
                         style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
                               fontSize: 17),
@@ -150,7 +150,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -170,13 +170,13 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(
                         "${widget.Corte.sobrancelha == true ? "Inclusa" : "Não Inclusa"}",
                         style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
                               fontSize: 17),
@@ -184,7 +184,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -192,18 +192,18 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                     children: [
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.schedule,
                             size: 25,
                             color: Colors.white,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
                             "${widget.Corte.horarioCorte}h",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.white,
                                   fontSize: 15),
@@ -220,7 +220,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                                    
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 1),
                                 decoration: BoxDecoration(
                                     color: Colors.green.shade600,
@@ -231,7 +231,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                                     Text(
                                       "Entrar em contato",
                                       style: GoogleFonts.openSans(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           color: Colors.white,
                                           fontSize: 12,

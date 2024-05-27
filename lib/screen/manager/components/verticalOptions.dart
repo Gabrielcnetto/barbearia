@@ -65,19 +65,19 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: Text("Código Validado"),
-          content: Text("Presença do Cliente Confirmada"),
+          title: const Text("Código Validado"),
+          content: const Text("Presença do Cliente Confirmada"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => ManagerScreenView(),
+                    builder: (BuildContext context) => const ManagerScreenView(),
                     fullscreenDialog: true,
                   ),
                 );
               },
-              child: Text("Fechar"),
+              child: const Text("Fechar"),
             ),
           ],
         );
@@ -187,7 +187,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
         return Container(
           height: MediaQuery.of(context).size.height * 0.7,
           width: double.infinity,
-          padding: EdgeInsets.only(top: 10, right: 20, left: 20),
+          padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -199,20 +199,20 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Text(
                   "Código Único",
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,
                       fontSize: 18,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
@@ -240,7 +240,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           alignment: Alignment.center,
                           width: 62,
                           height: 72,
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -251,13 +251,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                             focusNode: _focusNode1,
                             
                             controller: num1,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontSize: 17,
                             ),
                             textAlign: TextAlign.center,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
@@ -271,7 +271,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           alignment: Alignment.center,
                           width: 62,
                           height: 72,
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -281,13 +281,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                             textInputAction: TextInputAction.next,
                             focusNode: _focusNode2,
                             controller: num2,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontSize: 17,
                             ),
                             textAlign: TextAlign.center,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
@@ -302,7 +302,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           alignment: Alignment.center,
                           width: 62,
                           height: 72,
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -311,13 +311,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
                             controller: num3,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontSize: 17,
                             ),
                             textAlign: TextAlign.center,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
@@ -331,7 +331,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           alignment: Alignment.center,
                           width: 62,
                           height: 72,
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -340,13 +340,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
                             controller: num4,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontSize: 17,
                             ),
                             textAlign: TextAlign.center,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
@@ -361,7 +361,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           alignment: Alignment.center,
                           width: 62,
                           height: 72,
-                          padding: EdgeInsets.all(22),
+                          padding: const EdgeInsets.all(22),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:
@@ -370,13 +370,13 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           child: TextFormField(
                             textInputAction: TextInputAction.done,
                             controller: num5,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontSize: 17,
                             ),
                             textAlign: TextAlign.center,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
@@ -386,7 +386,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 InkWell(
@@ -398,7 +398,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width / 1.3,
                     height: 50,
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Estabelecimento.primaryColor,
@@ -434,14 +434,14 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               Text(
                 "Opções Avançadas",
                 style: GoogleFonts.openSans(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
                     fontSize: 22,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               //VERIFICAR O CODIGO - INICIO
@@ -449,9 +449,9 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                 onTap: showVerificationModalManager,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(32, 32, 32, 0.1),
+                      color: const Color.fromRGBO(32, 32, 32, 0.1),
                       borderRadius: BorderRadius.circular(15)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -460,14 +460,14 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Color.fromRGBO(32, 32, 32, 0.2),
+                              color: const Color.fromRGBO(32, 32, 32, 0.2),
                             ),
-                            child: Icon(Icons.qr_code),
+                            child: const Icon(Icons.qr_code),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -476,7 +476,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                               Text(
                                 "Verificar Código do Cliente",
                                 style: GoogleFonts.openSans(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14),
                                 ),
@@ -499,7 +499,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                         ],
                       ),
                       Container(
-                        child: Icon(
+                        child: const Icon(
                           Icons.chevron_right,
                         ),
                       ),
@@ -509,7 +509,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               ),
 
               //VERIFICAR O CODIGO - FIM
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
             ],

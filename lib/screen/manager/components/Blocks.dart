@@ -93,7 +93,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                         Container(
                           width: 60,
                           height: 60,
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(45),
@@ -103,26 +103,26 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                             color: Colors.grey.shade700,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
                           "${totalClientes}",
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                               fontSize: 24,
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 2,
                         ),
                         Text(
                           "Clientes",
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.black45,
                               fontSize: 14,
@@ -133,7 +133,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Expanded(
@@ -155,7 +155,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                 Container(
                                   width: 40,
                                   height: 40,
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(45),
@@ -166,7 +166,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                     size: 20,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
@@ -174,20 +174,20 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                       ? "${totalCortesNomES} cortes"
                                       : "${totalCortesNomES} corte",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                       fontSize: 24,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "Agendados em ${mesAtual ?? "Carregando..."}",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black54,
                                       fontSize: 12,
@@ -198,7 +198,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Expanded(
@@ -215,7 +215,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                 Container(
                                   width: 40,
                                   height: 40,
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(45),
@@ -226,7 +226,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                     size: 20,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
@@ -234,20 +234,20 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                       ? "R\$${totalCortesNomES! * 35},00"
                                       : "R\$0,00",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                       fontSize: 24,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   "Faturamento esperado",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black54,
                                       fontSize: 12,

@@ -97,7 +97,7 @@ class _RankingHomeState extends State<RankingHome> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             //TOP 3 RANKING
@@ -116,7 +116,7 @@ class _RankingHomeState extends State<RankingHome> {
                         height: widget.heighScreen * 0.325,
                         decoration: BoxDecoration(
                           color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.elliptical(45, 45),
                             topRight: Radius.elliptical(45, 45),
                             bottomLeft: Radius.circular(5),
@@ -128,11 +128,11 @@ class _RankingHomeState extends State<RankingHome> {
                         padding:
                             const EdgeInsets.only(top: 5.2, right: 2, left: 2),
                         child: Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: Colors.grey.shade500,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.elliptical(45, 45),
                               bottomLeft: Radius.elliptical(45, 45),
                               topRight: Radius.elliptical(45, 45),
@@ -142,7 +142,7 @@ class _RankingHomeState extends State<RankingHome> {
                           width: widget.widhScreen / 3.8,
                           height: widget.heighScreen * 0.14,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.elliptical(45, 45),
                               bottomLeft: Radius.elliptical(45, 45),
                               topRight: Radius.elliptical(45, 45),
@@ -178,7 +178,7 @@ class _RankingHomeState extends State<RankingHome> {
                           child: Text(
                             "2º",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -193,14 +193,14 @@ class _RankingHomeState extends State<RankingHome> {
                             Text(
                               "${top2User!.name ?? ""}",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                   fontSize: 14,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
@@ -229,7 +229,7 @@ class _RankingHomeState extends State<RankingHome> {
                         alignment: Alignment.center,
                         width: widget.widhScreen / 3.5,
                         height: widget.heighScreen * 0.35,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromRGBO(251, 188, 0, 0.15),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.elliptical(45, 45),
@@ -243,9 +243,9 @@ class _RankingHomeState extends State<RankingHome> {
                         padding:
                             const EdgeInsets.only(top: 5.2, right: 2, left: 2),
                         child: Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color.fromRGBO(251, 188, 0, 1),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.elliptical(45, 45),
@@ -257,7 +257,7 @@ class _RankingHomeState extends State<RankingHome> {
                           width: widget.widhScreen / 3.8,
                           height: widget.heighScreen * 0.14,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.elliptical(45, 45),
                               bottomLeft: Radius.elliptical(45, 45),
                               topRight: Radius.elliptical(45, 45),
@@ -293,7 +293,7 @@ class _RankingHomeState extends State<RankingHome> {
                           child: Text(
                             "1º",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -309,7 +309,7 @@ class _RankingHomeState extends State<RankingHome> {
                           width: 35,
                           height: 35,
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(251, 188, 0, 1),
+                            color: const Color.fromRGBO(251, 188, 0, 1),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Container(
@@ -329,14 +329,14 @@ class _RankingHomeState extends State<RankingHome> {
                             Text(
                               "${top1User!.name}",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                   fontSize: 14,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
@@ -365,7 +365,7 @@ class _RankingHomeState extends State<RankingHome> {
                         alignment: Alignment.center,
                         width: widget.widhScreen / 3.5,
                         height: widget.heighScreen * 0.3,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromRGBO(177, 79, 50, 0.3),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.elliptical(45, 45),
@@ -379,9 +379,9 @@ class _RankingHomeState extends State<RankingHome> {
                         padding:
                             const EdgeInsets.only(top: 5.2, right: 2, left: 2),
                         child: Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Color.fromRGBO(177, 79, 50, 1),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.elliptical(45, 45),
@@ -393,7 +393,7 @@ class _RankingHomeState extends State<RankingHome> {
                           width: widget.widhScreen / 3.8,
                           height: widget.heighScreen * 0.14,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.elliptical(45, 45),
                               bottomLeft: Radius.elliptical(45, 45),
                               topRight: Radius.elliptical(45, 45),
@@ -429,7 +429,7 @@ class _RankingHomeState extends State<RankingHome> {
                           child: Text(
                             "3º",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -444,14 +444,14 @@ class _RankingHomeState extends State<RankingHome> {
                             Text(
                               "${top3User!.name}",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                   fontSize: 14,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
@@ -492,7 +492,7 @@ class _RankingHomeState extends State<RankingHome> {
                     //INICIO DO QUARTO LUGAR
                     Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                          const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -515,7 +515,7 @@ class _RankingHomeState extends State<RankingHome> {
                                         ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
@@ -526,7 +526,7 @@ class _RankingHomeState extends State<RankingHome> {
                                   Text(
                                     "${top4User!.name}",
                                     style: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black,
                                         fontSize: 14,
@@ -553,12 +553,12 @@ class _RankingHomeState extends State<RankingHome> {
                             height: 32,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                color: Color.fromRGBO(217, 217, 217, 1)),
-                            padding: EdgeInsets.all(5),
+                                color: const Color.fromRGBO(217, 217, 217, 1)),
+                            padding: const EdgeInsets.all(5),
                             child: Text(
                               "4",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w800,
                                   color: Colors.black,
                                   fontSize: 13,
@@ -573,11 +573,11 @@ class _RankingHomeState extends State<RankingHome> {
                     Container(
                       width: double.infinity,
                       height: 0.8,
-                      color: Color.fromRGBO(32, 32, 32, 0.2),
+                      color: const Color.fromRGBO(32, 32, 32, 0.2),
                     ),
                     Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                          const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -600,7 +600,7 @@ class _RankingHomeState extends State<RankingHome> {
                                         ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Column(
@@ -611,7 +611,7 @@ class _RankingHomeState extends State<RankingHome> {
                                   Text(
                                     "${top5User!.name}",
                                     style: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black,
                                         fontSize: 14,
@@ -638,12 +638,12 @@ class _RankingHomeState extends State<RankingHome> {
                             height: 32,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                color: Color.fromRGBO(217, 217, 217, 1)),
-                            padding: EdgeInsets.all(5),
+                                color: const Color.fromRGBO(217, 217, 217, 1)),
+                            padding: const EdgeInsets.all(5),
                             child: Text(
                               "5",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w800,
                                   color: Colors.black,
                                   fontSize: 13,

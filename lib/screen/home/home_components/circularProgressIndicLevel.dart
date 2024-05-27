@@ -57,7 +57,7 @@ class _CircularProgressWithImageState extends State<CircularProgressWithImage> {
         if (isManager == true) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (BuildContext context) => ManagerScreenView(),
+              builder: (BuildContext context) => const ManagerScreenView(),
               fullscreenDialog: true,
             ),
           );

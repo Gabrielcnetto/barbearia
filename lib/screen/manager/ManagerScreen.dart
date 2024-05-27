@@ -74,19 +74,19 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                       onTap: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (BuildContext context) => HomeScreen01(),
+                            builder: (BuildContext context) => const HomeScreen01(),
                             fullscreenDialog: true,
                           ),
                         );
                       },
                       child: Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.grey.shade200,
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back_ios,
                           size: 15,
                         ),
@@ -102,7 +102,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                             Text(
                               "Profissional",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black54,
                                 ),
@@ -111,7 +111,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                             Text(
                               "${userName ?? "Carregando..."}",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colors.black,
                                 ),
@@ -119,7 +119,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Container(
@@ -145,22 +145,22 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Text(
                   "Dashboard",
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.black,
                       fontSize: 22,
                     ),
                   ),
                 ),
-                BlocksManagerComponent(),
-                ManagerVerticalOptions(),
-                CortesHojeLista(),
+                const BlocksManagerComponent(),
+                const ManagerVerticalOptions(),
+                const CortesHojeLista(),
               ],
             ),
           ),

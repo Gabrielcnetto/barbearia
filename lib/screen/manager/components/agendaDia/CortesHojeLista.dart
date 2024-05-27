@@ -112,7 +112,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
         builder: (ctx) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.72,
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,13 +120,13 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                 Text(
                   "Filtrar agenda profissional",
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                         color: Colors.black87),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -136,7 +136,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                       color: Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(0.5)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -154,7 +154,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                           ),
                         ),
                         padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                            const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Row(
@@ -163,7 +163,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                               Text(
                                 profissional1,
                                 style: GoogleFonts.openSans(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
@@ -172,12 +172,12 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                               InkWell(
                                 onTap: setFilterProfissional1,
                                 child: filterProfissional1 == true
-                                    ? Padding(
-                                        padding: const EdgeInsets.all(10),
+                                    ? const Padding(
+                                        padding: EdgeInsets.all(10),
                                         child: Icon(Icons.check_box),
                                       )
-                                    : Padding(
-                                        padding: const EdgeInsets.all(10),
+                                    : const Padding(
+                                        padding: EdgeInsets.all(10),
                                         child: Icon(
                                           Icons.check_box_outline_blank,
                                         ),
@@ -187,7 +187,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       if (profissional2 != null)
@@ -201,7 +201,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                             ),
                           ),
                           padding:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                              const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Row(
@@ -210,7 +210,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                                 Text(
                                   profissional2,
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
                                     ),
@@ -219,12 +219,12 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                                 InkWell(
                                   onTap: setFilterProfissional2,
                                   child: filterProfissional2 == true
-                                      ? Padding(
-                                          padding: const EdgeInsets.all(10),
+                                      ? const Padding(
+                                          padding: EdgeInsets.all(10),
                                           child: Icon(Icons.check_box),
                                         )
-                                      : Padding(
-                                          padding: const EdgeInsets.all(10),
+                                      : const Padding(
+                                          padding: EdgeInsets.all(10),
                                           child: Icon(
                                             Icons.check_box_outline_blank,
                                           ),
@@ -234,7 +234,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                             ),
                           ),
                         ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       if (profissional3 != null)
@@ -248,7 +248,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                             ),
                           ),
                           padding:
-                              EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                              const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Row(
@@ -257,7 +257,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                                 Text(
                                   profissional3,
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
                                     ),
@@ -266,12 +266,12 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                                 InkWell(
                                   onTap: setFilterProfissional3,
                                   child: filterProfissional3 == true
-                                      ? Padding(
-                                          padding: const EdgeInsets.all(10),
+                                      ? const Padding(
+                                          padding: EdgeInsets.all(10),
                                           child: Icon(Icons.check_box),
                                         )
-                                      : Padding(
-                                          padding: const EdgeInsets.all(10),
+                                      : const Padding(
+                                          padding: EdgeInsets.all(10),
                                           child: Icon(
                                             Icons.check_box_outline_blank,
                                           ),
@@ -303,11 +303,11 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                             color: Colors.amber.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(5)),
                         padding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                            const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                         child: Text(
                           "Limpar Filtro",
                           style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 13,
                           )),
@@ -339,7 +339,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
               Text(
                 "Agenda do dia",
                 style: GoogleFonts.openSans(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
                     fontSize: 22,
@@ -353,11 +353,11 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                     decoration: BoxDecoration(
                         color: Estabelecimento.primaryColor,
                         borderRadius: BorderRadius.circular(30)),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
                       "Dia ${diaAtual ?? "Carregando..."}/0${mesAtual ?? "Carregando..."}",
                       style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
                           fontSize: 14,
@@ -365,7 +365,7 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   InkWell(
@@ -380,14 +380,14 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                         color: Estabelecimento.contraPrimaryColor,
                       ),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     ),
                   ),
                 ],
               )
             ],
           ),
-          DiaListaComponent()
+          const DiaListaComponent()
         ],
       ),
     );

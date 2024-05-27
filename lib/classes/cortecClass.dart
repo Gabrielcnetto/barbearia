@@ -1,4 +1,3 @@
-import 'package:barbershop2/classes/horarios.dart';
 
 class CorteClass {
   final String id;

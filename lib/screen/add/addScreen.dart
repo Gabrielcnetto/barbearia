@@ -107,7 +107,7 @@ class _AddScreenState extends State<AddScreen> {
       context: context,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(
-        Duration(days: 14),
+        const Duration(days: 14),
       ),
     ).then((selectUserDate) {
       try {
@@ -120,14 +120,14 @@ class _AddScreenState extends State<AddScreen> {
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              title: Text('Erro'),
+              title: const Text('Erro'),
               content: Text("${e}"),
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Fecha o modal
                   },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             );
@@ -296,7 +296,7 @@ class _AddScreenState extends State<AddScreen> {
             child: Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height / 1,
-              padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+              padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -306,7 +306,7 @@ class _AddScreenState extends State<AddScreen> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back_ios_new,
                           size: 22,
                         ),
@@ -318,13 +318,13 @@ class _AddScreenState extends State<AddScreen> {
                           Text(
                             "Resumo do agendamento",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -341,17 +341,17 @@ class _AddScreenState extends State<AddScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                          const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(217, 217, 217, 0.2),
+                        color: const Color.fromRGBO(217, 217, 217, 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
@@ -361,7 +361,7 @@ class _AddScreenState extends State<AddScreen> {
                           Text(
                             "Nome do Cliente",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromRGBO(144, 144, 144, 1),
                               ),
@@ -370,13 +370,13 @@ class _AddScreenState extends State<AddScreen> {
                           Text(
                             nomeControler.text,
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -384,7 +384,7 @@ class _AddScreenState extends State<AddScreen> {
                           Text(
                             "Contato",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromRGBO(144, 144, 144, 1),
                               ),
@@ -393,21 +393,21 @@ class _AddScreenState extends State<AddScreen> {
                           Text(
                             numberControler.text,
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
                             ),
                           ),
                           //data
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           //contato
                           Text(
                             "Data",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromRGBO(144, 144, 144, 1),
                               ),
@@ -417,20 +417,20 @@ class _AddScreenState extends State<AddScreen> {
                             DateFormat("dd/MM/yyy")
                                 .format(dataSelectedInModal!),
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           //Horario
                           Text(
                             "Horário",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromRGBO(144, 144, 144, 1),
                               ),
@@ -439,20 +439,20 @@ class _AddScreenState extends State<AddScreen> {
                           Text(
                             hourSetForUser!,
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
                             ),
                           ),
                           //profissional
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
                             "Profissional",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromRGBO(144, 144, 144, 1),
                               ),
@@ -468,7 +468,7 @@ class _AddScreenState extends State<AddScreen> {
                                         ? "${profList[2].nomeProf}"
                                         : "Não Definido",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
@@ -478,7 +478,7 @@ class _AddScreenState extends State<AddScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   InkWell(
@@ -495,7 +495,7 @@ class _AddScreenState extends State<AddScreen> {
                           color: Estabelecimento.primaryColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -509,7 +509,7 @@ class _AddScreenState extends State<AddScreen> {
                                 fontWeight: FontWeight.w600,
                               )),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 15,
                             ),
                             Icon(
@@ -553,7 +553,7 @@ class _AddScreenState extends State<AddScreen> {
             bottom: 0,
             child: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.only(top: 25, left: 25, right: 25),
+                padding: const EdgeInsets.only(top: 25, left: 25, right: 25),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -570,14 +570,14 @@ class _AddScreenState extends State<AddScreen> {
                       Text(
                         "Agendamento de Horários",
                         style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -601,21 +601,21 @@ class _AddScreenState extends State<AddScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Estabelecimento.secondaryColor
                                           .withOpacity(0.4)),
-                                  child: Text("1"),
+                                  child: const Text("1"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
                                   "Nome do Cliente",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -624,7 +624,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Container(
@@ -635,15 +635,15 @@ class _AddScreenState extends State<AddScreen> {
                                   color: Colors.grey.shade200,
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 0, horizontal: 15),
                               child: TextFormField(
                                 controller: nomeControler,
                                 decoration:
-                                    InputDecoration(border: InputBorder.none),
+                                    const InputDecoration(border: InputBorder.none),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             //CONTAINER DO NOME fim
@@ -652,21 +652,21 @@ class _AddScreenState extends State<AddScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Estabelecimento.secondaryColor
                                           .withOpacity(0.4)),
-                                  child: Text("2"),
+                                  child: const Text("2"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
                                   "Telefone de contato",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -675,7 +675,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Container(
@@ -686,15 +686,15 @@ class _AddScreenState extends State<AddScreen> {
                                   color: Colors.grey.shade200,
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 0, horizontal: 15),
                               child: TextFormField(
                                 controller: numberControler,
                                 decoration:
-                                    InputDecoration(border: InputBorder.none),
+                                    const InputDecoration(border: InputBorder.none),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             //CONTAINER DO NUMERO
@@ -703,21 +703,21 @@ class _AddScreenState extends State<AddScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Estabelecimento.secondaryColor
                                           .withOpacity(0.4)),
-                                  child: Text("3"),
+                                  child: const Text("3"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
                                   "Deseja fazer sobrancelha?",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -726,7 +726,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Container(
@@ -739,7 +739,7 @@ class _AddScreenState extends State<AddScreen> {
                                     child: InkWell(
                                       onTap: sobrancelhaFalse,
                                       child: Container(
-                                        padding: EdgeInsets.only(right: 30),
+                                        padding: const EdgeInsets.only(right: 30),
                                         alignment: Alignment.centerRight,
                                         height: heighScreen * 0.07,
                                         width: !sobrancelha
@@ -747,7 +747,7 @@ class _AddScreenState extends State<AddScreen> {
                                             : widhScren / 3,
                                         decoration: BoxDecoration(
                                           color: Estabelecimento.secondaryColor,
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                             topRight: Radius.circular(5),
                                             bottomRight: Radius.circular(5),
                                           ),
@@ -773,14 +773,14 @@ class _AddScreenState extends State<AddScreen> {
                                     child: InkWell(
                                       onTap: sobrancelhaTrue,
                                       child: Container(
-                                        padding: EdgeInsets.only(left: 30),
+                                        padding: const EdgeInsets.only(left: 30),
                                         alignment: Alignment.centerLeft,
                                         height: heighScreen * 0.07,
                                         width: sobrancelha
                                             ? widhScren / 1.8
                                             : widhScren / 3,
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius: const BorderRadius.only(
                                               bottomLeft: Radius.circular(5),
                                               topLeft: Radius.circular(5),
                                               topRight:
@@ -809,7 +809,7 @@ class _AddScreenState extends State<AddScreen> {
                               ),
                             ),
                             //CONTAINER BOOL DA SOBRANCELHA - FIM
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             //CONTAINER DO PROFISSIONAL - INICIO
@@ -817,21 +817,21 @@ class _AddScreenState extends State<AddScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Estabelecimento.secondaryColor
                                           .withOpacity(0.4)),
-                                  child: Text("4"),
+                                  child: const Text("4"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
                                   "Profissional de preferência",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -840,7 +840,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -876,7 +876,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 left: 0,
                                                 right: 0,
                                                 child: Container(
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.check_circle,
                                                     color: Colors.white,
                                                     size: 35,
@@ -896,13 +896,13 @@ class _AddScreenState extends State<AddScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 4,
                                     ),
                                     Text(
                                       _profList[0].nomeProf,
                                       style: GoogleFonts.openSans(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14,
                                         ),
@@ -940,7 +940,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 left: 0,
                                                 right: 0,
                                                 child: Container(
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.check_circle,
                                                     color: Colors.white,
                                                     size: 35,
@@ -960,13 +960,13 @@ class _AddScreenState extends State<AddScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 4,
                                     ),
                                     Text(
                                       _profList[1].nomeProf,
                                       style: GoogleFonts.openSans(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14,
                                         ),
@@ -1004,7 +1004,7 @@ class _AddScreenState extends State<AddScreen> {
                                                 left: 0,
                                                 right: 0,
                                                 child: Container(
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.check_circle,
                                                     color: Colors.white,
                                                     size: 35,
@@ -1024,13 +1024,13 @@ class _AddScreenState extends State<AddScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 4,
                                     ),
                                     Text(
                                       _profList[2].nomeProf,
                                       style: GoogleFonts.openSans(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 14,
                                         ),
@@ -1042,7 +1042,7 @@ class _AddScreenState extends State<AddScreen> {
                             ),
                             //CONTAINER DO PROFISSIONAL - FIM
                             //CONTAINER DA DATA - INICIO
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             //CONTAINER DO PROFISSIONAL - INICIO
@@ -1051,21 +1051,21 @@ class _AddScreenState extends State<AddScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Estabelecimento.secondaryColor
                                           .withOpacity(0.4)),
-                                  child: Text("5"),
+                                  child: const Text("5"),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
                                   "Selecione uma data",
                                   style: GoogleFonts.openSans(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -1074,7 +1074,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             if(isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false)
@@ -1093,7 +1093,7 @@ class _AddScreenState extends State<AddScreen> {
                                     color: Colors.grey.shade300,
                                   ),
                                 ),
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 10),
                                 child: Row(
                                   mainAxisAlignment:
@@ -1120,7 +1120,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             //CONTAINER DA DATA - FIM
@@ -1130,21 +1130,21 @@ class _AddScreenState extends State<AddScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Estabelecimento.secondaryColor
                                             .withOpacity(0.4)),
-                                    child: Text("6"),
+                                    child: const Text("6"),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     "Selecione um horário",
                                     style: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black,
@@ -1158,12 +1158,12 @@ class _AddScreenState extends State<AddScreen> {
                                 width: double.infinity,
                                 //  height: heighScreen * 0.64,
                                 child: GridView.builder(
-                                  padding: EdgeInsets.only(top: 5),
+                                  padding: const EdgeInsets.only(top: 5),
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemCount: horarioFinal.length,
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 2.3,
                                     childAspectRatio: 2.3,
@@ -1189,7 +1189,7 @@ class _AddScreenState extends State<AddScreen> {
                                         child: Container(
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
+                                            borderRadius: const BorderRadius.only(
                                               bottomLeft:
                                                   Radius.elliptical(20, 20),
                                               bottomRight:
@@ -1201,11 +1201,11 @@ class _AddScreenState extends State<AddScreen> {
                                             ),
                                             color: color,
                                           ),
-                                          padding: EdgeInsets.all(10),
+                                          padding: const EdgeInsets.all(10),
                                           child: Text(
                                             "${horarioFinal[index].horario}",
                                             style: GoogleFonts.openSans(
-                                                textStyle: TextStyle(
+                                                textStyle: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                               fontSize: 15,
@@ -1231,7 +1231,7 @@ class _AddScreenState extends State<AddScreen> {
                                       color: Estabelecimento.primaryColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 20),
+                                    padding: const EdgeInsets.symmetric(vertical: 20),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -1248,7 +1248,7 @@ class _AddScreenState extends State<AddScreen> {
                                             fontWeight: FontWeight.w600,
                                           )),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 15,
                                         ),
                                         Icon(
@@ -1262,7 +1262,7 @@ class _AddScreenState extends State<AddScreen> {
                                   ),
                                 ),
                               ),
-                            SizedBox(
+                            const SizedBox(
                               height: 25,
                             ),
                             //botao do agendar - fim

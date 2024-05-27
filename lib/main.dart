@@ -16,7 +16,7 @@ import 'package:barbershop2/screen/manager/ManagerScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'screen/login/registerAccount.dart';
 import 'rotas/verificationLogin.dart';
 
@@ -27,6 +27,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  //Crashlist para enviar erros que acontecem no cll do usuario
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   runApp(const MyApp());
 }
 
@@ -71,14 +76,14 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: Colors.white,
             cancelButtonStyle: ButtonStyle(
               textStyle: MaterialStateProperty.all<TextStyle>(
-                TextStyle(
+                const TextStyle(
                   color: Colors.black,
                 ),
               ),
             ),
             confirmButtonStyle: ButtonStyle(
               textStyle: MaterialStateProperty.all<TextStyle>(
-                TextStyle(color: Colors.black),
+                const TextStyle(color: Colors.black),
               ),
             ),
           ),
@@ -93,8 +98,8 @@ class _MyAppState extends State<MyApp> {
           AppRoutesApp.HomeScreen01: (ctx) => const HomeScreen01(),
           AppRoutesApp.RegisterAccountScreen: (ctx) =>
               const RegisterAccountScreen(),
-          AppRoutesApp.ConfirmScreenCorte: (ctx) => ConfirmScreenCorte(),
-          AppRoutesApp.ManagerScreenView: (ctx) => ManagerScreenView(),
+          AppRoutesApp.ConfirmScreenCorte: (ctx) => const ConfirmScreenCorte(),
+          AppRoutesApp.ManagerScreenView: (ctx) => const ManagerScreenView(),
         },
       ),
     );

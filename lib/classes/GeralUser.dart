@@ -1,4 +1,3 @@
-import 'package:barbershop2/classes/cortecClass.dart';
 
 class GeralUser {
 

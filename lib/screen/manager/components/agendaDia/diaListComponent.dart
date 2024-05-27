@@ -40,7 +40,7 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
             .CorteslistaManager,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: LinearProgressIndicator(),
             );
           } else if (snapshot.hasError) {

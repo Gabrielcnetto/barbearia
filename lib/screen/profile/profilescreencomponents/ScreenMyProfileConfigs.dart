@@ -124,19 +124,19 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Text(
                   "Sua foto de perfil foi Atualizada!",
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
@@ -156,7 +156,7 @@ class _ScreenComponentsMyProfileState extends State<ScreenComponentsMyProfile> {
                     padding:
                         const EdgeInsets.only(top: 80, left: 20, right: 20),
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Estabelecimento.primaryColor,

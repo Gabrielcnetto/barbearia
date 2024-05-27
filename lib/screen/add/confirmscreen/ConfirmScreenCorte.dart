@@ -29,7 +29,7 @@ class ConfirmScreenCorte extends StatelessWidget {
                 width: widhtScreen,
                 height: heighScreen,
                 child: Image.asset(
-                  opacity: AlwaysStoppedAnimation<double>(0.35),
+                  opacity: const AlwaysStoppedAnimation<double>(0.35),
                   Estabelecimento.bannerInitial,
                   fit: BoxFit.cover,
                 ),
@@ -44,28 +44,28 @@ class ConfirmScreenCorte extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         color: Colors.black54),
-                    padding: EdgeInsets.all(25),
-                    child: Icon(
+                    padding: const EdgeInsets.all(25),
+                    child: const Icon(
                       Icons.done,
                       size: 42,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Text(
                     "Agendamento realizado \n com sucesso!",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                         fontSize: 17,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   InkWell(
@@ -75,7 +75,7 @@ class ConfirmScreenCorte extends StatelessWidget {
                     child: Container(
                       alignment: Alignment.center,
                       width: widhtScreen * 0.8,
-                      padding: EdgeInsets.symmetric(vertical: 27),
+                      padding: const EdgeInsets.symmetric(vertical: 27),
                       decoration: BoxDecoration(
                         color: Colors.black87.withOpacity(0.9),
                         borderRadius: BorderRadius.circular(15),
@@ -83,7 +83,7 @@ class ConfirmScreenCorte extends StatelessWidget {
                       child: Text(
                         "Página inicial",
                         style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 17,
                             color: Colors.white,

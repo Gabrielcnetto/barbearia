@@ -68,7 +68,7 @@ class _HomeOnlyWidgetsState extends State<HomeOnlyWidgets> {
                     heighScreen: heighTela,
                     widhScreen: widhtTela,
                   )
-                : RankingSemUsuarios(),
+                : const RankingSemUsuarios(),
           ],
         ),
       ),

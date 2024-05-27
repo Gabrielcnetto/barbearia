@@ -36,7 +36,7 @@ class _providerLoadingHistoryListState
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         width: widget.widhtScreen,
         height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.1,
         decoration: BoxDecoration(
@@ -56,9 +56,9 @@ class _providerLoadingHistoryListState
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.elliptical(25, 25),
                           topRight: Radius.elliptical(25, 25),
                           bottomLeft: Radius.elliptical(25, 25),
@@ -72,7 +72,7 @@ class _providerLoadingHistoryListState
                         color: Estabelecimento.contraPrimaryColor,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Column(
@@ -85,19 +85,19 @@ class _providerLoadingHistoryListState
                             Text(
                               "Corte Realizado",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
                             Text(
                               "${widget.corte.DiaDoCorte} de ${widget.corte.NomeMes} de ${widget.corte.dateCreateAgendamento.year}",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black45,
                                 ),
@@ -117,7 +117,7 @@ class _providerLoadingHistoryListState
                   },
                   child: Container(
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Icon(
                         exibirInformacoes
                             ? Icons.expand_more
@@ -147,13 +147,13 @@ class _providerLoadingHistoryListState
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
                             "${widget.corte.profissionalSelect}",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black,
                               ),
@@ -162,7 +162,7 @@ class _providerLoadingHistoryListState
                         ],
                       ),
                       //FIM PROF
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       //INICIO SOBRANCELHA
@@ -177,13 +177,13 @@ class _providerLoadingHistoryListState
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
                             "${widget.corte.sobrancelha == true ? "Sim" : "Não"}",
                             style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
                                 color: Colors.black,
                               ),
@@ -193,7 +193,7 @@ class _providerLoadingHistoryListState
                       ),
                       //FIM SOBRANCELHA
       
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       //INICIO DO PRECO
@@ -208,7 +208,7 @@ class _providerLoadingHistoryListState
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Container(
@@ -231,7 +231,7 @@ class _providerLoadingHistoryListState
                         ],
                       ),
                       //FIM DO PRECO
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
@@ -245,7 +245,7 @@ class _providerLoadingHistoryListState
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Container(

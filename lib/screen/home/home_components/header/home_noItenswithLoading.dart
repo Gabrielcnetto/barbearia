@@ -216,7 +216,7 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
                 width: widget.widhTela,
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 height: widget.widhTela / 2.3,
-                child: CircularProgressIndicator.adaptive(),
+                child: const CircularProgressIndicator.adaptive(),
               ),
             ),
           ],
