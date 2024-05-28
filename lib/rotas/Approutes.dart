@@ -6,5 +6,6 @@ class AppRoutesApp {
   static const RegisterAccountScreen = "/RegisterAccountScreen";
   static const ConfirmScreenCorte = "ConfirmScreenCorte";
   static const ManagerScreenView = "/ManagerScreenView";
+  static const DesmarcarCorteFuncao = "/DesmarcarCorteFuncao";
 
 }

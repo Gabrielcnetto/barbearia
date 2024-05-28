@@ -113,115 +113,91 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
             ? heighTelaFinal / 2.1
             : heighTelaFinal / 1.9;
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: setHeigh * 0.85,
-        maxHeight: setHeigh * 0.85,
-        minWidth: widget.widhTela,
-        maxWidth: widget.widhTela,
+  constraints: BoxConstraints(
+    minHeight: setHeigh * 0.85,
+    maxHeight: setHeigh * 0.85,
+    minWidth: widget.widhTela,
+    maxWidth: widget.widhTela,
+  ),
+  child: Stack(
+    children: [
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Estabelecimento.secondaryColor.withOpacity(0.1),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.elliptical(60, 60),
+            bottomRight: Radius.elliptical(60, 60),
+          ),
+        ),
       ),
-      child: Container(
-        padding: const EdgeInsets.only(top: 5),
-        child: Stack(
+      Padding(
+        padding: const EdgeInsets.only(left: 15, top: 45, right: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: setHeigh * 0.85,
-                maxHeight: setHeigh * 0.85,
-                minWidth: widget.widhTela,
-                maxWidth: widget.widhTela,
-              ),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Estabelecimento.secondaryColor.withOpacity(0.1),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.elliptical(60, 60),
-                    bottomRight: Radius.elliptical(60, 60),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                Estabelecimento.nomeLocal,
+                style: GoogleFonts.openSans(
+                  fontWeight: FontWeight.w600,
+                  color: Estabelecimento.secondaryColor,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, top: 45, right: 15),
-              child: Positioned(
-                top: 0,
-                child: Column(
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          textAlign: TextAlign.center,
-                          Estabelecimento.nomeLocal,
-                          style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Estabelecimento.secondaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
+                    Text(
+                      "Bem-vindo(a), ${finalName ?? "..."}",
+                      style: GoogleFonts.openSans(
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        fontSize: 18,
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Bem-vindo(a), ${finalName ?? "..."}",
-                                style: GoogleFonts.openSans(
-                                  textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                  "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
-                                style: GoogleFonts.openSans(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey.shade700,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          CircularProgressWithImage(
-                            totalCortes: Provider.of<CorteProvider>(context,
-                                    listen: false)
-                                .userCortesTotal
-                                .length,
-                            progress: calcularProgresso(),
-                            imageSize: widget.widhTela / 5.5,
-                            widghTela: widget.widhTela,
-                            imageUrl: urlImagePhoto != null
-                                ? urlImagePhoto!
-                                : Estabelecimento.defaultAvatar,
-                          ),
-                        ],
+                    Text(
+                      "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
+                      style: GoogleFonts.openSans(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 14,
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            Positioned(bottom: 0,
-              child: Container(
-                width: widget.widhTela,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                height: widget.widhTela / 2.3,
-                child: const CircularProgressIndicator.adaptive(),
-              ),
+                CircularProgressWithImage(
+                  totalCortes: Provider.of<CorteProvider>(context, listen: false).userCortesTotal.length,
+                  progress: calcularProgresso(),
+                  imageSize: widget.widhTela / 5.5,
+                  widghTela: widget.widhTela,
+                  imageUrl: urlImagePhoto != null ? urlImagePhoto! : Estabelecimento.defaultAvatar,
+                ),
+              ],
             ),
           ],
         ),
       ),
-    );
+      Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: Container(
+          width: widget.widhTela,
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          height: widget.widhTela / 2.3,
+          child: const CircularProgressIndicator.adaptive(),
+        ),
+      ),
+    ],
+  ),
+);
+
   }
 }

@@ -31,9 +31,11 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
       stream: Provider.of<CorteProvider>(context, listen: true).cortesStream,
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Home_noItensWithLoadin(
-            heighTela: widget.heighTela,
-            widhTela: widget.widhTela,
+          return SafeArea(
+            child: Home_noItensWithLoadin(
+              heighTela: widget.heighTela,
+              widhTela: widget.widhTela,
+            ),
           );
         } else if (snapshot.hasError) {
           return Text('Erro: ${snapshot.error}');
@@ -42,15 +44,19 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
 
           if (cortes != null && cortes.isNotEmpty && cortes[0].isActive == true) {
             // Se houver itens na lista, mostre o widget correspondente
-            return HomePageHeader(
-              heighTela: widget.heighTela,
-              widhTela: widget.widhTela,
+            return SafeArea(
+              child: HomePageHeader(
+                heighTela: widget.heighTela,
+                widhTela: widget.widhTela,
+              ),
             );
           } else {
             // Se a lista estiver vazia, mostre o widget correspondente
-            return HomeHeaderSemLista(
-              heighTela: widget.heighTela,
-              widhTela: widget.widhTela,
+            return SafeArea(
+              child: HomeHeaderSemLista(
+                heighTela: widget.heighTela,
+                widhTela: widget.widhTela,
+              ),
             );
           }
         }

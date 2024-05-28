@@ -1,5 +1,3 @@
-
-import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/profissionais.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,23 +34,25 @@ class ProfissionaisList extends StatelessWidget {
           SingleChildScrollView(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _listProfs.map((prof) {
+              children: 
+              _listProfs.length == 2 ?
+               _listProfs.map((prof) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(
                     width: widhScreen > 300
-                        ? widhScreen * 0.27
+                        ? widhScreen * 0.45
                         : widhScreen * 0.24,
-                    height: 160,
+                    height: heighScreen * 0.35,
                     child: Column(
                       children: [
                         Stack(
                           children: [
                             Container(
                               width: widhScreen > 250
-                                  ? widhScreen * 0.27
+                                  ? widhScreen * 0.40
                                   : widhScreen * 0.24,
-                              height: 130,
+                              height: heighScreen * 0.30,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.asset(
@@ -61,8 +61,6 @@ class ProfissionaisList extends StatelessWidget {
                                 ),
                               ),
                             ),
-                           
-         
                           ],
                         ),
                         const SizedBox(
@@ -85,7 +83,55 @@ class ProfissionaisList extends StatelessWidget {
                     ),
                   ),
                 );
-              }).toList(),
+              }).toList() :              _listProfs.map((prof) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: 
+                  Container(
+                    width: widhScreen > 300
+                        ? widhScreen * 0.27
+                        : widhScreen * 0.24,
+                    height: 160,
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              width: widhScreen > 250
+                                  ? widhScreen * 0.27
+                                  : widhScreen * 0.24,
+                              height: 130,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset(
+                                  prof.assetImage,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              prof.nomeProf,
+                              style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList()
             ),
           )
         ],

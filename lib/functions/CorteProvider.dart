@@ -26,7 +26,7 @@ class CorteProvider with ChangeNotifier {
         await DateFormat('MMMM', 'pt_BR').format(selectDateForUser);
     print(monthName);
     print("entrei na funcao");
-   final nomeBarber = Uri.encodeFull(nomeBarbeiro);
+    final nomeBarber = Uri.encodeFull(nomeBarbeiro);
 
     try {
       //adicionado lista principal de cortes do dia
@@ -56,8 +56,8 @@ class CorteProvider with ChangeNotifier {
       final addAllcuts = await database
           .collection("allCuts")
           .doc(monthName)
-          .collection("${diaCorteSelect}")
-          .add({
+          .collection("${diaCorteSelect}").doc(corte.id)
+          .set({
         "id": corte.id,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
@@ -95,7 +95,8 @@ class CorteProvider with ChangeNotifier {
           .collection("meusCortes")
           .doc(userId)
           .collection("lista")
-          .add({
+          .doc(corte.id)
+          .set({
         "id": corte.id,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
@@ -128,13 +129,15 @@ class CorteProvider with ChangeNotifier {
   List<Horarios> _horariosListLoad = [];
   List<Horarios> get horariosListLoad => [..._horariosListLoad];
   //
-  Future<void> loadCortesDataBaseFuncionts({required DateTime mesSelecionado,
-      required int DiaSelecionado,required String Barbeiroselecionado}) async {
+  Future<void> loadCortesDataBaseFuncionts(
+      {required DateTime mesSelecionado,
+      required int DiaSelecionado,
+      required String Barbeiroselecionado}) async {
     _horariosListLoad.clear();
     await initializeDateFormatting('pt_BR');
 
     String monthName = DateFormat('MMMM', 'pt_BR').format(mesSelecionado);
-      final nomeBarber = Uri.encodeFull(Barbeiroselecionado);
+    final nomeBarber = Uri.encodeFull(Barbeiroselecionado);
 
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -151,7 +154,7 @@ class CorteProvider with ChangeNotifier {
           id: "",
         );
       }).toList();
-      for(var hor in _horariosListLoad){
+      for (var hor in _horariosListLoad) {
         print("horario da lista preenchido: ${hor.horario}");
       }
       _horariosListLoad = horarios;
@@ -346,6 +349,79 @@ class CorteProvider with ChangeNotifier {
   }
 
   //CARREGANDO ALISTA DO DIA, PARA EXIBIR NA TELA DO MANAGER(LISTA2) - FIM
+
+  Future<void> desmarcarCorte(CorteClass corte) async {
+    try {
+      //DELETANDO DA LISTA PRINCIPAL - INICIO
+      print("Entramos na configuração de excluir");
+      final nomeBarber = Uri.encodeFull(corte.profissionalSelect);
+      final referencia = await database
+          .collection("agenda")
+          .doc(corte.NomeMes)
+          .collection("${corte.DiaDoCorte}")
+          .doc(nomeBarber)
+          .collection("all")
+          .doc(corte.horarioCorte);
+
+      print("Esta é a referência: ${referencia.path}");
+
+      await referencia.delete();
+      //DELETANDO DA LISTA PRINCIPAL - FIM
+      //DELETANDO DA MINHA LISTA - INICIO
+      final referenciaMeusCortes = database
+          .collection("meusCortes")
+          .doc(authSettings.currentUser!.uid)
+          .collection("lista")
+          .doc(corte.id);
+      print("referenciaMeus: ${referenciaMeusCortes.path}");
+      await referenciaMeusCortes.delete();
+      //DELETANDO DA MINHA LISTA FIM
+      print("Deletamos com sucesso");
+    } catch (e) {
+      print("Não conseguimos excluir, houve um erro: ${e}");
+    }
+    notifyListeners();
+  }
+
+  Future<void> desmarcarCorteMeus(CorteClass corte) async {
+    try {
+      final referenciaMeusCortes = database
+          .collection("meusCortes")
+          .doc(authSettings.currentUser!.uid)
+          .collection("lista")
+          .doc(corte.id);
+      print("referenciaMeus: ${referenciaMeusCortes.path}");
+      await referenciaMeusCortes.delete();
+      _historyList.removeWhere((item) => item.id == corte.id);
+      _cortesController.add(_historyList);
+
+      print("Deletamos com sucesso o do MeusCortes");
+    } catch (e) {
+      print("Não conseguimos excluir, houve um erro: ${e}");
+    }
+    notifyListeners();
+  }
+
+    Future<void> desmarcarAgendaManager(CorteClass corte) async {
+    try {
+      final referenciaMeusCortes = database
+          .collection("allCuts")
+          .doc(corte.NomeMes)
+          .collection("${corte.DiaDoCorte}")
+          .doc(corte.id);
+      print("referenciaMeus: ${referenciaMeusCortes.path}");
+      await referenciaMeusCortes.delete();
+      _historyList.removeWhere((item) => item.id == corte.id);
+      _cortesController.add(_historyList);
+
+      print("Deletamos com sucesso o do MeusCortes");
+    } catch (e) {
+      print("Não conseguimos excluir, houve um erro: ${e}");
+    }
+    notifyListeners();
+  }
 }
+
+         
 
 //load dos cortes do usuario, e eadicionando a uma list - FIM

@@ -2,6 +2,7 @@ import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/home/home_components/profissionalCode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
     return valorPoints / 12.0;
   }
 
+  Future<void> onDismissedFunction() async {}
   @override
   Widget build(BuildContext context) {
     CorteClass _listaCortesUsuario =
@@ -133,7 +135,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
 
     //PEGANDO O CODIGO ATIVO
 
-    return ConstrainedBox(
+    return Container(
       constraints: BoxConstraints(
         minHeight: setHeigh,
         maxHeight: setHeigh,
@@ -141,10 +143,10 @@ class _HomePageHeaderState extends State<HomePageHeader> {
         maxWidth: widget.widhTela,
       ),
       child: Container(
-        padding: const EdgeInsets.only(top: 5),
+        //padding: EdgeInsets.only(top: setHeigh * 0.09),
         child: Stack(
           children: [
-            ConstrainedBox(
+            Container(
               constraints: BoxConstraints(
                 minHeight: setHeigh * 0.85,
                 maxHeight: setHeigh * 0.85,
@@ -152,6 +154,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 maxWidth: widget.widhTela,
               ),
               child: Container(
+                //  padding: EdgeInsets.only(top: 40),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Estabelecimento.secondaryColor.withOpacity(0.1),
@@ -162,16 +165,18 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, top: 45, right: 15),
-              child: Positioned(
-                top: 0,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
+            Positioned(
+              top: 0,
+              left: 15,
+              right: 15,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
                           textAlign: TextAlign.center,
                           Estabelecimento.nomeLocal,
                           style: GoogleFonts.openSans(
@@ -181,74 +186,80 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Bem-vindo(a), ${finalName ?? "..."}",
-                                style: GoogleFonts.openSans(
-                                  textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Bem-vindo(a), ${finalName ?? "..."}",
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.openSans(
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black,
+                                  fontSize: 18,
                                 ),
                               ),
-                              Text(
-                                "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
-                                style: GoogleFonts.openSans(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey.shade700,
-                                    fontSize: 14,
-                                  ),
+                            ),
+                            Text(
+                              "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
+                              style: GoogleFonts.openSans(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey.shade700,
+                                  fontSize: 14,
                                 ),
-                              )
-                            ],
-                          ),
-                          CircularProgressWithImage(
-                            totalCortes: Provider.of<CorteProvider>(context,
-                                    listen: false)
-                                .userCortesTotal
-                                .length,
-                            progress: calcularProgresso(),
-                            imageSize: widget.widhTela / 5.5,
-                            widghTela: widget.widhTela,
-                            imageUrl: urlImagePhoto != null
-                                ? urlImagePhoto!
-                                : Estabelecimento.defaultAvatar,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                              ),
+                            )
+                          ],
+                        ),
+                        CircularProgressWithImage(
+                          totalCortes:
+                              Provider.of<CorteProvider>(context, listen: false)
+                                  .userCortesTotal
+                                  .length,
+                          progress: calcularProgresso(),
+                          imageSize: widget.widhTela / 5.5,
+                          widghTela: widget.widhTela,
+                          imageUrl: urlImagePhoto != null
+                              ? urlImagePhoto!
+                              : Estabelecimento.defaultAvatar,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 20,
+              child: ProfissionalCode(
+                corte: CorteClass(
+                  isActive: _listaCortesUsuario.isActive,
+                  DiaDoCorte: _listaCortesUsuario.DiaDoCorte,
+                  NomeMes: _listaCortesUsuario.NomeMes,
+                  dateCreateAgendamento:
+                      _listaCortesUsuario.dateCreateAgendamento,
+                  clientName: "${_listaCortesUsuario.clientName}",
+                  id: "${_listaCortesUsuario.id}",
+                  numeroContato: "${_listaCortesUsuario.numeroContato}",
+                  profissionalSelect:
+                      "${_listaCortesUsuario.profissionalSelect}",
+                  diaCorte: _listaCortesUsuario.diaCorte,
+                  horarioCorte: "${_listaCortesUsuario.horarioCorte}",
+                  sobrancelha: _listaCortesUsuario.sobrancelha,
+                  ramdomCode: _listaCortesUsuario.ramdomCode,
                 ),
               ),
             ),
-            ProfissionalCode(
-              corte: CorteClass(
-                isActive: _listaCortesUsuario.isActive,
-                DiaDoCorte: _listaCortesUsuario.DiaDoCorte,
-                NomeMes: _listaCortesUsuario.NomeMes,
-                dateCreateAgendamento:
-                    _listaCortesUsuario.dateCreateAgendamento,
-                clientName: "${_listaCortesUsuario.clientName}",
-                id: "${_listaCortesUsuario.id}",
-                numeroContato: "${_listaCortesUsuario.numeroContato}",
-                profissionalSelect: "${_listaCortesUsuario.profissionalSelect}",
-                diaCorte: _listaCortesUsuario.diaCorte,
-                horarioCorte: "${_listaCortesUsuario.horarioCorte}",
-                sobrancelha: _listaCortesUsuario.sobrancelha,
-                ramdomCode: _listaCortesUsuario.ramdomCode,
-              ),
-            )
           ],
         ),
       ),

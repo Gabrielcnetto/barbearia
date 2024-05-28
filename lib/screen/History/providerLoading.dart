@@ -38,7 +38,7 @@ class _providerLoadingHistoryListState
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         width: widget.widhtScreen,
-        height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.1,
+        height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.13,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Estabelecimento.primaryColor.withOpacity(0.2),
@@ -83,7 +83,7 @@ class _providerLoadingHistoryListState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Corte Realizado",
+                              "Corte Agendado",
                               style: GoogleFonts.openSans(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w600,

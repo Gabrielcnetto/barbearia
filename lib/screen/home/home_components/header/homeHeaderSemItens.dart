@@ -114,51 +114,54 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
         : heighTelaFinal < 500
             ? heighTelaFinal / 2.1
             : heighTelaFinal / 1.9;
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: setHeigh / 1.9,
-        maxHeight: setHeigh / 1.9,
-        minWidth: widget.widhTela,
-        maxWidth: widget.widhTela,
-      ),
-      child: Container(
-        padding: const EdgeInsets.only(top: 5),
-        child: Stack(
-          children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: setHeigh * 0.55,
-                maxHeight: setHeigh * 0.55,
-                minWidth: widget.widhTela,
-                maxWidth: widget.widhTela,
-              ),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Estabelecimento.secondaryColor.withOpacity(0.1),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.elliptical(60, 60),
-                    bottomRight: Radius.elliptical(60, 60),
+    return Container(
+        constraints: BoxConstraints(
+               minHeight: setHeigh / 1.9,
+          maxHeight: setHeigh / 1.9,
+          minWidth: widget.widhTela,
+          maxWidth: widget.widhTela,
+        ),
+        child: Container(
+         // padding: EdgeInsets.only(top: setHeigh * 0.09),
+          child: Stack(
+            children: [
+              Container(
+                constraints: BoxConstraints(
+                   minHeight: setHeigh * 0.55,
+                  maxHeight: setHeigh * 0.55,
+                  minWidth: widget.widhTela,
+                  maxWidth: widget.widhTela,
+                ),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Estabelecimento.secondaryColor.withOpacity(0.1),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.elliptical(60, 60),
+                      bottomRight: Radius.elliptical(60, 60),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, top: 45, right: 15),
-              child: Positioned(
+              Positioned(
                 top: 0,
+                left: 15,
+                right: 15,
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          textAlign: TextAlign.center,
-                          Estabelecimento.nomeLocal,
-                          style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Estabelecimento.secondaryColor,
+                        Padding(
+                       padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            Estabelecimento.nomeLocal,
+                            style: GoogleFonts.openSans(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Estabelecimento.secondaryColor,
+                              ),
                             ),
                           ),
                         ),
@@ -174,6 +177,7 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
                             children: [
                               Text(
                                 "Bem-vindo(a), ${finalName ?? "..."}",
+                                overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.openSans(
                                   textStyle: const TextStyle(
                                     fontWeight: FontWeight.w700,
@@ -183,7 +187,7 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
                                 ),
                               ),
                               Text(
-                                  "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
+                                "Você Possui ${(valorPoints * 3).toStringAsFixed(0)} Pontos",
                                 style: GoogleFonts.openSans(
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w500,
@@ -195,10 +199,10 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
                             ],
                           ),
                           CircularProgressWithImage(
-                            totalCortes: Provider.of<CorteProvider>(context,
-                                    listen: false)
-                                .userCortesTotal
-                                .length,
+                            totalCortes:
+                                Provider.of<CorteProvider>(context, listen: false)
+                                    .userCortesTotal
+                                    .length,
                             progress: calcularProgresso(),
                             imageSize: widget.widhTela / 5.5,
                             widghTela: widget.widhTela,
@@ -208,14 +212,13 @@ class _HomeHeaderSemListaState extends State<HomeHeaderSemLista> {
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -1,6 +1,9 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:barbershop2/screen/home/home_components/StreamHaveItems.dart';
+import 'package:barbershop2/screen/home/home_components/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -38,8 +41,61 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
     });
   }
 
+  Future<void> desmarcarCorte(
+      BuildContext context, CorteClass corteparausar) async {
+    print("entramos no showdialog");
+    return showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Text('Gostaria de cancelar o seu agendamento?'),
+            content: Text(
+                "Desmarcar permitirá que você reagende para outros horários disponíveis."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Fecha o diálogo
+                  // Adicione a lógica para a primeira opção aqui
+                },
+                child: Text(
+                  'Manter',
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Provider.of<CorteProvider>(context, listen: false)
+                      .desmarcarCorte(corteparausar);
+                        Provider.of<CorteProvider>(context, listen: false)
+                      .desmarcarCorteMeus(corteparausar);
+                       Provider.of<CorteProvider>(context, listen: false)
+                      .desmarcarAgendaManager(corteparausar);
+                      Navigator.of(context).pushReplacementNamed(AppRoutesApp.HomeScreen01);
+                },
+                child: Text(
+                  'Desmarcar',
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   void showModalWithCode() {
     showModalBottomSheet(
+        //isDismissible: true,
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext ctx) {
           String numberGeral = widget.corte.ramdomCode.toString();
@@ -49,9 +105,14 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
           var num4 = int.parse(numberGeral[3]);
           var num5 = int.parse(numberGeral[4]);
           return Container(
-            width: double.infinity,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.65,
             child: Container(
-              padding: const EdgeInsets.only(top: 15, left: 20, right: 20),
+              padding: const EdgeInsets.only(
+                top: 15,
+                left: 20,
+                right: 20,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -205,25 +266,56 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                       ],
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width / 1.3,
-                      height: 50,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Estabelecimento.primaryColor,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 2),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Estabelecimento.primaryColor,
+                        ),
+                        child: Text(
+                          "Voltar",
+                          style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Estabelecimento.contraPrimaryColor,
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Text(
-                        "Voltar",
-                        style: GoogleFonts.openSans(
-                          textStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Estabelecimento.contraPrimaryColor,
+                    ),
+                  ),
+                  //BOTAO DE CANCELAR O HORARIO
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: InkWell(
+                      onTap: () {
+                        desmarcarCorte(context, widget.corte);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width / 1.3,
+                        height: 50,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.redAccent,
+                        ),
+                        child: Text(
+                          "Desmarcar Horário",
+                          style: GoogleFonts.openSans(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -402,7 +494,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                                 InkWell(
                                   onTap: showModalWithCode,
                                   child: Text(
-                                    "Ver Código",
+                                    "Ver Mais",
                                     style: GoogleFonts.openSans(
                                       textStyle: TextStyle(
                                           fontWeight: FontWeight.w700,
