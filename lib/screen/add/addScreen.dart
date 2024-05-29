@@ -68,8 +68,6 @@ class _AddScreenState extends State<AddScreen> {
         dataSelectedInModal = null;
       });
     }
-  
- 
   }
 
   void setBarber2() {
@@ -79,7 +77,7 @@ class _AddScreenState extends State<AddScreen> {
       setState(() {
         isBarbeiro2 = true;
         isBarbeiro1 = false;
- dataSelectedInModal = null;
+        dataSelectedInModal = null;
         isBarbeiro3 = false;
       });
     }
@@ -93,7 +91,7 @@ class _AddScreenState extends State<AddScreen> {
         isBarbeiro3 = true;
         isBarbeiro2 = false;
         isBarbeiro1 = false;
-         dataSelectedInModal = null;
+        dataSelectedInModal = null;
       });
     }
   }
@@ -105,16 +103,23 @@ class _AddScreenState extends State<AddScreen> {
     });
     showDatePicker(
       context: context,
+      locale: const Locale('pt', 'BR'),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(
         const Duration(days: 14),
       ),
+      selectableDayPredicate: (DateTime day) {
+        // Desativa domingos
+        return day.weekday != DateTime.sunday;
+      },
     ).then((selectUserDate) {
       try {
-        setState(() {
-          dataSelectedInModal = selectUserDate;
-          loadListCortes();
-        });
+        if (selectUserDate != null) {
+          setState(() {
+            dataSelectedInModal = selectUserDate;
+            loadListCortes();
+          });
+        }
       } catch (e) {
         return showDialog(
           context: context,
@@ -189,22 +194,22 @@ class _AddScreenState extends State<AddScreen> {
   String? hourSetForUser;
 
   Future<void> CreateAgendamento() async {
-        await initializeDateFormatting('pt_BR');
+    await initializeDateFormatting('pt_BR');
 
-      String monthName =
+    String monthName =
         await DateFormat('MMMM', 'pt_BR').format(dataSelectedInModal!);
     var rng = new Random();
     int number = rng.nextInt(90000) + 10000;
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
-          nomeBarbeiro: isBarbeiro1
-                  ? "${profList[0].nomeProf}"
-                  : isBarbeiro2
-                      ? "${profList[1].nomeProf}"
-                      : isBarbeiro3
-                          ? "${profList[2].nomeProf}"
-                          : "Não Definido",
+            nomeBarbeiro: isBarbeiro1
+                ? "${profList[0].nomeProf}"
+                : isBarbeiro2
+                    ? "${profList[1].nomeProf}"
+                    : isBarbeiro3
+                        ? "${profList[2].nomeProf}"
+                        : "Não Definido",
             corte: CorteClass(
               isActive: true,
               DiaDoCorte: diaDoCorte,
@@ -229,43 +234,45 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   //Fazendo o filtro para exibir quais horarios estao disponíveis
+  List<Horarios> _horariosLivresSabados = sabadoHorarios;
   List<Horarios> _horariosLivres = hourLists;
   List<Horarios> horarioFinal = [];
   //Aqui pegamos o dia selecionado, e usamos para buscar os dados no banco de dados
   //a funcao abaixo é responsavel por pegar o dia, entrar no provider e pesquisar os horarios daquele dia selecionado
   Future<void> loadListCortes() async {
     horarioFinal.clear();
-    List<Horarios> listaTemporaria = List.from(_horariosLivres);
-    //pega o dia selecionado pelo cliente
+    List<Horarios> listaTemporaria = [];
+    int? diaSemanaSelecionado = dataSelectedInModal?.weekday;
+
+    if (diaSemanaSelecionado == 6) {
+      // Se for sábado, copia os horários disponíveis para sábado
+      listaTemporaria.addAll(_horariosLivresSabados);
+    } else {
+      // Se não for sábado, copia os horários disponíveis padrão
+      listaTemporaria.addAll(_horariosLivres);
+    }
 
     DateTime? mesSelecionado = dataSelectedInModal;
 
-    //se o dia selecionado nao conter erro, executa a busca
     if (mesSelecionado != null) {
       try {
         await Provider.of<CorteProvider>(context, listen: false)
             .loadCortesDataBaseFuncionts(
-          mesSelecionado: mesSelecionado,
-          DiaSelecionado: mesSelecionado.day,
-          Barbeiroselecionado: isBarbeiro1
-                  ? "${profList[0].nomeProf}"
-                  : isBarbeiro2
-                      ? "${profList[1].nomeProf}"
-                      : isBarbeiro3
-                          ? "${profList[2].nomeProf}"
-                          : "Não Definido"
-        );
+                mesSelecionado: mesSelecionado,
+                DiaSelecionado: mesSelecionado.day,
+                Barbeiroselecionado: isBarbeiro1
+                    ? "${profList[0].nomeProf}"
+                    : isBarbeiro2
+                        ? "${profList[1].nomeProf}"
+                        : isBarbeiro3
+                            ? "${profList[2].nomeProf}"
+                            : "Não Definido");
         List<Horarios> listaCort =
             await Provider.of<CorteProvider>(context, listen: false)
                 .horariosListLoad;
 
         for (var horario in listaCort) {
           print("horarios do provider: ${horario.horario}");
-
-          //faz a verificação se o horario esta disponivel para
-
-
-
 
           listaTemporaria.removeWhere((atributosFixo) {
             return atributosFixo.horario == horario.horario;
@@ -347,8 +354,8 @@ class _AddScreenState extends State<AddScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 30),
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: const Color.fromRGBO(217, 217, 217, 0.2),
@@ -639,8 +646,8 @@ class _AddScreenState extends State<AddScreen> {
                                   vertical: 0, horizontal: 15),
                               child: TextFormField(
                                 controller: nomeControler,
-                                decoration:
-                                    const InputDecoration(border: InputBorder.none),
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none),
                               ),
                             ),
                             const SizedBox(
@@ -690,8 +697,8 @@ class _AddScreenState extends State<AddScreen> {
                                   vertical: 0, horizontal: 15),
                               child: TextFormField(
                                 controller: numberControler,
-                                decoration:
-                                    const InputDecoration(border: InputBorder.none),
+                                decoration: const InputDecoration(
+                                    border: InputBorder.none),
                               ),
                             ),
                             const SizedBox(
@@ -739,7 +746,8 @@ class _AddScreenState extends State<AddScreen> {
                                     child: InkWell(
                                       onTap: sobrancelhaFalse,
                                       child: Container(
-                                        padding: const EdgeInsets.only(right: 30),
+                                        padding:
+                                            const EdgeInsets.only(right: 30),
                                         alignment: Alignment.centerRight,
                                         height: heighScreen * 0.07,
                                         width: !sobrancelha
@@ -773,14 +781,16 @@ class _AddScreenState extends State<AddScreen> {
                                     child: InkWell(
                                       onTap: sobrancelhaTrue,
                                       child: Container(
-                                        padding: const EdgeInsets.only(left: 30),
+                                        padding:
+                                            const EdgeInsets.only(left: 30),
                                         alignment: Alignment.centerLeft,
                                         height: heighScreen * 0.07,
                                         width: sobrancelha
                                             ? widhScren / 1.8
                                             : widhScren / 3,
                                         decoration: BoxDecoration(
-                                            borderRadius: const BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft: Radius.circular(5),
                                               topLeft: Radius.circular(5),
                                               topRight:
@@ -1046,80 +1056,84 @@ class _AddScreenState extends State<AddScreen> {
                               height: 25,
                             ),
                             //CONTAINER DO PROFISSIONAL - INICIO
-                            if(isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Estabelecimento.secondaryColor
-                                          .withOpacity(0.4)),
-                                  child: const Text("5"),
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Selecione uma data",
-                                  style: GoogleFonts.openSans(
-                                    textStyle: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
+                            if (isBarbeiro1 ||
+                                isBarbeiro2 ||
+                                isBarbeiro3 != false)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Estabelecimento.secondaryColor
+                                            .withOpacity(0.4)),
+                                    child: const Text("5"),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "Selecione uma data",
+                                    style: GoogleFonts.openSans(
+                                      textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
                             const SizedBox(
                               height: 5,
                             ),
-                            if(isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false)
-                            InkWell(
-                              onTap: () {
-                                ShowModalData();
-                              },
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Estabelecimento.secondaryColor
-                                      .withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    width: 0.5,
-                                    color: Colors.grey.shade300,
+                            if (isBarbeiro1 ||
+                                isBarbeiro2 ||
+                                isBarbeiro3 != false)
+                              InkWell(
+                                onTap: () {
+                                  ShowModalData();
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Estabelecimento.secondaryColor
+                                        .withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      width: 0.5,
+                                      color: Colors.grey.shade300,
+                                    ),
                                   ),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      dataSelectedInModal != null
-                                          ? "${DateFormat("dd/MM/yyyy").format(dataSelectedInModal!)}"
-                                          : "Escolha uma data",
-                                      style: GoogleFonts.openSans(
-                                        textStyle: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.grey.shade500,
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        dataSelectedInModal != null
+                                            ? "${DateFormat("dd/MM/yyyy").format(dataSelectedInModal!)}"
+                                            : "Escolha uma data",
+                                        style: GoogleFonts.openSans(
+                                          textStyle: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey.shade500,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Icon(
-                                      Icons.calendar_today,
-                                      size: 15,
-                                      color: Colors.grey.shade500,
-                                    ),
-                                  ],
+                                      Icon(
+                                        Icons.calendar_today,
+                                        size: 15,
+                                        color: Colors.grey.shade500,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
                             const SizedBox(
                               height: 25,
                             ),
@@ -1189,7 +1203,8 @@ class _AddScreenState extends State<AddScreen> {
                                         child: Container(
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            borderRadius: const BorderRadius.only(
+                                            borderRadius:
+                                                const BorderRadius.only(
                                               bottomLeft:
                                                   Radius.elliptical(20, 20),
                                               bottomRight:
@@ -1231,7 +1246,8 @@ class _AddScreenState extends State<AddScreen> {
                                       color: Estabelecimento.primaryColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    padding: const EdgeInsets.symmetric(vertical: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20),
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,

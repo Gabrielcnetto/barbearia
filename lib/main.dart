@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'screen/login/registerAccount.dart';
 import 'rotas/verificationLogin.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding
@@ -71,6 +72,13 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        supportedLocales: [
+          const Locale('pt', 'BR'), // Português do Brasil
+        ],
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         theme: ThemeData(
           datePickerTheme: DatePickerThemeData(
             backgroundColor: Colors.white,
