@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:barbershop2/classes/GeralUser.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -76,6 +78,68 @@ class ManagerScreenFunctions with ChangeNotifier {
     } catch (e) {
       print("ocorreu um erro: ${e}");
     }
+    notifyListeners();
+  }
+
+  final StreamController<List<CorteClass>> _CorteslistaManager =
+      StreamController<List<CorteClass>>.broadcast();
+
+  Stream<List<CorteClass>> get CorteslistaManager => _CorteslistaManager.stream;
+
+  List<CorteClass> _managerListCortes = [];
+  List<CorteClass> get managerListCortes => [..._managerListCortes];
+  Future<void> loadAfterSetDay({
+    required int selectDay,
+    required String selectMonth,
+    required String proffName,
+  }) async {
+    print("tela do manager, 7 dias corte funcao executada");
+    QuerySnapshot querySnapshot =
+        await database.collection('agenda/${selectMonth}/${selectDay}/${"Marcelo%20D."}/all').get();
+      print('agenda/${selectMonth}/${selectDay}/${"Marcelo%20D."}/all');
+    _managerListCortes = querySnapshot.docs.map((doc) {
+      Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+      Timestamp? timestamp;
+      if (data != null) {
+        timestamp = data['dataCreateAgendamento'] as Timestamp?;
+      }
+
+      DateTime diaCorte = timestamp?.toDate() ?? DateTime.now();
+      //CONVERTENDO O DIA DO CORTE AGORA
+      Timestamp? diafinalCorte;
+      if (data != null) {
+        timestamp = data['diaCorte'] as Timestamp?;
+      }
+
+      DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
+      // Acessando os atributos diretamente usando []
+      return CorteClass(
+        isActive: data?["isActive"],
+        DiaDoCorte: data?["diaDoCorte"],
+        NomeMes: data?["monthName"],
+        dateCreateAgendamento: diaCorte,
+        clientName: data?['clientName'],
+        id: data?['id'],
+        numeroContato: data?['numeroContato'],
+        profissionalSelect: data?['profissionalSelect'],
+        diaCorte: diaCorteFinal, // Usando o atributo diaCorte
+        horarioCorte: data?['horarioCorte'],
+        sobrancelha: data?['sobrancelha'],
+        ramdomCode: data?['ramdomNumber'],
+      );
+    }).toList();
+    _CorteslistaManager.add(_managerListCortes);
+
+    // Ordenar os dados pela data
+    _managerListCortes.sort((a, b) {
+      return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
+    });
+    _managerListCortes.sort((a, b) {
+      // Aqui, estamos comparando os horários de corte como strings
+      return a.horarioCorte.compareTo(b.horarioCorte);
+    });
+
     notifyListeners();
   }
 }

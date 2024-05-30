@@ -30,7 +30,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
   FocusNode _focusNode4 = FocusNode();
   FocusNode _focusNode5 = FocusNode();
   // inits e dispose - inicio
-  
+
   @override
   void dispose() {
     num1.dispose();
@@ -48,7 +48,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
   //inits e dispose - fim
 
   //functions focus - inicio
- 
+
   //functions focus - fim
   String? ramdomcodeUse;
   void setandocode() {
@@ -58,7 +58,6 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
   }
 
   //Funcao das trocas e pulos - inicio
-
 
   void _showErrorDialog(BuildContext context) {
     showDialog(
@@ -72,7 +71,8 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               onPressed: () {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const ManagerScreenView(),
+                    builder: (BuildContext context) =>
+                        const ManagerScreenView(),
                     fullscreenDialog: true,
                   ),
                 );
@@ -249,7 +249,6 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                           child: TextFormField(
                             textInputAction: TextInputAction.next,
                             focusNode: _focusNode1,
-                            
                             controller: num1,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
@@ -449,7 +448,8 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                 onTap: showVerificationModalManager,
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   decoration: BoxDecoration(
                       color: const Color.fromRGBO(32, 32, 32, 0.1),
                       borderRadius: BorderRadius.circular(15)),
@@ -509,6 +509,77 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               ),
 
               //VERIFICAR O CODIGO - FIM
+              //VER DETALHE DOS PROXIMOS DIAS - INICIO
+              SizedBox(
+                height: 15,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(AppRoutesApp.Agenda7DiasScreenManager);
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(32, 32, 32, 0.1),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromRGBO(32, 32, 32, 0.2),
+                            ),
+                            child: const Icon(Icons.calendar_today),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Conferir Agenda Geral",
+                                style: GoogleFonts.openSans(
+                                  textStyle: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Text(
+                                  "Confira a agenda para os próximos 7 dias",
+                                  overflow: TextOverflow.visible,
+                                  style: GoogleFonts.openSans(
+                                    textStyle: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey.shade500,
+                                        fontSize: 13),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(
+                        child: const Icon(
+                          Icons.chevron_right,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //VER DETALHE DOS PROXIMOS DIAS - FIM
               const SizedBox(
                 height: 25,
               ),

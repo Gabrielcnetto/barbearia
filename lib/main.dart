@@ -13,6 +13,7 @@ import 'package:barbershop2/screen/home/homeScreen01.dart';
 import 'package:barbershop2/screen/inicio/initialScreen.dart';
 import 'package:barbershop2/screen/login/loginScreen.dart';
 import 'package:barbershop2/screen/manager/ManagerScreen.dart';
+import 'package:barbershop2/screen/manager/agenda_7dias/agenda7diasscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -108,6 +109,7 @@ class _MyAppState extends State<MyApp> {
               const RegisterAccountScreen(),
           AppRoutesApp.ConfirmScreenCorte: (ctx) => const ConfirmScreenCorte(),
           AppRoutesApp.ManagerScreenView: (ctx) => const ManagerScreenView(),
+          AppRoutesApp.Agenda7DiasScreenManager: (ctx) => const Agenda7DiasScreenManager(),
         },
       ),
     );
