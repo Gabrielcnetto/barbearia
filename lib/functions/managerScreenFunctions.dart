@@ -149,4 +149,11 @@ class ManagerScreenFunctions with ChangeNotifier {
     print("o tamanho da lista é manager ${_managerListCortes.length}");
     notifyListeners();
   }
+
+  Future<void> setDayOff(DateTime date)async{
+    database.collection("OffDays").doc("diaSelect").set({
+      "data": date,
+    });
+    notifyListeners();
+  }
 }

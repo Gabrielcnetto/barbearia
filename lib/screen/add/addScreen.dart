@@ -96,6 +96,7 @@ class _AddScreenState extends State<AddScreen> {
     }
   }
 
+  DateTime? dataOffselectOfManger;
   DateTime? dataSelectedInModal;
   Future<void> ShowModalData() async {
     setState(() {
