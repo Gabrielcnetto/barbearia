@@ -8,4 +8,5 @@ class AppRoutesApp {
   static const ManagerScreenView = "/ManagerScreenView";
   static const DesmarcarCorteFuncao = "/DesmarcarCorteFuncao";
   static const Agenda7DiasScreenManager = "/Agenda7DiasScreenManager";
+  static const ConfirmCancelCorte = "/ConfirmCancelCorte";
 }

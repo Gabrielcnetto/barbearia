@@ -1,6 +1,7 @@
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/screen/manager/agenda_7dias/corte7diasItem.dart';
+import 'package:barbershop2/screen/manager/agenda_7dias/semItems.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,9 +24,9 @@ class _StreamLoad7diasState extends State<StreamLoad7dias> {
             alignment: Alignment.center,
             child: CircularProgressIndicator(),
           );
-        } else if (snapshot.hasError) {
+        } else if (snapshot.data!.isEmpty) {
           return Container(
-            child: Text("Houve um Erro, ${snapshot.error}"),
+            child: SemItens(),
           );
         } else if (snapshot.hasData) {
           final List<CorteClass>? cortes = snapshot.data;

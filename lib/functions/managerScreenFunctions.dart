@@ -94,52 +94,59 @@ class ManagerScreenFunctions with ChangeNotifier {
     required String proffName,
   }) async {
     print("tela do manager, 7 dias corte funcao executada");
-    QuerySnapshot querySnapshot =
-        await database.collection('agenda/${selectMonth}/${selectDay}/${"Marcelo%20D."}/all').get();
-      print('agenda/${selectMonth}/${selectDay}/${"Marcelo%20D."}/all');
-    _managerListCortes = querySnapshot.docs.map((doc) {
-      Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
-      Timestamp? timestamp;
-      if (data != null) {
-        timestamp = data['dataCreateAgendamento'] as Timestamp?;
-      }
+    try {
+      final nomeBarber = Uri.encodeFull(proffName);
+      QuerySnapshot querySnapshot = await database
+          .collection('agenda/${selectMonth}/${selectDay}/${nomeBarber}/all')
+          .get();
+      print('agenda/${selectMonth}/${selectDay}/${nomeBarber}/all');
+      _managerListCortes = querySnapshot.docs.map((doc) {
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
 
-      DateTime diaCorte = timestamp?.toDate() ?? DateTime.now();
-      //CONVERTENDO O DIA DO CORTE AGORA
-      Timestamp? diafinalCorte;
-      if (data != null) {
-        timestamp = data['diaCorte'] as Timestamp?;
-      }
+        Timestamp? timestamp;
+        if (data != null) {
+          timestamp = data['dataCreateAgendamento'] as Timestamp?;
+        }
 
-      DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
-      // Acessando os atributos diretamente usando []
-      return CorteClass(
-        isActive: data?["isActive"],
-        DiaDoCorte: data?["diaDoCorte"],
-        NomeMes: data?["monthName"],
-        dateCreateAgendamento: diaCorte,
-        clientName: data?['clientName'],
-        id: data?['id'],
-        numeroContato: data?['numeroContato'],
-        profissionalSelect: data?['profissionalSelect'],
-        diaCorte: diaCorteFinal, // Usando o atributo diaCorte
-        horarioCorte: data?['horarioCorte'],
-        sobrancelha: data?['sobrancelha'],
-        ramdomCode: data?['ramdomNumber'],
-      );
-    }).toList();
-    _CorteslistaManager.add(_managerListCortes);
+        DateTime diaCorte = timestamp?.toDate() ?? DateTime.now();
+        //CONVERTENDO O DIA DO CORTE AGORA
+        Timestamp? diafinalCorte;
+        if (data != null) {
+          timestamp = data['diaCorte'] as Timestamp?;
+        }
 
-    // Ordenar os dados pela data
-    _managerListCortes.sort((a, b) {
-      return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
-    });
-    _managerListCortes.sort((a, b) {
-      // Aqui, estamos comparando os horários de corte como strings
-      return a.horarioCorte.compareTo(b.horarioCorte);
-    });
+        DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
+        // Acessando os atributos diretamente usando []
+        return CorteClass(
+          isActive: data?["isActive"],
+          DiaDoCorte: data?["diaDoCorte"],
+          NomeMes: data?["monthName"],
+          dateCreateAgendamento: diaCorte,
+          clientName: data?['clientName'],
+          id: data?['id'],
+          numeroContato: data?['numeroContato'],
+          profissionalSelect: data?['profissionalSelect'],
+          diaCorte: diaCorteFinal, // Usando o atributo diaCorte
+          horarioCorte: data?['horarioCorte'],
+          sobrancelha: data?['sobrancelha'],
+          ramdomCode: data?['ramdomNumber'],
+        );
+      }).toList();
+      _CorteslistaManager.add(_managerListCortes);
 
+      // Ordenar os dados pela data
+      _managerListCortes.sort((a, b) {
+        return b.dateCreateAgendamento.compareTo(a.dateCreateAgendamento);
+      });
+      _managerListCortes.sort((a, b) {
+        // Aqui, estamos comparando os horários de corte como strings
+        return a.horarioCorte.compareTo(b.horarioCorte);
+      });
+    } catch (e) {
+      print("ao carregar a lista do manager dia, deu isto: ${e}");
+    }
+    print("o tamanho da lista é manager ${_managerListCortes.length}");
     notifyListeners();
   }
 }
