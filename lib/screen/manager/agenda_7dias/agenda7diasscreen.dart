@@ -55,6 +55,8 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
         proffName: profSelecionado);
   }
 
+  int selectedIndex = 0;
+  int profissionalSelecionadoIndex = 0;
   @override
   Widget build(BuildContext context) {
     final List<Profissionais> _profList = profList;
@@ -120,6 +122,10 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                           String firstLetterOfMonth = month.substring(0, 1);
                           return InkWell(
                             onTap: () {
+                              setState(() {
+                                selectedIndex =
+                                    index; // Atualiza o índice do item clicado
+                              });
                               attViewSchedule(
                                   dia: day,
                                   mes: month,
@@ -133,30 +139,36 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                                   horizontal: 5, vertical: 5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
-                                color: Estabelecimento.primaryColor,
+                                color: selectedIndex ==
+                                        index // Altera a cor se este item estiver selecionado
+                                    ? Colors.blue // Cor quando selecionado
+                                    : Estabelecimento
+                                        .primaryColor, // Cor padrão
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "$day",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color:
-                                            Estabelecimento.contraPrimaryColor,
-                                      ),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: selectedIndex == index
+                                          ? Colors
+                                              .white // Cor do texto quando selecionado
+                                          : Estabelecimento
+                                              .contraPrimaryColor, // Cor padrão do texto
                                     ),
                                   ),
                                   Text(
                                     "${firstLetterOfMonth.toUpperCase()}",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 11,
-                                        color:
-                                            Estabelecimento.contraPrimaryColor,
-                                      ),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 11,
+                                      color: selectedIndex == index
+                                          ? Colors
+                                              .white // Cor do texto quando selecionado
+                                          : Estabelecimento
+                                              .contraPrimaryColor, // Cor padrão do texto
                                     ),
                                   ),
                                 ],
@@ -174,69 +186,66 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            child: Row(
-                              children: _profList.map((prof) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      setState(() {
-                                        profSelecionado = prof.nomeProf;
-                                        attViewSchedule(
-                                            dia: lastSevenDays[0],
-                                            mes: lastSevenMonths[0],
-                                            proffName: profSelecionado);
-                                      });
+Container(
+  height: MediaQuery.of(context).size.height * 0.06,
+  child: Row(
+    children: _profList.map((profissional) {
+      int profIndex = _profList.indexOf(profissional); // Índice do profissional atual
 
-                                      print(
-                                          "o profissional é ${profSelecionado}");
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.green,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            width: 30,
-                                            height: 30,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              child: Image.asset(
-                                                prof.assetImage,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "${prof.nomeProf}",
-                                            style: GoogleFonts.openSans(
-                                              textStyle: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          )
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: InkWell(
+          onTap: () async {
+            setState(() {
+              profSelecionado = profissional.nomeProf;
+              profissionalSelecionadoIndex = profIndex; // Atualiza o índice do profissional selecionado
+              attViewSchedule(
+                dia: lastSevenDays[0],
+                mes: lastSevenMonths[0],
+                proffName: profSelecionado,
+              );
+            });
+            print("O profissional selecionado é $profSelecionado");
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: profissionalSelecionadoIndex == profIndex ? Colors.blue : Colors.green, // Altera a cor se este profissional estiver selecionado
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      profissional.assetImage,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "${profissional.nomeProf}",
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }).toList(),
+  ),),
                         ],
                       ),
                     ),
