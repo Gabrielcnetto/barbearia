@@ -74,10 +74,10 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-        supportedLocales: [
-          const Locale('pt', 'BR'), // Português do Brasil
+        supportedLocales: const [
+          Locale('pt', 'BR'), // Português do Brasil
         ],
-        localizationsDelegates: [
+        localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],

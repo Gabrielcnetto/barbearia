@@ -21,7 +21,7 @@ class SemItens extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Text(
@@ -34,13 +34,13 @@ class SemItens extends StatelessWidget {
                 ),
               ),
             ),
-                       SizedBox(
+                       const SizedBox(
               height: 5,
             ),
             Text(
               "Verifique o dia e o Profissional escolhido.",
               style: GoogleFonts.openSans(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   fontWeight: FontWeight.w700,
                   color: Colors.black,
                   fontSize: 13

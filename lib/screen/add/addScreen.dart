@@ -5,6 +5,7 @@ import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
 import 'package:barbershop2/classes/profissionais.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,9 +30,11 @@ class _AddScreenState extends State<AddScreen> {
     super.initState();
     userName;
     loadUserName();
-
     phoneNumber;
     loadUserPhone();
+    Provider.of<ManagerScreenFunctions>(context,listen: false).getFolga;
+    DataFolgaDatabase;
+    LoadFolgaDatetime;
   }
 
   bool sobrancelha = true;
@@ -96,8 +99,22 @@ class _AddScreenState extends State<AddScreen> {
     }
   }
 
-  DateTime? dataOffselectOfManger;
+
   DateTime? dataSelectedInModal;
+  DateTime? DataFolgaDatabase;
+  Future<void> LoadFolgaDatetime() async {
+    DateTime? dataDoDatabaseVolta = await ManagerScreenFunctions().getFolga();
+    print("pegamos a data do databse");
+    if (DataFolgaDatabase != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      DataFolgaDatabase = dataDoDatabaseVolta;
+    });
+  }
+
   Future<void> ShowModalData() async {
     setState(() {
       dataSelectedInModal = null;
@@ -111,7 +128,17 @@ class _AddScreenState extends State<AddScreen> {
       ),
       selectableDayPredicate: (DateTime day) {
         // Desativa domingos
-        return day.weekday != DateTime.sunday;
+        if (day.weekday == DateTime.sunday) {
+          return false;
+        }
+        // Bloqueia a data contida em dataOffselectOfManger
+        if (DataFolgaDatabase != null &&
+            day.year == DataFolgaDatabase!.year &&
+            day.month == DataFolgaDatabase!.month &&
+            day.day == DataFolgaDatabase!.day) {
+          return false;
+        }
+        return true;
       },
     ).then((selectUserDate) {
       try {
@@ -163,6 +190,7 @@ class _AddScreenState extends State<AddScreen> {
     setState(() {
       userName = usuario;
       setDataControlers();
+      LoadFolgaDatetime();
     });
   }
 

@@ -147,7 +147,7 @@ class _Home_noItensWithLoadinState extends State<Home_noItensWithLoadin> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

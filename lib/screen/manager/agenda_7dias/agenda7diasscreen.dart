@@ -74,7 +74,7 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                 child: Container(
                   height: MediaQuery.of(context).size.height *
                       0.68, // Altura ajustável
-                  child: SingleChildScrollView(
+                  child: const SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: StreamLoad7dias(),
                   ),
@@ -94,14 +94,14 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back_ios,
                           ),
                         ),
                         Text(
                           "Horários Fechados",
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.w800,
                               fontSize: 17,
                             ),
@@ -109,7 +109,7 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Container(
@@ -135,7 +135,7 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                               height: MediaQuery.of(context).size.height * 0.15,
                               alignment: Alignment.center,
                               width: MediaQuery.of(context).size.width * 0.115,
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
@@ -178,7 +178,7 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                         }),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SingleChildScrollView(
@@ -208,7 +208,7 @@ Container(
             print("O profissional selecionado é $profSelecionado");
           },
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: profissionalSelecionadoIndex == profIndex ? Colors.blue : Colors.green, // Altera a cor se este profissional estiver selecionado
@@ -227,13 +227,13 @@ Container(
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Text(
                   "${profissional.nomeProf}",
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 12,
                       color: Colors.black,
                     ),

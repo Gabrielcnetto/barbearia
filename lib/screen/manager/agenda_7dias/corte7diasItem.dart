@@ -31,8 +31,8 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: Text('Gostaria de cancelar o seu agendamento?'),
-            content: Text(
+            title: const Text('Gostaria de cancelar o seu agendamento?'),
+            content: const Text(
                 "Após confirmar este horário sera liberado em sua agenda."),
             actions: [
               TextButton(
@@ -43,7 +43,7 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                 child: Text(
                   'Manter',
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
@@ -63,7 +63,7 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                 child: Text(
                   'Desmarcar',
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
@@ -232,18 +232,18 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                               desmarcarCorte(context, Corte);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.red,
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.event_busy,
                                 color: Colors.white,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Corte.numeroContato.isEmpty

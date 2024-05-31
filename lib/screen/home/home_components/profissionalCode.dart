@@ -48,8 +48,8 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: Text('Gostaria de cancelar o seu agendamento?'),
-            content: Text(
+            title: const Text('Gostaria de cancelar o seu agendamento?'),
+            content: const Text(
                 "Desmarcar permitirá que você reagende para outros horários disponíveis."),
             actions: [
               TextButton(
@@ -60,7 +60,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                 child: Text(
                   'Manter',
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
@@ -80,7 +80,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                 child: Text(
                   'Desmarcar',
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
@@ -312,7 +312,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                         child: Text(
                           "Desmarcar Horário",
                           style: GoogleFonts.openSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),

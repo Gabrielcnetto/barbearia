@@ -22,11 +22,11 @@ class _StreamLoad7diasState extends State<StreamLoad7dias> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
             alignment: Alignment.center,
-            child: CircularProgressIndicator(),
+            child: const CircularProgressIndicator(),
           );
         } else if (snapshot.data!.isEmpty) {
           return Container(
-            child: SemItens(),
+            child: const SemItens(),
           );
         } else if (snapshot.hasData) {
           final List<CorteClass>? cortes = snapshot.data;

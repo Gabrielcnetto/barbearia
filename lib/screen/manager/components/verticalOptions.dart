@@ -1,5 +1,6 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/manager/ManagerScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -158,6 +159,47 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
           setState(() {
             dataSelectedInModal = selectUserDate;
           });
+          return showDialog(
+              context: context,
+              builder: (ctx) {
+                return AlertDialog(
+                  title: const Text('Configurando Folga'),
+                  content: Text(
+                    "O Dia ${DateFormat("dd/MM/yyyy").format(dataSelectedInModal!)} Será Desativado, para reativa-lo entre em contato com o suporte. O Restante continua Ativo normalmente",
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Fecha o modal
+                      },
+                      child: Text(
+                        'Cancelar ação',
+                        style: GoogleFonts.openSans(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        Provider.of<ManagerScreenFunctions>(context,
+                                listen: false)
+                            .setDayOff(dataSelectedInModal!);
+                        Navigator.of(context).pop(); // Fecha o modal
+                      },
+                      child: Text(
+                        'OK',
+                        style: GoogleFonts.openSans(
+                          textStyle: const TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              });
         }
       } catch (e) {
         return showDialog(
@@ -552,7 +594,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
 
               //VERIFICAR O CODIGO - FIM
               //VER DETALHE DOS PROXIMOS DIAS - INICIO
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               InkWell(
@@ -623,7 +665,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
               ),
               //VER DETALHE DOS PROXIMOS DIAS - FIM
               //CANCELAR DIA - INICIO
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               InkWell(

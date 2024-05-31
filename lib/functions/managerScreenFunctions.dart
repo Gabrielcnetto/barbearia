@@ -150,10 +150,37 @@ class ManagerScreenFunctions with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setDayOff(DateTime date)async{
-    database.collection("OffDays").doc("diaSelect").set({
-      "data": date,
-    });
+  Future<void> setDayOff(DateTime date) async {
+    DateTime dataAtual = date;
+    try {
+      database.collection("OffDays").doc("diaSelect").set({
+        "data": date,
+      });
+    } catch (e) {
+      print("houve um erro ao enviar a data de folga: ${e}");
+    }
     notifyListeners();
   }
+
+
+Future<DateTime?> getFolga() async {
+  print("entramos no get da folga");
+  DateTime? datafolga;
+  await database.collection("OffDays").doc("diaSelect").get().then((event) {
+    if (event.exists) {
+      Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+
+      // Supondo que você tenha armazenado a data como um timestamp no Firestore
+      Timestamp? timestamp = data['data']; // Suponha 'offDay' é o nome do campo que armazena a data de folga
+
+      if (timestamp != null) {
+        datafolga = timestamp.toDate(); // Convertendo Timestamp para DateTime
+      }
+    } 
+    print("a data que foi pega foi: ${datafolga}");
+    return datafolga;
+  });
+  return datafolga;
+}
+
 }

@@ -2,6 +2,7 @@ import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/screen/manager/components/agendaDia/itemComponentHour.dart';
+import 'package:barbershop2/screen/manager/components/agendaDia/semCortesHoje.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +44,8 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
             return const Center(
               child: LinearProgressIndicator(),
             );
-          } else if (snapshot.hasError) {
-            return Text("Erro: ${snapshot.error}");
+          } else if (snapshot.data!.isEmpty) {
+            return const semCortesHojewidget();
           } else {
             final List<CorteClass>? cortes = snapshot.data;
             if (cortes != null) {
