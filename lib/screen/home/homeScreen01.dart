@@ -10,6 +10,7 @@ import 'package:barbershop2/screen/History/History.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class HomeScreen01 extends StatefulWidget {
   const HomeScreen01({super.key});
@@ -19,6 +20,7 @@ class HomeScreen01 extends StatefulWidget {
 }
 
 class _HomeScreen01State extends State<HomeScreen01> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   int screen = 0;
   List<Map<String, Object>>? _screensSelect;
 
@@ -26,10 +28,11 @@ class _HomeScreen01State extends State<HomeScreen01> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    analytics.setAnalyticsCollectionEnabled(true);
     Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
     Provider.of<ManagerScreenFunctions>(context, listen: false).loadClientes();
-     Provider.of<ManagerScreenFunctions>(context, listen: false).loadMonthCortes();
+    Provider.of<ManagerScreenFunctions>(context, listen: false)
+        .loadMonthCortes();
     _screensSelect = [
       {
         'tela': const HomeOnlyWidgets(),
