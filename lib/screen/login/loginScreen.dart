@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,12 +19,14 @@ class LoginScreen01 extends StatefulWidget {
 class _LoginScreen01State extends State<LoginScreen01> {
   final emailControler = TextEditingController();
   final passwordControler = TextEditingController();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   void userAuth() {
     Provider.of<UserLoginApp>(context, listen: false).fazerLogin(
       emailControler.text,
       passwordControler.text,
     );
+    analytics.logLogin();
   }
 
   bool showPass = true;
@@ -33,7 +35,7 @@ class _LoginScreen01State extends State<LoginScreen01> {
       showPass = !showPass;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final WidhtTela = MediaQuery.of(context).size.width;
@@ -150,10 +152,10 @@ class _LoginScreen01State extends State<LoginScreen01> {
                               ),
                               InkWell(
                                 onTap: ShowPass,
-                                child: 
-                                
-                                Icon(
-                                 showPass ? Icons.visibility : Icons.visibility_off,
+                                child: Icon(
+                                  showPass
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                 ),
                               )
                             ],

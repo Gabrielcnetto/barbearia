@@ -20,7 +20,6 @@ class HomeScreen01 extends StatefulWidget {
 }
 
 class _HomeScreen01State extends State<HomeScreen01> {
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   int screen = 0;
   List<Map<String, Object>>? _screensSelect;
 
@@ -28,7 +27,7 @@ class _HomeScreen01State extends State<HomeScreen01> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    analytics.setAnalyticsCollectionEnabled(true);
+    
     Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
     Provider.of<ManagerScreenFunctions>(context, listen: false).loadClientes();
     Provider.of<ManagerScreenFunctions>(context, listen: false)

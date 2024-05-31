@@ -15,6 +15,7 @@ import 'package:barbershop2/screen/login/loginScreen.dart';
 import 'package:barbershop2/screen/manager/ManagerScreen.dart';
 import 'package:barbershop2/screen/manager/agenda_7dias/agenda7diasscreen.dart';
 import 'package:barbershop2/screen/manager/agenda_7dias/confirmCancelCorte.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ import 'screen/login/registerAccount.dart';
 import 'rotas/verificationLogin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
 Future<void> main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // Chame primeiro aqui ele inicia os widgets
@@ -30,7 +33,12 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  try {
+    analytics.setAnalyticsCollectionEnabled(true);
+    print("Inicializamos o ga4 no app");
+  } catch (e) {
+    print("run app ativando GA4 deu este erro: ${e}");
+  }
   //Crashlist para enviar erros que acontecem no cll do usuario
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
@@ -110,8 +118,9 @@ class _MyAppState extends State<MyApp> {
               const RegisterAccountScreen(),
           AppRoutesApp.ConfirmScreenCorte: (ctx) => const ConfirmScreenCorte(),
           AppRoutesApp.ManagerScreenView: (ctx) => const ManagerScreenView(),
-          AppRoutesApp.Agenda7DiasScreenManager: (ctx) => const Agenda7DiasScreenManager(),
-          AppRoutesApp.ConfirmCancelCorte: (ctx)=>const ConfirmCancelCorte(),
+          AppRoutesApp.Agenda7DiasScreenManager: (ctx) =>
+              const Agenda7DiasScreenManager(),
+          AppRoutesApp.ConfirmCancelCorte: (ctx) => const ConfirmCancelCorte(),
         },
       ),
     );

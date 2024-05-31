@@ -8,6 +8,7 @@ import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +25,8 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -32,7 +35,7 @@ class _AddScreenState extends State<AddScreen> {
     loadUserName();
     phoneNumber;
     loadUserPhone();
-    Provider.of<ManagerScreenFunctions>(context,listen: false).getFolga;
+    Provider.of<ManagerScreenFunctions>(context, listen: false).getFolga;
     DataFolgaDatabase;
     LoadFolgaDatetime;
   }
@@ -98,7 +101,6 @@ class _AddScreenState extends State<AddScreen> {
       });
     }
   }
-
 
   DateTime? dataSelectedInModal;
   DateTime? DataFolgaDatabase;
@@ -232,34 +234,48 @@ class _AddScreenState extends State<AddScreen> {
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
-            nomeBarbeiro: isBarbeiro1
-                ? "${profList[0].nomeProf}"
-                : isBarbeiro2
-                    ? "${profList[1].nomeProf}"
-                    : isBarbeiro3
-                        ? "${profList[2].nomeProf}"
-                        : "Não Definido",
-            corte: CorteClass(
-              isActive: true,
-              DiaDoCorte: diaDoCorte,
-              NomeMes: monthName,
-              dateCreateAgendamento: DateTime.now(),
-              ramdomCode: number,
-              clientName: nomeControler.text,
-              id: Random().nextDouble().toString(),
-              numeroContato: numberControler.text,
-              sobrancelha: sobrancelha,
-              diaCorte: dataSelectedInModal!,
-              horarioCorte: hourSetForUser!,
-              profissionalSelect: isBarbeiro1
-                  ? "${profList[0].nomeProf}"
-                  : isBarbeiro2
-                      ? "${profList[1].nomeProf}"
-                      : isBarbeiro3
-                          ? "${profList[2].nomeProf}"
-                          : "Não Definido",
-            ),
-            selectDateForUser: dataSelectedInModal!);
+      nomeBarbeiro: isBarbeiro1
+          ? "${profList[0].nomeProf}"
+          : isBarbeiro2
+              ? "${profList[1].nomeProf}"
+              : isBarbeiro3
+                  ? "${profList[2].nomeProf}"
+                  : "Não Definido",
+      corte: CorteClass(
+        isActive: true,
+        DiaDoCorte: diaDoCorte,
+        NomeMes: monthName,
+        dateCreateAgendamento: DateTime.now(),
+        ramdomCode: number,
+        clientName: nomeControler.text,
+        id: Random().nextDouble().toString(),
+        numeroContato: numberControler.text,
+        sobrancelha: sobrancelha,
+        diaCorte: dataSelectedInModal!,
+        horarioCorte: hourSetForUser!,
+        profissionalSelect: isBarbeiro1
+            ? "${profList[0].nomeProf}"
+            : isBarbeiro2
+                ? "${profList[1].nomeProf}"
+                : isBarbeiro3
+                    ? "${profList[2].nomeProf}"
+                    : "Não Definido",
+      ),
+      selectDateForUser: dataSelectedInModal!,
+    );
+    try {
+      await analytics.logEvent(
+        name: "scheduled_appointmen",
+        parameters: {
+          "appointment_type": "Corte-agendado",
+          "appointment_datetime": DateTime.now().toIso8601String(),
+        },
+      );
+
+      print("evento enviado");
+    } catch (e) {
+      print("erro ao enviar evento: $e");
+    }
   }
 
   //Fazendo o filtro para exibir quais horarios estao disponíveis
