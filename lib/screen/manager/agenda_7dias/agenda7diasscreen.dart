@@ -33,6 +33,8 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
     lastSevenMonths = lastSevenMonths.reversed.toList().reversed.toList();
   }
 
+  int? diaSelecionadoSegundo;
+  String? mesSelecionadoSegundo;
   String profSelecionado = "${profList[0].nomeProf}";
   Future<void> attViewSchedule({
     required int dia,
@@ -125,6 +127,9 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                               setState(() {
                                 selectedIndex =
                                     index; // Atualiza o índice do item clicado
+
+                                diaSelecionadoSegundo = day;
+                                mesSelecionadoSegundo = month;
                               });
                               attViewSchedule(
                                   dia: day,
@@ -186,66 +191,88 @@ class _Agenda7DiasScreenManagerState extends State<Agenda7DiasScreenManager> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-Container(
-  height: MediaQuery.of(context).size.height * 0.06,
-  child: Row(
-    children: _profList.map((profissional) {
-      int profIndex = _profList.indexOf(profissional); // Índice do profissional atual
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            child: Row(
+                              children: _profList.map((profissional) {
+                                int profIndex = _profList.indexOf(
+                                    profissional); // Índice do profissional atual
 
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: InkWell(
-          onTap: () async {
-            setState(() {
-              profSelecionado = profissional.nomeProf;
-              profissionalSelecionadoIndex = profIndex; // Atualiza o índice do profissional selecionado
-              attViewSchedule(
-                dia: lastSevenDays[0],
-                mes: lastSevenMonths[0],
-                proffName: profSelecionado,
-              );
-            });
-            print("O profissional selecionado é $profSelecionado");
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: profissionalSelecionadoIndex == profIndex ? Colors.blue : Colors.green, // Altera a cor se este profissional estiver selecionado
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 30,
-                  height: 30,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(
-                      profissional.assetImage,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  "${profissional.nomeProf}",
-                  style: GoogleFonts.openSans(
-                    textStyle: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }).toList(),
-  ),),
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        profSelecionado = profissional.nomeProf;
+                                        profissionalSelecionadoIndex =
+                                            profIndex; // Atualiza o índice do profissional selecionado
+
+                                        if (mesSelecionadoSegundo != null) {
+                                          print("o mes nao ta vazio");
+                                          attViewSchedule(
+                                            dia: diaSelecionadoSegundo!,
+                                            mes: mesSelecionadoSegundo!,
+                                            proffName: profSelecionado,
+                                          );
+                                        } else {
+                                          attViewSchedule(
+                                            dia: lastSevenDays[0],
+                                            mes: lastSevenMonths[0],
+                                            proffName: profSelecionado,
+                                          );
+                                        }
+                                      });
+                                      print(
+                                          "O profissional selecionado é $profSelecionado");
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: profissionalSelecionadoIndex ==
+                                                profIndex
+                                            ? Colors.blue
+                                            : Colors
+                                                .green, // Altera a cor se este profissional estiver selecionado
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: Image.asset(
+                                                profissional.assetImage,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            "${profissional.nomeProf}",
+                                            style: GoogleFonts.openSans(
+                                              textStyle: const TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ],
                       ),
                     ),

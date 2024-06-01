@@ -7,6 +7,7 @@ import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/functions/providerFilterStrings.dart';
 import 'package:barbershop2/functions/rankingProviderHome.dart';
 import 'package:barbershop2/functions/userLogin.dart';
+import 'package:barbershop2/notifications/firebase_notifications.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/add/confirmscreen/ConfirmScreenCorte.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
@@ -17,6 +18,7 @@ import 'package:barbershop2/screen/manager/agenda_7dias/agenda7diasscreen.dart';
 import 'package:barbershop2/screen/manager/agenda_7dias/confirmCancelCorte.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -33,6 +35,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  try {
+    await FirebaseNotifications().initNotifications();
+  } catch (e) {
+    print("erro ao iniciar as mensagens");
+  }
   try {
     analytics.setAnalyticsCollectionEnabled(true);
     print("Inicializamos o ga4 no app");
