@@ -38,7 +38,7 @@ class FirebaseNotifications {
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
   }
-  
+
   Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
     // Process the FCM message
@@ -54,13 +54,13 @@ class FirebaseNotifications {
       body,
       const NotificationDetails(
         android: AndroidNotificationDetails(
+          playSound: true,
           'your_channel_id', // Add channel ID here
           'BarberShop2 Notifications', // Add channel description here
           importance: Importance.high,
-
+          icon: '@mipmap/ic_launcher.png',
           priority: Priority.high,
         ),
-       
       ),
     );
   }
