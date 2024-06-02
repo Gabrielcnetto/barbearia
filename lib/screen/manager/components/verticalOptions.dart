@@ -732,6 +732,74 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                 ),
               ),
               //CANCELAR DIA - FIM
+              //SELECIONAR TEMPO DA BARBA - INICIO
+              const SizedBox(
+                height: 15,
+              ),
+              InkWell(
+                onTap: ShowModalData,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(32, 32, 32, 0.1),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromRGBO(32, 32, 32, 0.2),
+                            ),
+                            child: const Icon(Icons.pending_actions),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Aumente o tempo do serviço",
+                                style: GoogleFonts.openSans(
+                                  textStyle: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Text(
+                                  "Barba Inclusa? Diga ao cliente até quantos minutos você pode levar a mais...(isso serve para ajustar os encaixes)",
+                                  overflow: TextOverflow.visible,
+                                  style: GoogleFonts.openSans(
+                                    textStyle: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.grey.shade500,
+                                        fontSize: 13),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(
+                        child: const Icon(
+                          Icons.chevron_right,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              //SELECIONAR TEMPO DA BARBA - FIM
               const SizedBox(
                 height: 25,
               ),

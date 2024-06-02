@@ -433,9 +433,9 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                         height: 5,
                       ),
                       Text(
-                        widget.corte.sobrancelha
-                            ? "Com Sobrancelha"
-                            : "Sem sobrancelha",
+                        widget.corte.barba
+                            ? "Com barba"
+                            : "Sem barba",
                         style: GoogleFonts.openSans(
                           textStyle: const TextStyle(
                             fontWeight: FontWeight.w400,

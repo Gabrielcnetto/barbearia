@@ -165,11 +165,11 @@ class _providerLoadingHistoryListState
                       const SizedBox(
                         height: 5,
                       ),
-                      //INICIO SOBRANCELHA
+                      //INICIO barba
                       Row(
                         children: [
                           Text(
-                            "Sobrancelha:",
+                            "barba:",
                             style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                 fontWeight: FontWeight.w700,
@@ -181,7 +181,7 @@ class _providerLoadingHistoryListState
                             width: 5,
                           ),
                           Text(
-                            "${widget.corte.sobrancelha == true ? "Sim" : "Não"}",
+                            "${widget.corte.barba == true ? "Sim" : "Não"}",
                             style: GoogleFonts.openSans(
                               textStyle: const TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -191,7 +191,7 @@ class _providerLoadingHistoryListState
                           )
                         ],
                       ),
-                      //FIM SOBRANCELHA
+                      //FIM barba
       
                       const SizedBox(
                         height: 5,

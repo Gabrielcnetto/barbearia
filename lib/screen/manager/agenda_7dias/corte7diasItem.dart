@@ -173,7 +173,7 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                       Padding(
                         padding: const EdgeInsets.only(top: 3),
                         child: Text(
-                          "Sobrancelha:",
+                          "barba:",
                           style: GoogleFonts.openSans(
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w400,
@@ -187,7 +187,7 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                         width: 5,
                       ),
                       Text(
-                        "${Corte.sobrancelha == true ? "Inclusa" : "Não Inclusa"}",
+                        "${Corte.barba == true ? "Inclusa" : "Não Inclusa"}",
                         style: GoogleFonts.openSans(
                           textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,

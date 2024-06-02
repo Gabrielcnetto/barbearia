@@ -255,7 +255,7 @@ class _HomePageHeaderState extends State<HomePageHeader> {
                       "${_listaCortesUsuario.profissionalSelect}",
                   diaCorte: _listaCortesUsuario.diaCorte,
                   horarioCorte: "${_listaCortesUsuario.horarioCorte}",
-                  sobrancelha: _listaCortesUsuario.sobrancelha,
+                  barba: _listaCortesUsuario.barba,
                   ramdomCode: _listaCortesUsuario.ramdomCode,
                 ),
               ),

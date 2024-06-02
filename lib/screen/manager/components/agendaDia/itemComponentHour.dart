@@ -160,7 +160,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                       Padding(
                         padding: const EdgeInsets.only(top: 3),
                         child: Text(
-                          "Sobrancelha:",
+                          "barba:",
                           style: GoogleFonts.openSans(
                             textStyle: TextStyle(
                               fontWeight: FontWeight.w400,
@@ -174,7 +174,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                         width: 5,
                       ),
                       Text(
-                        "${widget.Corte.sobrancelha == true ? "Inclusa" : "Não Inclusa"}",
+                        "${widget.Corte.barba == true ? "Inclusa" : "Não Inclusa"}",
                         style: GoogleFonts.openSans(
                           textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,

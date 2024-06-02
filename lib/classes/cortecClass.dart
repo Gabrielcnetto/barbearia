@@ -4,7 +4,7 @@ class CorteClass {
   final bool isActive;
   final String clientName;
   final String numeroContato;
-  final bool sobrancelha;
+  final bool barba;
   final int DiaDoCorte;
   final String NomeMes;
   final DateTime diaCorte;
@@ -22,7 +22,7 @@ class CorteClass {
     required this.profissionalSelect,
     required this.diaCorte,
     required this.horarioCorte,
-    required this.sobrancelha,
+    required this.barba,
     required this.ramdomCode,
     required this.dateCreateAgendamento,
   });

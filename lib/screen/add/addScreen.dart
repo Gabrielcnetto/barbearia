@@ -40,20 +40,20 @@ class _AddScreenState extends State<AddScreen> {
     LoadFolgaDatetime;
   }
 
-  bool sobrancelha = true;
+  bool barba = false;
 
-  void sobrancelhaTrue() {
-    if (sobrancelha == false) {
+  void barbaTrue() {
+    if (barba == false) {
       setState(() {
-        sobrancelha = true;
+        barba = true;
       });
     }
   }
 
-  void sobrancelhaFalse() {
-    if (sobrancelha == true) {
+  void barbaFalse() {
+    if (barba == true) {
       setState(() {
-        sobrancelha = false;
+        barba = false;
       });
     }
   }
@@ -250,7 +250,7 @@ class _AddScreenState extends State<AddScreen> {
         clientName: nomeControler.text,
         id: Random().nextDouble().toString(),
         numeroContato: numberControler.text,
-        sobrancelha: sobrancelha,
+        barba: barba,
         diaCorte: dataSelectedInModal!,
         horarioCorte: hourSetForUser!,
         profissionalSelect: isBarbeiro1
@@ -750,7 +750,7 @@ class _AddScreenState extends State<AddScreen> {
                               height: 25,
                             ),
                             //CONTAINER DO NUMERO
-                            //CONTAINER BOOL DA SOBRANCELHA - INICIO
+                            //CONTAINER BOOL DA barba - INICIO
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -767,7 +767,7 @@ class _AddScreenState extends State<AddScreen> {
                                   width: 5,
                                 ),
                                 Text(
-                                  "Deseja fazer sobrancelha?",
+                                  "Deseja incluir barba?",
                                   style: GoogleFonts.openSans(
                                     textStyle: const TextStyle(
                                       fontSize: 14,
@@ -789,13 +789,13 @@ class _AddScreenState extends State<AddScreen> {
                                   Positioned(
                                     right: 0,
                                     child: InkWell(
-                                      onTap: sobrancelhaFalse,
+                                      onTap: barbaFalse,
                                       child: Container(
                                         padding:
                                             const EdgeInsets.only(right: 30),
                                         alignment: Alignment.centerRight,
                                         height: heighScreen * 0.07,
-                                        width: !sobrancelha
+                                        width: !barba
                                             ? widhScren / 1.8
                                             : widhScren / 3,
                                         decoration: BoxDecoration(
@@ -810,8 +810,8 @@ class _AddScreenState extends State<AddScreen> {
                                           style: GoogleFonts.openSans(
                                             textStyle: TextStyle(
                                                 fontSize:
-                                                    !sobrancelha ? 17 : 14,
-                                                fontWeight: !sobrancelha
+                                                    !barba ? 17 : 14,
+                                                fontWeight: !barba
                                                     ? FontWeight.w800
                                                     : FontWeight.w400,
                                                 color: Estabelecimento
@@ -824,13 +824,13 @@ class _AddScreenState extends State<AddScreen> {
                                   Positioned(
                                     left: 0,
                                     child: InkWell(
-                                      onTap: sobrancelhaTrue,
+                                      onTap: barbaTrue,
                                       child: Container(
                                         padding:
                                             const EdgeInsets.only(left: 30),
                                         alignment: Alignment.centerLeft,
                                         height: heighScreen * 0.07,
-                                        width: sobrancelha
+                                        width: barba
                                             ? widhScren / 1.8
                                             : widhScren / 3,
                                         decoration: BoxDecoration(
@@ -849,8 +849,8 @@ class _AddScreenState extends State<AddScreen> {
                                           "Sim",
                                           style: GoogleFonts.openSans(
                                             textStyle: TextStyle(
-                                                fontSize: sobrancelha ? 17 : 14,
-                                                fontWeight: sobrancelha
+                                                fontSize: barba ? 17 : 14,
+                                                fontWeight: barba
                                                     ? FontWeight.w800
                                                     : FontWeight.w400,
                                                 color: Estabelecimento
@@ -863,7 +863,7 @@ class _AddScreenState extends State<AddScreen> {
                                 ],
                               ),
                             ),
-                            //CONTAINER BOOL DA SOBRANCELHA - FIM
+                            //CONTAINER BOOL DA barba - FIM
                             const SizedBox(
                               height: 25,
                             ),

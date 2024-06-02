@@ -67,7 +67,7 @@ class ManagerScreenFunctions with ChangeNotifier {
               profissionalSelect: "",
               diaCorte: DateTime.now(),
               horarioCorte: "",
-              sobrancelha: false,
+              barba: false,
               ramdomCode: 0,
               dateCreateAgendamento: DateTime.now(),
             ),
@@ -129,7 +129,7 @@ class ManagerScreenFunctions with ChangeNotifier {
           profissionalSelect: data?['profissionalSelect'],
           diaCorte: diaCorteFinal, // Usando o atributo diaCorte
           horarioCorte: data?['horarioCorte'],
-          sobrancelha: data?['sobrancelha'],
+          barba: data?['barba'],
           ramdomCode: data?['ramdomNumber'],
         );
       }).toList();

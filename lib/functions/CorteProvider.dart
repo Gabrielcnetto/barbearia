@@ -44,7 +44,7 @@ class CorteProvider with ChangeNotifier {
         "dataCreateAgendamento": corte.dateCreateAgendamento,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
-        "sobrancelha": corte.sobrancelha,
+        "barba": corte.barba,
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
@@ -64,7 +64,7 @@ class CorteProvider with ChangeNotifier {
         "dataCreateAgendamento": corte.dateCreateAgendamento,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
-        "sobrancelha": corte.sobrancelha,
+        "barba": corte.barba,
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
@@ -82,7 +82,7 @@ class CorteProvider with ChangeNotifier {
         "dataCreateAgendamento": corte.dateCreateAgendamento,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
-        "sobrancelha": corte.sobrancelha,
+        "barba": corte.barba,
         "diaCorte": corte.diaCorte,
         "horarioCorte": corte.horarioCorte,
         "profissionalSelect": corte.profissionalSelect,
@@ -102,7 +102,7 @@ class CorteProvider with ChangeNotifier {
         "diaDoCorte": corte.DiaDoCorte,
         "clientName": corte.clientName,
         "numeroContato": corte.numeroContato,
-        "sobrancelha": corte.sobrancelha,
+        "barba": corte.barba,
         "diaCorte": corte.diaCorte,
         "dataCreateAgendamento": corte.dateCreateAgendamento,
         "horarioCorte": corte.horarioCorte,
@@ -263,7 +263,7 @@ class CorteProvider with ChangeNotifier {
           profissionalSelect: data?['profissionalSelect'],
           diaCorte: diaCorteFinal, // Usando o atributo diaCorte
           horarioCorte: data?['horarioCorte'],
-          sobrancelha: data?['sobrancelha'],
+          barba: data?['barba'],
           ramdomCode: data?['ramdomNumber'],
         );
       }).toList();
@@ -327,7 +327,7 @@ class CorteProvider with ChangeNotifier {
           profissionalSelect: data?['profissionalSelect'],
           diaCorte: diaCorteFinal, // Usando o atributo diaCorte
           horarioCorte: data?['horarioCorte'],
-          sobrancelha: data?['sobrancelha'],
+          barba: data?['barba'],
           ramdomCode: data?['ramdomNumber'],
         );
       }).toList();
