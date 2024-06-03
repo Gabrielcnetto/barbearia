@@ -16,6 +16,7 @@ import 'package:barbershop2/screen/login/loginScreen.dart';
 import 'package:barbershop2/screen/manager/ManagerScreen.dart';
 import 'package:barbershop2/screen/manager/agenda_7dias/agenda7diasscreen.dart';
 import 'package:barbershop2/screen/manager/agenda_7dias/confirmCancelCorte.dart';
+import 'package:barbershop2/screen/manager/encaixe/encaixeScreen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -128,6 +129,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutesApp.Agenda7DiasScreenManager: (ctx) =>
               const Agenda7DiasScreenManager(),
           AppRoutesApp.ConfirmCancelCorte: (ctx) => const ConfirmCancelCorte(),
+          AppRoutesApp.EncaixeScreen: (ctx)=>const EncaixeScreen(),
         },
       ),
     );

@@ -153,8 +153,8 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                             ),
                           ),
                         ),
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 5),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Row(
@@ -200,8 +200,8 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                               ),
                             ),
                           ),
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Row(
@@ -247,8 +247,8 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                               ),
                             ),
                           ),
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
                             child: Row(
@@ -302,8 +302,8 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                         decoration: BoxDecoration(
                             color: Colors.amber.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(5)),
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 5),
                         child: Text(
                           "Limpar Filtro",
                           style: GoogleFonts.openSans(
@@ -322,6 +322,9 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
         });
   }
 
+  void screenEncaixe(){
+    Navigator.of(context).pushNamed(AppRoutesApp.EncaixeScreen);
+  }
   @override
   Widget build(BuildContext context) {
     int diaAtual = DateTime.now().day;
@@ -353,20 +356,40 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                     decoration: BoxDecoration(
                         color: Estabelecimento.primaryColor,
                         borderRadius: BorderRadius.circular(30)),
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 1),
                     child: Text(
                       "Dia ${diaAtual ?? "Carregando..."}/0${mesAtual ?? "Carregando..."}",
                       style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 13,
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 5,
+                  ),
+                  InkWell(
+                    onTap: screenEncaixe,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 1),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.greenAccent.shade700
+                      ),
+                      child: Icon(
+                        Icons.add_box,
+                        size: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
                   ),
                   InkWell(
                     onTap: showFilterModal,
@@ -377,14 +400,15 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                       ),
                       child: Icon(
                         Icons.tune,
+                        size: 20,
                         color: Estabelecimento.contraPrimaryColor,
                       ),
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 1),
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
           const DiaListaComponent()

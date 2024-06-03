@@ -1,6 +1,7 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/home/home_components/StreamHaveItems.dart';
 import 'package:barbershop2/screen/home/home_components/header/header.dart';
@@ -27,9 +28,36 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
     // TODO: implement initState
     super.initState();
     MonthCorte;
+    LoadPrice();
     setDateCort();
     print("o barbeiro selecionado é ${widget.corte.profissionalSelect}");
+    LoadMinutesDatabase();
+    LoadSecondsDatabase();
   }
+
+  //get do tempo da barba - inicio
+  int minutesView = 0;
+
+  Future<void> LoadMinutesDatabase() async {
+    int? minutosDatabaseGet = await ManagerScreenFunctions().getMinutes();
+    print("pegamos a data do databse");
+
+    setState(() {
+      minutesView = minutosDatabaseGet!;
+      LoadSecondsDatabase();
+    });
+  }
+
+  int secondsView = 0;
+  Future<void> LoadSecondsDatabase() async {
+    int? secondsDatabase = await ManagerScreenFunctions().getSeconds();
+    print("pegamos a data do databse");
+
+    setState(() {
+      secondsView = secondsDatabase!;
+    });
+  }
+  //get do tempo da barba - fim
 
   String? MonthCorte;
   Future<void> setDateCort() async {
@@ -71,11 +99,12 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                 onPressed: () async {
                   Provider.of<CorteProvider>(context, listen: false)
                       .desmarcarCorte(corteparausar);
-                        Provider.of<CorteProvider>(context, listen: false)
+                  Provider.of<CorteProvider>(context, listen: false)
                       .desmarcarCorteMeus(corteparausar);
-                       Provider.of<CorteProvider>(context, listen: false)
+                  Provider.of<CorteProvider>(context, listen: false)
                       .desmarcarAgendaManager(corteparausar);
-                      Navigator.of(context).pushReplacementNamed(AppRoutesApp.HomeScreen01);
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppRoutesApp.HomeScreen01);
                 },
                 child: Text(
                   'Desmarcar',
@@ -328,6 +357,17 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
         });
   }
 
+  int? atualPrice;
+
+  Future<void> LoadPrice() async {
+    int? priceDB = await ManagerScreenFunctions().getPriceCorte();
+    print("pegamos a data do databse");
+
+    setState(() {
+      atualPrice = priceDB!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double widhTela = MediaQuery.of(context).size.width;
@@ -432,16 +472,31 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        widget.corte.barba
-                            ? "Com barba"
-                            : "Sem barba",
-                        style: GoogleFonts.openSans(
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 13,
+                      Row(
+                        children: [
+                          Text(
+                            widget.corte.barba ? "Com barba" : "Sem barba",
+                            style: GoogleFonts.openSans(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 13,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          if (widget.corte.barba == true)
+                            Text(
+                              "(+${minutesView}${secondsView}min)",
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                            )
+                        ],
                       ),
                       const SizedBox(
                         height: 5,
@@ -469,7 +524,7 @@ class _ProfissionalCodeState extends State<ProfissionalCode> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 10),
                             child: Text(
-                              "R\$35,00",
+                              "R\$${atualPrice ?? 00},00",
                               style: GoogleFonts.openSans(
                                 textStyle: const TextStyle(
                                     fontWeight: FontWeight.w700,

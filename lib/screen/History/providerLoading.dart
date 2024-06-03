@@ -38,7 +38,7 @@ class _providerLoadingHistoryListState
         alignment: Alignment.center,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         width: widget.widhtScreen,
-        height:exibirInformacoes ?  widget.heighScren * 0.3 : widget.heighScren * 0.13,
+        height:exibirInformacoes ?  widget.heighScren * 0.27 : widget.heighScren * 0.13,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Estabelecimento.primaryColor.withOpacity(0.2),
@@ -192,45 +192,7 @@ class _providerLoadingHistoryListState
                         ],
                       ),
                       //FIM barba
-      
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      //INICIO DO PRECO
-                      Row(
-                        children: [
-                          Text(
-                            "Preço:",
-                            style: GoogleFonts.openSans(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.grey.shade800,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.green.shade200.withOpacity(0.4),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            child: Text(
-                              "R\$35,00",
-                              style: GoogleFonts.openSans(
-                                textStyle: const TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 13,
-                                    color: Colors.green),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      //FIM DO PRECO
+   
                       const SizedBox(
                         height: 5,
                       ),

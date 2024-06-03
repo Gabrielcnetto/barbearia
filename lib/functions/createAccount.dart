@@ -29,6 +29,7 @@ class CreateAccount with ChangeNotifier {
       "urlImagem": "https://static.vecteezy.com/ti/vetor-gratis/p1/9292244-default-avatar-icon-vector-of-social-media-user-vetor.jpg",
       "totalCortes": 0,
       "isManager": false,
+      "isfuncionario": false,
     });
     notifyListeners();
   }

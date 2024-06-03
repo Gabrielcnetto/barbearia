@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:barbershop2/classes/GeralUser.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
@@ -153,7 +154,7 @@ class ManagerScreenFunctions with ChangeNotifier {
   Future<void> setDayOff(DateTime date) async {
     DateTime dataAtual = date;
     try {
-      database.collection("OffDays").doc("diaSelect").set({
+      database.collection("estabelecimento").doc("diaSelect").set({
         "data": date,
       });
     } catch (e) {
@@ -162,25 +163,104 @@ class ManagerScreenFunctions with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setTimerBarbaandCabelo(
+      {required int MinutoSelecionado, required int segundoSelecionado}) async {
+    database.collection("estabelecimento").doc("timerBarba").set({
+      'minutoSelecionado': MinutoSelecionado,
+      'segundoSelecionado': segundoSelecionado,
+    });
+  }
 
-Future<DateTime?> getFolga() async {
-  print("entramos no get da folga");
-  DateTime? datafolga;
-  await database.collection("OffDays").doc("diaSelect").get().then((event) {
-    if (event.exists) {
-      Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+  Future<void> setPrice({required int newPrice}) async {
+    database.collection("estabelecimento").doc("timerBarba").set({
+      'newPrice': newPrice,
+    });
+  }
 
-      // Supondo que você tenha armazenado a data como um timestamp no Firestore
-      Timestamp? timestamp = data['data']; // Suponha 'offDay' é o nome do campo que armazena a data de folga
+  Future<DateTime?> getFolga() async {
+    print("entramos no get da folga");
+    DateTime? datafolga;
+    await database
+        .collection("estabelecimento")
+        .doc("diaSelect")
+        .get()
+        .then((event) {
+      if (event.exists) {
+        Map<String, dynamic> data = event.data() as Map<String, dynamic>;
 
-      if (timestamp != null) {
-        datafolga = timestamp.toDate(); // Convertendo Timestamp para DateTime
+        // Supondo que você tenha armazenado a data como um timestamp no Firestore
+        Timestamp? timestamp = data[
+            'data']; // Suponha 'offDay' é o nome do campo que armazena a data de folga
+
+        if (timestamp != null) {
+          datafolga = timestamp.toDate(); // Convertendo Timestamp para DateTime
+        }
       }
-    } 
-    print("a data que foi pega foi: ${datafolga}");
+      print("a data que foi pega foi: ${datafolga}");
+      return datafolga;
+    });
     return datafolga;
-  });
-  return datafolga;
-}
+  }
 
+  //fazendo os gets dos horarios da barba
+  Future<int?> getMinutes() async {
+    print("entramos no get da folga");
+    int? minutos;
+    await database
+        .collection("estabelecimento")
+        .doc("timerBarba")
+        .get()
+        .then((event) {
+      if (event.exists) {
+        Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+        minutos = data['minutoSelecionado'];
+      }
+      print("a data que foi pega foi: ${minutos}");
+      return minutos;
+    });
+    return minutos;
+  }
+
+  Future<int?> getSeconds() async {
+    print("entramos no get da folga");
+    int? segundos;
+    await database
+        .collection("estabelecimento")
+        .doc("timerBarba")
+        .get()
+        .then((event) {
+      if (event.exists) {
+        Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+        segundos = data['segundoSelecionado'];
+      }
+      print("a data que foi pega foi segundos: ${segundos}");
+      return segundos;
+    });
+    return segundos;
+  }
+
+  Future<void> setNewprice({required int newprice}) async {
+    database.collection("estabelecimento").doc("price").set({
+      'newprice': newprice,
+    });
+  }
+
+  //get do preco
+    Future<int?> getPriceCorte() async {
+    print("entramos no get da folga");
+    int? newprice;
+    await database
+        .collection("estabelecimento")
+        .doc("price")
+        .get()
+        .then((event) {
+      if (event.exists) {
+        Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+        newprice = data['newprice'];
+      }
+      print("a data que foi pega foi: ${newprice}");
+      return newprice;
+    });
+    return newprice;
+  }
 }

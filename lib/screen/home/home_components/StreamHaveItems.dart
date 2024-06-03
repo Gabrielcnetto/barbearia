@@ -1,5 +1,6 @@
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/screen/home/home_components/header/header.dart';
 import 'package:barbershop2/screen/home/home_components/header/homeHeaderSemItens.dart';
 import 'package:barbershop2/screen/home/home_components/header/home_noItenswithLoading.dart';
@@ -23,6 +24,22 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
     // TODO: implement initState
     super.initState();
     Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
+    loadUserIsManager();
+  }
+
+  bool? isManager;
+
+  Future<void> loadUserIsManager() async {
+    bool? bolIsManager = await MyProfileScreenFunctions().getUserIsManager();
+
+    if (isManager != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      isManager = bolIsManager!;
+    });
   }
 
   @override
@@ -42,7 +59,10 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
         } else {
           final List<CorteClass>? cortes = snapshot.data;
 
-          if (cortes != null && cortes.isNotEmpty && cortes[0].isActive == true) {
+          if (cortes != null &&
+              cortes.isNotEmpty &&
+              cortes[0].isActive == true &&
+              isManager != true) {
             // Se houver itens na lista, mostre o widget correspondente
             return SafeArea(
               child: HomePageHeader(
