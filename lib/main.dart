@@ -13,13 +13,16 @@ import 'package:barbershop2/screen/add/confirmscreen/ConfirmScreenCorte.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
 import 'package:barbershop2/screen/inicio/initialScreen.dart';
 import 'package:barbershop2/screen/login/loginScreen.dart';
-import 'package:barbershop2/screen/manager/ManagerScreen.dart';
-import 'package:barbershop2/screen/manager/agenda_7dias/agenda7diasscreen.dart';
-import 'package:barbershop2/screen/manager/agenda_7dias/confirmCancelCorte.dart';
-import 'package:barbershop2/screen/manager/encaixe/encaixeScreen.dart';
+import 'package:barbershop2/screen/manager/principal/ManagerScreen.dart';
+import 'package:barbershop2/screen/manager/funcionario/funcionario_screen.dart';
+
+import 'package:barbershop2/screen/manager/principal/agenda_7dias/agenda7diasscreen.dart';
+import 'package:barbershop2/screen/manager/principal/agenda_7dias/confirmCancelCorte.dart';
+import 'package:barbershop2/screen/manager/principal/encaixe/encaixeScreen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -96,6 +99,9 @@ class _MyAppState extends State<MyApp> {
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          DefaultCupertinoLocalizations.delegate,
+          DefaultCupertinoLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
         theme: ThemeData(
           datePickerTheme: DatePickerThemeData(
@@ -129,7 +135,8 @@ class _MyAppState extends State<MyApp> {
           AppRoutesApp.Agenda7DiasScreenManager: (ctx) =>
               const Agenda7DiasScreenManager(),
           AppRoutesApp.ConfirmCancelCorte: (ctx) => const ConfirmCancelCorte(),
-          AppRoutesApp.EncaixeScreen: (ctx)=>const EncaixeScreen(),
+          AppRoutesApp.EncaixeScreen: (ctx) => const EncaixeScreen(),
+          AppRoutesApp.FuncionarioScreen: (ctx) => const FuncionarioScreen(),
         },
       ),
     );

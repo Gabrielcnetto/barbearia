@@ -38,6 +38,7 @@ class _AddScreenState extends State<AddScreen> {
     Provider.of<ManagerScreenFunctions>(context, listen: false).getFolga;
     DataFolgaDatabase;
     LoadFolgaDatetime;
+    LoadPrice();
   }
 
   bool barba = false;
@@ -222,6 +223,16 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
+ int? atualPrice;
+
+  Future<void> LoadPrice() async {
+    int? priceDB = await ManagerScreenFunctions().getPriceCorte();
+    print("pegamos a data do databse");
+
+    setState(() {
+      atualPrice = priceDB!;
+    });
+  }
   String? hourSetForUser;
 
   Future<void> CreateAgendamento() async {
@@ -234,6 +245,7 @@ class _AddScreenState extends State<AddScreen> {
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
+          pricevalue: atualPrice ?? 00,
       nomeBarbeiro: isBarbeiro1
           ? "${profList[0].nomeProf}"
           : isBarbeiro2

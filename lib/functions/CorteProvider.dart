@@ -14,10 +14,12 @@ class CorteProvider with ChangeNotifier {
   final authSettings = FirebaseAuth.instance;
 
   //ENVIANDO O CORTE PARA AS LISTAS NO BANCO DE DADOS - INICIO
-  Future<void> AgendamentoCortePrincipalFunctions(
-      {required CorteClass corte,
-      required DateTime selectDateForUser,
-      required String nomeBarbeiro}) async {
+  Future<void> AgendamentoCortePrincipalFunctions({
+    required CorteClass corte,
+    required DateTime selectDateForUser,
+    required String nomeBarbeiro,
+    required int pricevalue,
+  }) async {
     print("entrei na funcao");
 
     await initializeDateFormatting('pt_BR');
@@ -56,7 +58,8 @@ class CorteProvider with ChangeNotifier {
       final addAllcuts = await database
           .collection("allCuts")
           .doc(monthName)
-          .collection("${diaCorteSelect}").doc(corte.id)
+          .collection("${diaCorteSelect}")
+          .doc(corte.id)
           .set({
         "id": corte.id,
         'isActive': corte.isActive,
@@ -71,6 +74,26 @@ class CorteProvider with ChangeNotifier {
         "ramdomNumber": corte.ramdomCode,
         "monthName": monthName,
       });
+      //adicionando na lista de cada funcionario - inicio
+      final addOnProfListAllcuts = await database
+          .collection("mensalCuts")
+          .doc(monthName)
+          .collection(corte.profissionalSelect)
+          .add({
+            "price": pricevalue,
+          });
+      //adicionando na lista de cada funcionario - fim
+
+      //adicionando o valor no faturamento total da barbearia - inicio
+       final addFaturamentoTotal = await database
+          .collection("estabelecimento")
+          .doc("faturamento")
+          .collection(monthName)
+          .add({
+            "price": pricevalue,
+          });
+      //adicionando o valor no faturamento total da barbearia - fim
+
       final addTotalCortes = await database
           .collection("totalCortes")
           .doc(monthName)
@@ -402,7 +425,7 @@ class CorteProvider with ChangeNotifier {
     notifyListeners();
   }
 
-    Future<void> desmarcarAgendaManager(CorteClass corte) async {
+  Future<void> desmarcarAgendaManager(CorteClass corte) async {
     try {
       final referenciaMeusCortes = database
           .collection("allCuts")
@@ -420,9 +443,6 @@ class CorteProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-  
 }
-
-         
 
 //load dos cortes do usuario, e eadicionando a uma list - FIM

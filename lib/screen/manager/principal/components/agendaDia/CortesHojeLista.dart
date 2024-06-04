@@ -4,8 +4,8 @@ import 'package:barbershop2/classes/profissionais.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/providerFilterStrings.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
-import 'package:barbershop2/screen/manager/components/agendaDia/diaListComponent.dart';
-import 'package:barbershop2/screen/manager/components/agendaDia/itemComponentHour.dart';
+import 'package:barbershop2/screen/manager/principal/components/agendaDia/diaListComponent.dart';
+import 'package:barbershop2/screen/manager/principal/components/agendaDia/itemComponentHour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -10,4 +10,5 @@ class AppRoutesApp {
   static const Agenda7DiasScreenManager = "/Agenda7DiasScreenManager";
   static const ConfirmCancelCorte = "/ConfirmCancelCorte";
   static const EncaixeScreen = "/EncaixeScreen";
+  static const FuncionarioScreen = "/FuncionarioScreen";
 }

@@ -25,6 +25,7 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
     super.initState();
     Provider.of<CorteProvider>(context, listen: false).loadHistoryCortes();
     loadUserIsManager();
+    loadUserIsFuncionario();
   }
 
   bool? isManager;
@@ -41,6 +42,22 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
       isManager = bolIsManager!;
     });
   }
+
+   bool? isFuncionario;
+
+  Future<void> loadUserIsFuncionario() async {
+    bool? bolIsManager = await MyProfileScreenFunctions().getUserIsFuncionario();
+
+    if (isFuncionario != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      isFuncionario = bolIsManager!;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +79,7 @@ class _StreamHaveItensState extends State<StreamHaveItens> {
           if (cortes != null &&
               cortes.isNotEmpty &&
               cortes[0].isActive == true &&
-              isManager != true) {
+              isManager != true && isFuncionario !=true) {
             // Se houver itens na lista, mostre o widget correspondente
             return SafeArea(
               child: HomePageHeader(

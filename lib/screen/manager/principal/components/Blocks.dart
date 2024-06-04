@@ -9,7 +9,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../classes/GeralUser.dart';
+import '../../../../classes/GeralUser.dart';
 
 class BlocksManagerComponent extends StatefulWidget {
   const BlocksManagerComponent({super.key});
@@ -23,14 +23,15 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<ManagerScreenFunctions>(context,listen:false);
+    Provider.of<ManagerScreenFunctions>(context, listen: false);
     loadTotalClientes();
     totalCortesNomES;
     loadTotalcortesmes();
     totalClientes;
     mesAtual;
     loadAtualMonth();
-
+    loadTotalFaturamento();
+    loadTotalCortes();
   }
 
   int? totalClientes;
@@ -65,6 +66,27 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
 
     setState(() {
       mesAtual = monthName;
+    });
+  }
+
+  //faturamento total
+  int? totalFaturamento;
+  Future<void> loadTotalFaturamento() async {
+    int totalFaturamentoGet =
+        await ManagerScreenFunctions().loadFaturamentoBarbearia();
+
+    setState(() {
+      totalFaturamento = totalFaturamentoGet;
+    });
+  }
+
+  //total cortes
+  int totalCortes = 0;
+  Future<void> loadTotalCortes() async {
+    int totalCortesGet = await ManagerScreenFunctions().TotalcortesMes();
+
+    setState(() {
+      totalCortes = totalCortesGet;
     });
   }
 
@@ -120,7 +142,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                           height: 2,
                         ),
                         Text(
-                          "Clientes",
+                          "Clientes cadastrados",
                           style: GoogleFonts.openSans(
                             textStyle: const TextStyle(
                               fontWeight: FontWeight.w400,
@@ -170,9 +192,9 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                   height: 5,
                                 ),
                                 Text(
-                                  totalCortesNomES! > 1
-                                      ? "${totalCortesNomES} cortes"
-                                      : "${totalCortesNomES} corte",
+                                  totalCortes > 1
+                                      ? "${totalCortes} cortes"
+                                      : "${totalCortes} corte",
                                   style: GoogleFonts.openSans(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -230,9 +252,7 @@ class _BlocksManagerComponentState extends State<BlocksManagerComponent> {
                                   height: 5,
                                 ),
                                 Text(
-                                  totalCortesNomES! >= 1
-                                      ? "R\$${totalCortesNomES! * 35},00"
-                                      : "R\$0,00",
+                                  "R\$${totalFaturamento ?? 00}",
                                   style: GoogleFonts.openSans(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,

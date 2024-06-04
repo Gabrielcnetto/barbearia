@@ -1,23 +1,24 @@
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
-import 'package:barbershop2/screen/manager/components/agendaDia/itemComponentHour.dart';
-import 'package:barbershop2/screen/manager/components/agendaDia/semCortesHoje.dart';
+import 'package:barbershop2/screen/manager/funcionario/componentes/itemComponentHour.dart';
+import 'package:barbershop2/screen/manager/principal/components/agendaDia/itemComponentHour.dart';
+import 'package:barbershop2/screen/manager/principal/components/agendaDia/semCortesHoje.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DiaListaComponent extends StatefulWidget {
+class DiaListaComponentFuncionario extends StatefulWidget {
   
-  const DiaListaComponent({
+  const DiaListaComponentFuncionario({
   
     super.key,
   });
 
   @override
-  State<DiaListaComponent> createState() => _DiaListaComponentState();
+  State<DiaListaComponentFuncionario> createState() => _DiaListaComponentState();
 }
 
-class _DiaListaComponentState extends State<DiaListaComponent> {
+class _DiaListaComponentState extends State<DiaListaComponentFuncionario> {
   @override
   void initState() {
     // TODO: implement initState
@@ -51,7 +52,7 @@ class _DiaListaComponentState extends State<DiaListaComponent> {
             if (cortes != null) {
               return Column(
                 children: cortes.map((corte) {
-                  return ItemComponentHour(
+                  return ItemComponentHourFuncionario(
                     key: Key(corte.id),
                     Corte: corte,
                    

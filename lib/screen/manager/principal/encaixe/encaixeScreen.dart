@@ -13,8 +13,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../classes/horarios.dart';
-import '../../../functions/managerScreenFunctions.dart';
+import '../../../../classes/horarios.dart';
+import '../../../../functions/managerScreenFunctions.dart';
 
 class EncaixeScreen extends StatefulWidget {
   const EncaixeScreen({super.key});
@@ -37,6 +37,7 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
     Provider.of<ManagerScreenFunctions>(context, listen: false).getFolga;
     DataFolgaDatabase;
     LoadFolgaDatetime;
+    LoadPrice();
   }
 
   final List<Profissionais> _profList = profList;
@@ -201,6 +202,16 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
     });
   }
 
+   int? atualPrice;
+
+  Future<void> LoadPrice() async {
+    int? priceDB = await ManagerScreenFunctions().getPriceCorte();
+    print("pegamos a data do databse");
+
+    setState(() {
+      atualPrice = priceDB!;
+    });
+  }
   String? hourSetForUser;
 
   Future<void> CreateAgendamento() async {
@@ -213,6 +224,7 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
+          pricevalue: atualPrice ?? 00,
       nomeBarbeiro: isBarbeiro1
           ? "${profList[0].nomeProf}"
           : isBarbeiro2

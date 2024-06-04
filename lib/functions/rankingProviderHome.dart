@@ -19,6 +19,7 @@ class RankingProvider with ChangeNotifier {
         Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
      
         return GeralUser(
+          isfuncionario: data?["isfuncionario"],
           isManager: data?["isManager"],
           listacortes: data?["totalCortes"],
           name: data?["userName"],

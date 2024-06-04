@@ -42,30 +42,35 @@ class _RankingHomeState extends State<RankingHome> {
     //CRIANDO OS USUARIOS
     setState(() {
       top1User = GeralUser(
+        isfuncionario: userList[0].isfuncionario,
         isManager: userList[0].isManager,
         listacortes: userList[0].listacortes,
         name: userList[0].name,
         urlImage: userList[0].urlImage,
       );
       top2User = GeralUser(
+        isfuncionario: userList[1].isfuncionario,
         isManager: userList[1].isManager,
         listacortes: userList[1].listacortes,
         name: userList[1].name,
         urlImage: userList[1].urlImage,
       );
       top3User = GeralUser(
+        isfuncionario: userList[2].isfuncionario,
         isManager: userList[2].isManager,
         listacortes: userList[2].listacortes,
         name: userList[2].name,
         urlImage: userList[2].urlImage,
       );
       top4User = GeralUser(
+        isfuncionario: userList[3].isfuncionario,
         isManager: userList[3].isManager,
         listacortes: userList[3].listacortes,
         name: userList[3].name,
         urlImage: userList[3].urlImage,
       );
       top5User = GeralUser(
+        isfuncionario: userList[4].isfuncionario,
         isManager: userList[4].isManager,
         listacortes: userList[4].listacortes,
         name: userList[4].name,
@@ -187,7 +192,7 @@ class _RankingHomeState extends State<RankingHome> {
                         ),
                       ),
                       Positioned(
-                          top: MediaQuery.of(context).size.height * 0.16,
+                        top: MediaQuery.of(context).size.height * 0.16,
                         child: Column(
                           children: [
                             Text(
@@ -323,7 +328,7 @@ class _RankingHomeState extends State<RankingHome> {
                         ),
                       ),
                       Positioned(
-                      top: MediaQuery.of(context).size.height * 0.16,
+                        top: MediaQuery.of(context).size.height * 0.16,
                         child: Column(
                           children: [
                             Text(
@@ -491,8 +496,8 @@ class _RankingHomeState extends State<RankingHome> {
                   children: [
                     //INICIO DO QUARTO LUGAR
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -576,8 +581,8 @@ class _RankingHomeState extends State<RankingHome> {
                       color: const Color.fromRGBO(32, 32, 32, 0.2),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

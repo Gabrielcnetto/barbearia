@@ -1,22 +1,24 @@
-import 'package:barbershop2/classes/Estabelecimento.dart';
-import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:barbershop2/functions/managerScreenFunctions.dart';
+import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
-import 'package:barbershop2/screen/manager/components/Blocks.dart';
-import 'package:barbershop2/screen/manager/components/agendaDia/CortesHojeLista.dart';
-import 'package:barbershop2/screen/manager/components/verticalOptions.dart';
+import 'package:barbershop2/screen/manager/funcionario/componentes/Blocks_Funcionario.dart';
+import 'package:barbershop2/screen/manager/funcionario/componentes/CortesHojeLista.dart';
+import 'package:barbershop2/screen/manager/funcionario/componentes/verticalOptions.dart';
+import 'package:barbershop2/screen/manager/principal/components/Blocks.dart';
+import 'package:barbershop2/screen/manager/principal/components/agendaDia/CortesHojeLista.dart';
+import 'package:barbershop2/screen/manager/principal/components/verticalOptions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
-import '../../functions/profileScreenFunctions.dart';
-
-class ManagerScreenView extends StatefulWidget {
-  const ManagerScreenView({super.key});
+class FuncionarioScreen extends StatefulWidget {
+  const FuncionarioScreen({super.key});
 
   @override
-  State<ManagerScreenView> createState() => _ManagerScreenViewState();
+  State<FuncionarioScreen> createState() => _FuncionarioScreenState();
 }
 
-class _ManagerScreenViewState extends State<ManagerScreenView> {
+class _FuncionarioScreenState extends State<FuncionarioScreen> {
   @override
   void initState() {
     // TODO: implement initState
@@ -25,6 +27,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
     loadUserName();
     urlImagePhoto;
     urlImageFuncion();
+
   }
 
   String? userName;
@@ -54,8 +57,10 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
     setState(() {
       urlImagePhoto = urlPhoto;
     });
-  } 
-  final String fotoPadraoUserError = "https://firebasestorage.googleapis.com/v0/b/easecortebaseversion-7100f.appspot.com/o/systemFotos%2FdefaultImages%2Fdefaultuser.jpeg?alt=media&token=d74b47d1-e4e8-40fb-a683-e65dbeedddc2";
+  }
+
+  final String fotoPadraoUserError =
+      "https://firebasestorage.googleapis.com/v0/b/easecortebaseversion-7100f.appspot.com/o/systemFotos%2FdefaultImages%2Fdefaultuser.jpeg?alt=media&token=d74b47d1-e4e8-40fb-a683-e65dbeedddc2";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +79,8 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                       onTap: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
-                            builder: (BuildContext context) => const HomeScreen01(),
+                            builder: (BuildContext context) =>
+                                const HomeScreen01(),
                             fullscreenDialog: true,
                           ),
                         );
@@ -100,7 +106,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Profissional",
+                              "Profissional - Funcionário",
                               style: GoogleFonts.openSans(
                                 textStyle: const TextStyle(
                                   fontWeight: FontWeight.w400,
@@ -132,7 +138,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                                     "${fotoPadraoUserError}",
                                     fit: BoxFit.cover,
                                   ),
-                                ) 
+                                )
                               : ClipRRect(
                                   borderRadius: BorderRadius.circular(45),
                                   child: Image.network(
@@ -158,9 +164,9 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
                     ),
                   ),
                 ),
-                const BlocksManagerComponent(),
-                const ManagerVerticalOptions(),
-                const CortesHojeLista(),
+                const BlocksFuncionarioComponent(),
+                const FuncionarioVerticalOptions(),
+                const CortesHojeListaFuncionario(),
               ],
             ),
           ),

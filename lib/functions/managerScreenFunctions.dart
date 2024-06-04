@@ -4,13 +4,14 @@ import 'dart:ffi';
 import 'package:barbershop2/classes/GeralUser.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class ManagerScreenFunctions with ChangeNotifier {
   final database = FirebaseFirestore.instance;
-
+  final authConfigs = FirebaseAuth.instance;
   List<GeralUser> _CLIENTESLISTA = [];
   List<GeralUser> get clientesLista => [..._CLIENTESLISTA];
   Future<void> loadClientes() async {
@@ -21,6 +22,7 @@ class ManagerScreenFunctions with ChangeNotifier {
       _CLIENTESLISTA = querySnapshot.docs.map((doc) {
         Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
         return GeralUser(
+          isfuncionario: data?["isfuncionario"],
           isManager: data?["isManager"],
           listacortes: data?["totalCortes"],
           name: data?["userName"],
@@ -246,7 +248,7 @@ class ManagerScreenFunctions with ChangeNotifier {
   }
 
   //get do preco
-    Future<int?> getPriceCorte() async {
+  Future<int?> getPriceCorte() async {
     print("entramos no get da folga");
     int? newprice;
     await database
@@ -262,5 +264,109 @@ class ManagerScreenFunctions with ChangeNotifier {
       return newprice;
     });
     return newprice;
+  }
+
+  //puxando o nome da lista(nome profissional) que deve carregar
+  Future<String?> getNomeFuncionarioParaListarFaturamento() async {
+    if (authConfigs.currentUser != null) {
+      final String uidUser = await authConfigs.currentUser!.uid;
+      String? userName;
+
+      await database.collection("usuarios").doc(uidUser).get().then((event) {
+        if (event.exists) {
+          Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+
+          userName = data['nameFuncionario'];
+        } else {}
+        return userName;
+      });
+      return userName;
+    }
+
+    return null;
+  }
+
+  Future<int> loadFaturamentoFuncionarios(
+      {required String nomeFuncionario}) async {
+    final DateTime dataAtual = DateTime.now();
+    await initializeDateFormatting('pt_BR');
+
+    String monthName = DateFormat('MMMM', 'pt_BR').format(dataAtual);
+    final QuerySnapshot acessoFaturamentoSnapshot = await database
+        .collection("mensalCuts")
+        .doc(monthName)
+        .collection(nomeFuncionario)
+        .get();
+
+    int totalFaturamento = 0;
+
+    for (QueryDocumentSnapshot doc in acessoFaturamentoSnapshot.docs) {
+      // Verifica se o documento é nulo ou não tem a chave 'price'
+      if (doc.exists && doc.data() is Map<String, dynamic>) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (data.containsKey('price') && data['price'] is int) {
+          totalFaturamento += data['price'] as int;
+        }
+      }
+    }
+
+    return totalFaturamento;
+  }
+
+  Future<int> TotalcortesProfissionalMes(
+      {required String nomeFuncionario}) async {
+    final DateTime dataAtual = DateTime.now();
+    await initializeDateFormatting('pt_BR');
+
+    String monthName = DateFormat('MMMM', 'pt_BR').format(dataAtual);
+    final QuerySnapshot acessoFaturamentoSnapshot = await database
+        .collection("mensalCuts")
+        .doc(monthName)
+        .collection(nomeFuncionario)
+        .get();
+
+    return acessoFaturamentoSnapshot.docs.length;
+  }
+
+  //visao de gerente
+  Future<int> loadFaturamentoBarbearia() async {
+    final DateTime dataAtual = DateTime.now();
+    await initializeDateFormatting('pt_BR');
+
+    String monthName = DateFormat('MMMM', 'pt_BR').format(dataAtual);
+    final QuerySnapshot acessoFaturamentoSnapshot = await database
+        .collection("estabelecimento")
+        .doc("faturamento")
+        .collection(monthName)
+        .get();
+
+    int totalFaturamento = 0;
+
+    for (QueryDocumentSnapshot doc in acessoFaturamentoSnapshot.docs) {
+      // Verifica se o documento é nulo ou não tem a chave 'price'
+      if (doc.exists && doc.data() is Map<String, dynamic>) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (data.containsKey('price') && data['price'] is int) {
+          totalFaturamento += data['price'] as int;
+        }
+      }
+    }
+
+    return totalFaturamento;
+  }
+
+  //quantia de cortes feitos
+  Future<int> TotalcortesMes() async {
+    final DateTime dataAtual = DateTime.now();
+    await initializeDateFormatting('pt_BR');
+
+    String monthName = DateFormat('MMMM', 'pt_BR').format(dataAtual);
+    final QuerySnapshot acessoFaturamentoSnapshot = await database
+        .collection("estabelecimento")
+        .doc("faturamento")
+        .collection(monthName)
+        .get();
+
+    return acessoFaturamentoSnapshot.docs.length;
   }
 }

@@ -1,7 +1,8 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
-import 'package:barbershop2/screen/manager/ManagerScreen.dart';
+import 'package:barbershop2/screen/manager/principal/ManagerScreen.dart';
+import 'package:barbershop2/screen/manager/funcionario/funcionario_screen.dart';
 import 'package:flutter/material.dart';
 
 class CircularProgressWithImage extends StatefulWidget {
@@ -32,7 +33,10 @@ class _CircularProgressWithImageState extends State<CircularProgressWithImage> {
     super.initState();
     isManager;
     loadUserIsManager();
+    isFuncionarioSet;
+    loadUserIsFuncionario();
   }
+
   bool? isManager;
 
   Future<void> loadUserIsManager() async {
@@ -48,16 +52,38 @@ class _CircularProgressWithImageState extends State<CircularProgressWithImage> {
     });
   }
 
+  bool? isFuncionarioSet;
+  Future<void> loadUserIsFuncionario() async {
+    bool? bolIsManager =
+        await MyProfileScreenFunctions().getUserIsFuncionario();
+
+    if (isManager != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      isFuncionarioSet = bolIsManager!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () {
-        if (isManager == true) {
+        if (isManager == true && isFuncionarioSet == false) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (BuildContext context) => const ManagerScreenView(),
+              fullscreenDialog: true,
+            ),
+          );
+        } else if(isManager == false && isFuncionarioSet == true){
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (BuildContext context) => const FuncionarioScreen(),
               fullscreenDialog: true,
             ),
           );

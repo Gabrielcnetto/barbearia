@@ -10,11 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ItemComponentHour extends StatefulWidget {
-
   final CorteClass Corte;
   const ItemComponentHour({
     super.key,
-
     required this.Corte,
   });
 
@@ -39,9 +37,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
     // TODO: implement initState
     super.initState();
     GetAndConfigprofffilter();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   // Função para abrir o navegador
@@ -56,7 +52,8 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
   String proffGet = "";
   void GetAndConfigprofffilter() {
     setState(() {
-      proffGet = "${Provider.of<ProviderFilterManager>(context,listen: false).filtroParaUsar}";
+      proffGet =
+          "${Provider.of<ProviderFilterManager>(context, listen: false).filtroParaUsar}";
     });
   }
 
@@ -65,12 +62,12 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
     Color _randomColor = _generateRandomLightColor();
 
     return widget.Corte.isActive == true &&
-              widget.Corte.isActive != false &&
-              (proffGet.isEmpty || proffGet == widget.Corte.profissionalSelect)
+            widget.Corte.isActive != false &&
+            (proffGet.isEmpty || proffGet == widget.Corte.profissionalSelect)
         ? Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Container(
-            key: Key(widget.Corte.id),
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Container(
+              key: Key(widget.Corte.id),
               decoration: BoxDecoration(
                   color: _randomColor, borderRadius: BorderRadius.circular(25)),
               width: MediaQuery.of(context).size.width * 1,
@@ -91,8 +88,8 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           ),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
                         child: Text(
                           "${widget.Corte.profissionalSelect}",
                           style: GoogleFonts.openSans(
@@ -216,8 +213,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                           : InkWell(
                               onTap: () {
                                 _launchURL(
-                                  "https://api.whatsapp.com/send?phone=55${widget.Corte.numeroContato}");
-                                   
+                                    "https://api.whatsapp.com/send?phone=55${widget.Corte.numeroContato}");
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
@@ -256,9 +252,9 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                 ],
               ),
             ),
-        )
+          )
         : SizedBox.shrink(
-          key: Key(widget.Corte.id),
-        );
+            key: Key(widget.Corte.id),
+          );
   }
 }

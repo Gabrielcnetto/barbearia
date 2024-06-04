@@ -30,6 +30,7 @@ class CreateAccount with ChangeNotifier {
       "totalCortes": 0,
       "isManager": false,
       "isfuncionario": false,
+      "nameFuncionario": "",
     });
     notifyListeners();
   }

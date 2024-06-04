@@ -91,6 +91,27 @@ class MyProfileScreenFunctions with ChangeNotifier {
 
     return null;
   }
+  //GET SE É FUNCIONARIO - INICIO
+      Future<bool?> getUserIsFuncionario() async {
+    if (authSettings.currentUser != null) {
+      final String uidUser = await authSettings.currentUser!.uid;
+      bool? ismManager;
+
+      await db.collection("usuarios").doc(uidUser).get().then((event) {
+        if (event.exists) {
+          Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+
+          ismManager = data['isfuncionario'];
+          
+        } else {}
+        return ismManager;
+      });
+      return ismManager;
+    }
+
+    return null;
+  }
+  //GET SE É FUNCIONARIO - FIM
   //attnome
   Future<void> newName({required String newName})async{
     db.collection("usuarios").doc(authSettings.currentUser!.uid).update({
