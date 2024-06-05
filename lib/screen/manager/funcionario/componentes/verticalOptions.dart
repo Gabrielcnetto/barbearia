@@ -2,6 +2,7 @@ import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
+import 'package:barbershop2/screen/manager/funcionario/funcionario_screen.dart';
 import 'package:barbershop2/screen/manager/principal/ManagerScreen.dart';
 import 'package:barbershop2/screen/manager/principal/components/setMinutesBarba.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -75,7 +76,7 @@ class _ManagerVerticalOptionsState extends State<FuncionarioVerticalOptions> {
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        const ManagerScreenView(),
+                        const FuncionarioScreen(),
                     fullscreenDialog: true,
                   ),
                 );

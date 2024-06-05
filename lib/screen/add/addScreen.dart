@@ -837,12 +837,12 @@ class _AddScreenState extends State<AddScreen> {
                                           "Não",
                                           style: GoogleFonts.openSans(
                                             textStyle: TextStyle(
-                                                fontSize: !barba ? 17 : 14,
+                                                fontSize: !barba ? 18 : 13,
                                                 fontWeight: !barba
                                                     ? FontWeight.w800
                                                     : FontWeight.w400,
                                                 color: Estabelecimento
-                                                    .primaryColor),
+                                                    .contraPrimaryColor),
                                           ),
                                         ),
                                       ),
@@ -876,7 +876,7 @@ class _AddScreenState extends State<AddScreen> {
                                           "Sim",
                                           style: GoogleFonts.openSans(
                                             textStyle: TextStyle(
-                                                fontSize: barba ? 17 : 14,
+                                                fontSize: barba ? 18 : 13,
                                                 fontWeight: barba
                                                     ? FontWeight.w800
                                                     : FontWeight.w400,
