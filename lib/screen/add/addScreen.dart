@@ -33,6 +33,7 @@ class _AddScreenState extends State<AddScreen> {
     super.initState();
     userName;
     loadUserName();
+    LoadPriceAdicionalBarba();
     phoneNumber;
     loadUserPhone();
     Provider.of<ManagerScreenFunctions>(context, listen: false).getFolga;
@@ -223,7 +224,7 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
- int? atualPrice;
+  int? atualPrice;
 
   Future<void> LoadPrice() async {
     int? priceDB = await ManagerScreenFunctions().getPriceCorte();
@@ -231,8 +232,22 @@ class _AddScreenState extends State<AddScreen> {
 
     setState(() {
       atualPrice = priceDB!;
+      LoadPriceAdicionalBarba();
     });
   }
+
+  int? barbaPriceFinal;
+  int barbaMaisCabelo = 0;
+  Future<void> LoadPriceAdicionalBarba() async {
+    int? priceDB = await ManagerScreenFunctions().getAdicionalBarbaCorte();
+    print("pegamos a data do databse");
+
+    setState(() {
+      barbaPriceFinal = priceDB!;
+      barbaMaisCabelo = (atualPrice! + barbaPriceFinal!);
+    });
+  }
+
   String? hourSetForUser;
 
   Future<void> CreateAgendamento() async {
@@ -245,7 +260,7 @@ class _AddScreenState extends State<AddScreen> {
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
-          pricevalue: atualPrice ?? 00,
+      pricevalue: barba == true ? barbaMaisCabelo : atualPrice ?? 0,
       nomeBarbeiro: isBarbeiro1
           ? "${profList[0].nomeProf}"
           : isBarbeiro2
@@ -254,6 +269,7 @@ class _AddScreenState extends State<AddScreen> {
                   ? "${profList[2].nomeProf}"
                   : "Não Definido",
       corte: CorteClass(
+        totalValue: barba == true ? barbaMaisCabelo : atualPrice ?? 0,
         isActive: true,
         DiaDoCorte: diaDoCorte,
         NomeMes: monthName,
@@ -821,8 +837,7 @@ class _AddScreenState extends State<AddScreen> {
                                           "Não",
                                           style: GoogleFonts.openSans(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    !barba ? 17 : 14,
+                                                fontSize: !barba ? 17 : 14,
                                                 fontWeight: !barba
                                                     ? FontWeight.w800
                                                     : FontWeight.w400,

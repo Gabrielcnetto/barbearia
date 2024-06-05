@@ -214,6 +214,7 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
   }
   String? hourSetForUser;
 
+  
   Future<void> CreateAgendamento() async {
     await initializeDateFormatting('pt_BR');
 
@@ -233,6 +234,7 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
                   ? "${profList[2].nomeProf}"
                   : "Não Definido",
       corte: CorteClass(
+        totalValue: atualPrice ?? 0,
         isActive: true,
         DiaDoCorte: diaDoCorte,
         NomeMes: monthName,
@@ -597,15 +599,15 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Icon(Icons.arrow_back_ios),
+                      child: const Icon(Icons.arrow_back_ios),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 2,
                     ),
                     Text(
                       "Encaixe um cliente na agenda",
                       style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 18,
                         ),
@@ -613,20 +615,20 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   "Liberou horário? Faça um encaixe na agenda de Hoje",
                   style: GoogleFonts.openSans(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: Colors.black45,
                       fontSize: 14,
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Column(
@@ -709,7 +711,7 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
@@ -1093,14 +1095,14 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
                             Text(
                               "Já preenchido - ",
                               style: GoogleFonts.openSans(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
                                   color: Colors.black,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             Container(

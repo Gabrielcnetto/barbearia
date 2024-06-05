@@ -61,6 +61,7 @@ class ManagerScreenFunctions with ChangeNotifier {
           String documentName = doc.id;
           _listaCortes.add(
             CorteClass(
+              totalValue: 0,
               isActive: false,
               DiaDoCorte: 0,
               clientName: "",
@@ -122,6 +123,7 @@ class ManagerScreenFunctions with ChangeNotifier {
         DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
         // Acessando os atributos diretamente usando []
         return CorteClass(
+          totalValue: data?["totalValue"],
           isActive: data?["isActive"],
           DiaDoCorte: data?["diaDoCorte"],
           NomeMes: data?["monthName"],
@@ -368,5 +370,55 @@ class ManagerScreenFunctions with ChangeNotifier {
         .get();
 
     return acessoFaturamentoSnapshot.docs.length;
+  }
+
+  //setando o preco da barba
+  Future<void> setAdicionalPriceBarba({required int barbaPrice}) async {
+    database.collection("estabelecimento").doc("barbaPrice").set({
+      'barbaPrice': barbaPrice,
+    });
+  }
+
+  Future<int?> getAdicionalBarbaCorte() async {
+    print("entramos no get da folga");
+    int? barbaPrice;
+    await database
+        .collection("estabelecimento")
+        .doc("barbaPrice")
+        .get()
+        .then((event) {
+      if (event.exists) {
+        Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+        barbaPrice = data['barbaPrice'];
+      }
+      print("a data que foi pega foi: ${barbaPrice}");
+      return barbaPrice;
+    });
+    return barbaPrice;
+  }
+
+  //setando a porcentagem
+  Future<void> setPorcentagemFuncionario({required int porcentagem}) async {
+    database.collection("estabelecimento").doc("porcentagem").set({
+      'porcentagem': porcentagem,
+    });
+  }
+
+  Future<int?> getPorcentagemFuncionario() async {
+    print("entramos no get da folga");
+    int? porcentagemFuncionario;
+    await database
+        .collection("estabelecimento")
+        .doc("porcentagem")
+        .get()
+        .then((event) {
+      if (event.exists) {
+        Map<String, dynamic> data = event.data() as Map<String, dynamic>;
+        porcentagemFuncionario = data['porcentagem'];
+      }
+      print("a data que foi pega foi: ${porcentagemFuncionario}");
+      return porcentagemFuncionario;
+    });
+    return porcentagemFuncionario;
   }
 }

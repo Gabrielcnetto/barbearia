@@ -40,6 +40,7 @@ class CorteProvider with ChangeNotifier {
           .collection("all")
           .doc(corte.horarioCorte)
           .set({
+        "totalValue": corte.totalValue,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
         "id": corte.id,
@@ -61,6 +62,7 @@ class CorteProvider with ChangeNotifier {
           .collection("${diaCorteSelect}")
           .doc(corte.id)
           .set({
+        "totalValue": corte.totalValue,
         "id": corte.id,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
@@ -80,18 +82,18 @@ class CorteProvider with ChangeNotifier {
           .doc(monthName)
           .collection(corte.profissionalSelect)
           .add({
-            "price": pricevalue,
-          });
+        "price": pricevalue,
+      });
       //adicionando na lista de cada funcionario - fim
 
       //adicionando o valor no faturamento total da barbearia - inicio
-       final addFaturamentoTotal = await database
+      final addFaturamentoTotal = await database
           .collection("estabelecimento")
           .doc("faturamento")
           .collection(monthName)
           .add({
-            "price": pricevalue,
-          });
+        "price": pricevalue,
+      });
       //adicionando o valor no faturamento total da barbearia - fim
 
       final addTotalCortes = await database
@@ -100,6 +102,7 @@ class CorteProvider with ChangeNotifier {
           .collection("all")
           .add({
         "id": corte.id,
+         "totalValue": corte.totalValue,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
         "dataCreateAgendamento": corte.dateCreateAgendamento,
@@ -121,6 +124,7 @@ class CorteProvider with ChangeNotifier {
           .doc(corte.id)
           .set({
         "id": corte.id,
+         "totalValue": corte.totalValue,
         'isActive': corte.isActive,
         "diaDoCorte": corte.DiaDoCorte,
         "clientName": corte.clientName,
@@ -188,61 +192,6 @@ class CorteProvider with ChangeNotifier {
     } // Notifica os ouvintes sobre a mudança nos dados
   }
 
-  /* Future<void> loadCortesDataBaseFuncionts(DateTime mesSelecionado,
-  
-
-  // Acessar diretamente o documento "gabriel"
-  DocumentReference<Map<String, dynamic>> documentReference = database
-      .collection("agenda")
-      .doc(monthName)
-      .collection("${DiaSelecionado}")
-      .doc("gabriel");
-
-  // Tentar ler o documento de forma assíncrona e tratar erros
-  try {
-    DocumentSnapshot<Map<String, dynamic>> documentSnapshot = await documentReference.get();
-
-    // Verificar se o documento existe e se não está vazio
-    if (documentSnapshot.exists || documentSnapshot.data() != null) {
-      Map<String, dynamic> documentData = documentSnapshot.data()!; // Obter dados do documento
-      List<String> horarios = []; // Lista para armazenar os horários
-
-      // Extrair os horários dos dados do documento
-      documentData.forEach((key, value) {
-        if (key != "id") { // Ignorar o ID do documento
-          horarios.add(key); // Adicionar o horário à lista
-        }
-      });
-
-      // Ordenar os horários
-      horarios.sort((a, b) => a.compareTo(b)); // Ordenação alfabética
-
-      // Atualizar a lista de horários
-      _horariosListLoad.clear();
-      horarios.forEach((horario) {
-        _horariosListLoad.add(
-          Horarios(horario: horario, id: ""),
-        );
-      });
-
-      DiaSelecionado = 0; // Atualizar DiaSelecionado
-    } else {
-      print("O documento não existe ou está vazio");
-    }
-  } catch (error) {
-    print("Erro ao ler documento: ${error}");
-  }
-
-  print("O tamanho da lista é de provider ${_horariosListLoad.length}");
-
-  notifyListeners();
-}
-*/
-
-  //CARREGANDO OS CORTES E FAZENDO A VERIFICACAO - FIM
-
-  //load dos cortes do usuario, e eadicionando a uma list - INICIO
-
   final StreamController<List<CorteClass>> _cortesController =
       StreamController<List<CorteClass>>.broadcast();
 
@@ -276,6 +225,7 @@ class CorteProvider with ChangeNotifier {
         DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
         // Acessando os atributos diretamente usando []
         return CorteClass(
+          totalValue:  data?["totalValue"], 
           isActive: data?["isActive"],
           DiaDoCorte: data?["diaDoCorte"],
           NomeMes: data?["monthName"],
@@ -340,6 +290,7 @@ class CorteProvider with ChangeNotifier {
         DateTime diaCorteFinal = diafinalCorte?.toDate() ?? DateTime.now();
         // Acessando os atributos diretamente usando []
         return CorteClass(
+          totalValue: data?["totalValue"], 
           isActive: data?["isActive"],
           DiaDoCorte: data?["diaDoCorte"],
           NomeMes: data?["monthName"],

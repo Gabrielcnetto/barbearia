@@ -95,8 +95,8 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
         context: context,
         builder: (ctx) {
           return AlertDialog(
-            title: Text("Adicionar Tempo extra?"),
-            content: Text(
+            title: const Text("Adicionar Tempo extra?"),
+            content: const Text(
               "Caso o cliente selecionar Cabelo + barba este tempo será informado, e também será usado para organizar a sua agenda automaticamente.",
             ),
             actions: [
@@ -107,7 +107,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                 child: Text(
                   "Cancelar",
                   style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       color: Colors.black45,
                       fontWeight: FontWeight.w400,
                     ),
@@ -127,7 +127,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                 child: Text(
                   "Salvar",
                   style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -144,7 +144,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.6,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         top: 25,
         left: 15,
         right: 15,
@@ -155,13 +155,13 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
           Text(
             "Adicione minutos extra",
             style: GoogleFonts.openSans(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 17,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 2,
           ),
           Text(
@@ -174,7 +174,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Container(
@@ -198,7 +198,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                   child: Text(
                     "0",
                     style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
                       ),
@@ -222,7 +222,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                   child: Text(
                     "0",
                     style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
                       ),
@@ -234,7 +234,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                   child: Text(
                     ":",
                     style: GoogleFonts.openSans(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                       ),
@@ -251,7 +251,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                     children: [
                       InkWell(
                         onTap: aumentarMinutos,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_drop_up,
                         ),
                       ),
@@ -270,7 +270,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                         child: Text(
                           "${minutesView}",
                           style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
                             ),
@@ -279,7 +279,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                       ),
                       InkWell(
                         onTap: reduzirMinutos,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_drop_down,
                         ),
                       ),
@@ -296,7 +296,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                     children: [
                       InkWell(
                         onTap: aumentarSegundos,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_drop_up,
                         ),
                       ),
@@ -315,7 +315,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                         child: Text(
                           "${secondsView}",
                           style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 20,
                             ),
@@ -324,7 +324,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
                       ),
                       InkWell(
                         onTap: reduzirSegundos,
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_drop_down,
                         ),
                       ),
@@ -335,7 +335,7 @@ class _SetMinutesBarbaState extends State<SetMinutesBarba> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(

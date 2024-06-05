@@ -3,7 +3,6 @@ import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/manager/principal/ManagerScreen.dart';
-import 'package:barbershop2/screen/manager/principal/components/setNewPrice.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -513,20 +512,15 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
       isScrollControlled: true,
       context: context,
       builder: (ctx) {
-        return SetMinutesBarba();
+        return const SetMinutesBarba();
       },
     );
   }
 
-  void setNewPrice()async{
-      showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (ctx) {
-        return SetNewPrice();
-      },
-    );
+  void setNewPrice() async {
+    Navigator.of(context).pushNamed(AppRoutesApp.PricesAndPercentages);
   }
+
   @override
   Widget build(BuildContext context) {
     int minutosBarba = 0;
@@ -823,7 +817,7 @@ class _ManagerVerticalOptionsState extends State<ManagerVerticalOptions> {
                 ),
               ),
               //SELECIONAR TEMPO DA BARBA - FIM
-                const SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               //SELECIONAR PRECO DO CORTE - INICIO

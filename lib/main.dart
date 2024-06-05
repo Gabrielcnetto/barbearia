@@ -18,6 +18,7 @@ import 'package:barbershop2/screen/manager/funcionario/funcionario_screen.dart';
 
 import 'package:barbershop2/screen/manager/principal/agenda_7dias/agenda7diasscreen.dart';
 import 'package:barbershop2/screen/manager/principal/agenda_7dias/confirmCancelCorte.dart';
+import 'package:barbershop2/screen/manager/principal/components/agendaDia/pricesandpercentages/PricesAndPercentagens.dart';
 import 'package:barbershop2/screen/manager/principal/encaixe/encaixeScreen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -137,6 +138,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutesApp.ConfirmCancelCorte: (ctx) => const ConfirmCancelCorte(),
           AppRoutesApp.EncaixeScreen: (ctx) => const EncaixeScreen(),
           AppRoutesApp.FuncionarioScreen: (ctx) => const FuncionarioScreen(),
+          AppRoutesApp.PricesAndPercentages: (ctx)=> const PricesAndPercentages(),
         },
       ),
     );

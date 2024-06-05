@@ -11,4 +11,5 @@ class AppRoutesApp {
   static const ConfirmCancelCorte = "/ConfirmCancelCorte";
   static const EncaixeScreen = "/EncaixeScreen";
   static const FuncionarioScreen = "/FuncionarioScreen";
+  static const PricesAndPercentages = "/PricesAndPercentages";
 }

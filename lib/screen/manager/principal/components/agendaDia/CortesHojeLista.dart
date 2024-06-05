@@ -381,14 +381,14 @@ class _CortesHojeListaState extends State<CortesHojeLista> {
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.greenAccent.shade700
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.add_box,
                         size: 25,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   InkWell(

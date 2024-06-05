@@ -35,6 +35,7 @@ class _BlocksManagerComponentState extends State<BlocksFuncionarioComponent> {
     loadAtualMonth();
     loadUserNameProfissionalISTA();
     loadTotalFaturamentoFuncionario();
+    LoadPercentual();
   }
 
   int? totalClientes;
@@ -48,8 +49,6 @@ class _BlocksManagerComponentState extends State<BlocksFuncionarioComponent> {
     });
   }
   //
-
-
 
   String? mesAtual;
   Future<void> loadAtualMonth() async {
@@ -89,6 +88,29 @@ class _BlocksManagerComponentState extends State<BlocksFuncionarioComponent> {
 
     setState(() {
       totalFaturamento = totalFaturamentoGet;
+      LoadPercentual();
+      SetPorcentagem();
+    });
+  }
+
+  int? loadPercentual;
+
+  Future<void> LoadPercentual() async {
+    int? priceDB = await ManagerScreenFunctions().getPorcentagemFuncionario();
+    print("pegamos a data do databse");
+
+    setState(() {
+      loadPercentual = priceDB!;
+      SetPorcentagem();
+    });
+  }
+
+  double faturamentoFinal = 0;
+  void SetPorcentagem() {
+    print("o faturamento total é de: ${totalFaturamento}");
+     print("o percentual total é de: ${loadPercentual}");
+    setState(() {
+       faturamentoFinal = totalFaturamento! * (loadPercentual! / 100.0);
     });
   }
 
@@ -207,7 +229,7 @@ class _BlocksManagerComponentState extends State<BlocksFuncionarioComponent> {
                                 Text(
                                   totalCortes > 1
                                       ? "${totalCortes} cortes"
-                                      : "${totalCortes} corte" ,
+                                      : "${totalCortes} corte",
                                   style: GoogleFonts.openSans(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -265,7 +287,7 @@ class _BlocksManagerComponentState extends State<BlocksFuncionarioComponent> {
                                   height: 5,
                                 ),
                                 Text(
-                                  "R\$${totalFaturamento ?? 0}",
+                                  "R\$${faturamentoFinal.toStringAsFixed(2).replaceAll('.', ',') ?? 0}",
                                   style: GoogleFonts.openSans(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.bold,

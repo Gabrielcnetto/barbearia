@@ -12,10 +12,12 @@ class CorteClass {
   final String horarioCorte;
   final String profissionalSelect;
   final DateTime dateCreateAgendamento;
+  final int totalValue;
   CorteClass({
     required this.isActive,
     required this.DiaDoCorte,
     required this.clientName,
+    required this.totalValue,
     required this.NomeMes,
     required this.id,
     required this.numeroContato,
