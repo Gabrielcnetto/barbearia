@@ -5,6 +5,7 @@ import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/profissionais.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -190,11 +191,8 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
 
     setState(() {
       phoneNumber = number;
-      
     });
   }
-
-  
 
   void setDataControlers() {
     setState(() {
@@ -202,7 +200,7 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
     });
   }
 
-   int? atualPrice;
+  int? atualPrice;
 
   Future<void> LoadPrice() async {
     int? priceDB = await ManagerScreenFunctions().getPriceCorte();
@@ -212,9 +210,9 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
       atualPrice = priceDB!;
     });
   }
+
   String? hourSetForUser;
 
-  
   Future<void> CreateAgendamento() async {
     await initializeDateFormatting('pt_BR');
 
@@ -225,7 +223,7 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
     int diaDoCorte = dataSelectedInModal!.day;
     Provider.of<CorteProvider>(context, listen: false)
         .AgendamentoCortePrincipalFunctions(
-          pricevalue: atualPrice ?? 00,
+      pricevalue: atualPrice ?? 00,
       nomeBarbeiro: isBarbeiro1
           ? "${profList[0].nomeProf}"
           : isBarbeiro2
@@ -256,6 +254,8 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
       ),
       selectDateForUser: dataSelectedInModal!,
     );
+    await Provider.of<Twilio_messagesFunction>(context, listen: false)
+        .sendWhatsMessage(numberPhone: "55${numberControler.text}");
     try {
       await analytics.logEvent(
         name: "scheduled_appointmen",
@@ -1056,7 +1056,9 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
                     ),
                     //CONTAINER DA DATA - FIM
                     //CONTAINER DA HORA - INICIO
-                    if (isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false && dataSelectedInModal !=null)
+                    if (isBarbeiro1 ||
+                        isBarbeiro2 ||
+                        isBarbeiro3 != false && dataSelectedInModal != null)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1084,7 +1086,9 @@ class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
                           ),
                         ],
                       ),
-                    if (isBarbeiro1 || isBarbeiro2 || isBarbeiro3 != false && dataSelectedInModal !=null)
+                    if (isBarbeiro1 ||
+                        isBarbeiro2 ||
+                        isBarbeiro3 != false && dataSelectedInModal != null)
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 5, left: 2, bottom: 5),

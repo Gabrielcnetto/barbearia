@@ -5,6 +5,7 @@ import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/profissionais.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -256,6 +257,8 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
       ),
       selectDateForUser: dataSelectedInModal!,
     );
+       await Provider.of<Twilio_messagesFunction>(context, listen: false)
+          .sendWhatsMessage(numberPhone: "55${numberControler.text}");
     try {
       await analytics.logEvent(
         name: "scheduled_appointmen",

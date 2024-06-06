@@ -14,9 +14,10 @@ class Twilio_messagesFunction with ChangeNotifier {
   //funcao do whatsapp
   Future<void> sendWhatsMessage({required String numberPhone}) async {
     try {
+      String cleanedNumber = numberPhone.replaceAll(RegExp(r'^\+?55|\-'), '');
       await twilioFlutter.sendWhatsApp(
         toNumber:
-            '+$numberPhone', // replace with Mobile Number(With country code)
+            '+55$cleanedNumber', // replace with Mobile Number(With country code)
         messageBody:
             "Olá! 🪒✂️ Tudo certo! Recebemos a confirmação do seu agendamento para o corte. Aguardamos você na data marcada. Até breve!",
       );
@@ -34,10 +35,11 @@ class Twilio_messagesFunction with ChangeNotifier {
     DateTime horaAtrasada = dataFinal.subtract(Duration(hours: 1));
     String dataFormatFinal =
         await horaAtrasada.toIso8601String().split('.')[0] + 'Z';
+              String cleanedNumber = numberPhone.replaceAll(RegExp(r'^\+?55|\-'), '');
 
     try {
       await twilioFlutter.sendScheduledWhatsAppMessage(
-        toNumber: '+$numberPhone',
+        toNumber: '+55$cleanedNumber',
         messageBody:
             "Olá! Só uma rápida lembrança: você tem um compromisso marcado na barbearia daqui a uma hora. Tudo certo com o seu horário? Se por algum motivo não puder comparecer, por favor, cancele pelo app ou entre em contato. Obrigado!",
         sendAt: dataFormatFinal,
@@ -51,9 +53,10 @@ class Twilio_messagesFunction with ChangeNotifier {
   //tela do profissional
   Future<void> sendWhatsMessageLembrete({required String numberPhone}) async {
     try {
+      String cleanedNumber = numberPhone.replaceAll(RegExp(r'^\+?55|\-'), '');
       await twilioFlutter.sendWhatsApp(
         toNumber:
-            '+$numberPhone', // replace with Mobile Number(With country code)
+            '+55$cleanedNumber', // replace with Mobile Number(With country code)
         messageBody:
             "Ei! Vi que você atrasou um pouco do horário da agenda na barbearia. O que você acha de remarcar? 😁",
       );
