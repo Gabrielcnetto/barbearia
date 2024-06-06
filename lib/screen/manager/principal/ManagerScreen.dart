@@ -25,6 +25,7 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
     loadUserName();
     urlImagePhoto;
     urlImageFuncion();
+    loadUserIsManager();
   }
 
   String? userName;
@@ -56,119 +57,143 @@ class _ManagerScreenViewState extends State<ManagerScreenView> {
     });
   }
 
+  bool? isManager;
+
+  Future<void> loadUserIsManager() async {
+    bool? bolIsManager = await MyProfileScreenFunctions().getUserIsManager();
+
+    if (isManager != null) {
+    } else {
+      const Text('N/A');
+    }
+
+    setState(() {
+      isManager = bolIsManager!;
+    });
+  }
+
   final String fotoPadraoUserError =
       "https://firebasestorage.googleapis.com/v0/b/easecortebaseversion-7100f.appspot.com/o/systemFotos%2FdefaultImages%2Fdefaultuser.jpeg?alt=media&token=d74b47d1-e4e8-40fb-a683-e65dbeedddc2";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const HomeScreen01(),
-                            fullscreenDialog: true,
+    return isManager == true
+        ? Scaffold(
+            backgroundColor: Colors.white,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const HomeScreen01(),
+                                  fullscreenDialog: true,
+                                ),
+                              );
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey.shade200,
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back_ios,
+                                size: 15,
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.shade200,
-                        ),
-                        child: const Icon(
-                          Icons.arrow_back_ios,
-                          size: 15,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Profissional - Principal",
+                                    style: GoogleFonts.openSans(
+                                      textStyle: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "${userName ?? "Carregando..."}",
+                                    style: GoogleFonts.openSans(
+                                      textStyle: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 75,
+                                height: 75,
+                                child: urlImagePhoto == null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(45),
+                                        child: Image.network(
+                                          "${fotoPadraoUserError}",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(45),
+                                        child: Image.network(
+                                          urlImagePhoto!,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        "Dashboard",
+                        style: GoogleFonts.openSans(
+                          textStyle: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,
+                            fontSize: 22,
+                          ),
                         ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Profissional - Principal",
-                              style: GoogleFonts.openSans(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "${userName ?? "Carregando..."}",
-                              style: GoogleFonts.openSans(
-                                textStyle: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 75,
-                          height: 75,
-                          child: urlImagePhoto == null
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(45),
-                                  child: Image.network(
-                                    "${fotoPadraoUserError}",
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : ClipRRect(
-                                  borderRadius: BorderRadius.circular(45),
-                                  child: Image.network(
-                                    urlImagePhoto!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "Dashboard",
-                  style: GoogleFonts.openSans(
-                    textStyle: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                      fontSize: 22,
-                    ),
+                      const BlocksManagerComponent(),
+                      const ManagerVerticalOptions(),
+                      const CortesHojeLista(),
+                    ],
                   ),
                 ),
-                const BlocksManagerComponent(),
-                const ManagerVerticalOptions(),
-                const CortesHojeLista(),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        : Scaffold(
+            body: Center(
+              child: Text(
+                "Dados Restritos",
+              ),
+            ),
+          );
   }
 }

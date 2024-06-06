@@ -12,4 +12,7 @@ class AppRoutesApp {
   static const EncaixeScreen = "/EncaixeScreen";
   static const FuncionarioScreen = "/FuncionarioScreen";
   static const PricesAndPercentages = "/PricesAndPercentages";
+  static const ConfirmScreenCorteEncaixeFuncionario = "/ConfirmScreenCorteEncaixeFuncionario";
+  static const EncaixeScreenFuncionario = "/EncaixeScreenFuncionario";
+  static const ConfirmScreenCorteManager = "/ConfirmScreenCorteManager";
 }

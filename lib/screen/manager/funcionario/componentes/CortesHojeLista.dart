@@ -107,7 +107,7 @@ class _CortesHojeListaState extends State<CortesHojeListaFuncionario> {
   }
 
   void screenEncaixe() {
-    Navigator.of(context).pushNamed(AppRoutesApp.EncaixeScreen);
+    Navigator.of(context).pushNamed(AppRoutesApp.EncaixeScreenFuncionario);
   }
 
   @override

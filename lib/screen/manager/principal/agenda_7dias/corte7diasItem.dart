@@ -1,6 +1,7 @@
 import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
+import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,11 +55,11 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                 onPressed: () async {
                   Provider.of<CorteProvider>(context, listen: false)
                       .desmarcarCorte(corteparausar);
-                      Provider.of<CorteProvider>(context, listen: false)
+                  Provider.of<CorteProvider>(context, listen: false)
                       .desmarcarAgendaManager(corteparausar);
-                   
-                  Navigator.of(context).pushReplacementNamed(AppRoutesApp.ConfirmCancelCorte);
-                 
+
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppRoutesApp.ConfirmCancelCorte);
                 },
                 child: Text(
                   'Desmarcar',
@@ -75,6 +76,8 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
         });
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -87,9 +90,11 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
               child: Container(
                 key: Key(Corte.id),
                 decoration: BoxDecoration(
-                    color: Colors.blue, borderRadius: BorderRadius.circular(25)),
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(25)),
                 width: MediaQuery.of(context).size.width * 1,
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -252,8 +257,55 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                                 ? Container()
                                 : InkWell(
                                     onTap: () {
-                                      _launchURL(
-                                          "https://api.whatsapp.com/send?phone=55${Corte.numeroContato}");
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) {
+                                            return AlertDialog(
+                                              title: Text("Notificar cliente?"),
+                                              content: Text(
+                                                  "O Cliente receberá uma mensagem para lembrar do horário, com opção para desmarcar"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text(
+                                                    "Cancelar",
+                                                    style: GoogleFonts.poppins(
+                                                      textStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Colors
+                                                            .grey.shade300,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () async {
+                                                    await Provider.of<
+                                                                Twilio_messagesFunction>(
+                                                            context,
+                                                            listen: false)
+                                                        .sendWhatsMessageLembrete(
+                                                            numberPhone: Corte
+                                                                .numeroContato);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text(
+                                                    "Notificar Agora",
+                                                    style: GoogleFonts.poppins(
+                                                      textStyle: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            );
+                                          });
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
@@ -263,10 +315,11 @@ class _Corte7DiasItemState extends State<Corte7DiasItem> {
                                           borderRadius:
                                               BorderRadius.circular(15)),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           Text(
-                                            "Entrar em contato",
+                                            "Enviar Lembrete",
                                             style: GoogleFonts.openSans(
                                               textStyle: const TextStyle(
                                                 fontWeight: FontWeight.w400,

@@ -6,6 +6,7 @@ import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
 import 'package:barbershop2/functions/providerFilterStrings.dart';
 import 'package:barbershop2/functions/rankingProviderHome.dart';
+import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/functions/userLogin.dart';
 import 'package:barbershop2/notifications/firebase_notifications.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
@@ -13,6 +14,9 @@ import 'package:barbershop2/screen/add/confirmscreen/ConfirmScreenCorte.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
 import 'package:barbershop2/screen/inicio/initialScreen.dart';
 import 'package:barbershop2/screen/login/loginScreen.dart';
+import 'package:barbershop2/screen/manager/funcionario/componentes/ConfirmScreenCorte.dart';
+import 'package:barbershop2/screen/manager/funcionario/componentes/encaixeScreen.dart';
+import 'package:barbershop2/screen/manager/principal/ConfirmScreenCorte.dart';
 import 'package:barbershop2/screen/manager/principal/ManagerScreen.dart';
 import 'package:barbershop2/screen/manager/funcionario/funcionario_screen.dart';
 
@@ -92,6 +96,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (_) => ProviderFilterManager(),
         ),
+                ChangeNotifierProvider(
+          create: (_) => Twilio_messagesFunction(),
+        ),
       ],
       child: MaterialApp(
         supportedLocales: const [
@@ -139,6 +146,9 @@ class _MyAppState extends State<MyApp> {
           AppRoutesApp.EncaixeScreen: (ctx) => const EncaixeScreen(),
           AppRoutesApp.FuncionarioScreen: (ctx) => const FuncionarioScreen(),
           AppRoutesApp.PricesAndPercentages: (ctx)=> const PricesAndPercentages(),
+          AppRoutesApp.ConfirmScreenCorteEncaixeFuncionario: (ctx)=>ConfirmScreenCorteEncaixeFuncionario(),
+          AppRoutesApp.EncaixeScreenFuncionario: (ctx)=>EncaixeScreenFuncionario(),
+          AppRoutesApp.ConfirmScreenCorteManager: (ctx)=>ConfirmScreenCorteManager(),
         },
       ),
     );

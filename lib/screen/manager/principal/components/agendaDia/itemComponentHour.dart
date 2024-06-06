@@ -4,6 +4,7 @@ import 'package:barbershop2/classes/Estabelecimento.dart';
 import 'package:barbershop2/classes/cortecClass.dart';
 import 'package:barbershop2/classes/horarios.dart';
 import 'package:barbershop2/functions/providerFilterStrings.dart';
+import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/screen/manager/principal/ManagerScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -187,6 +188,52 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
     }
   }
 
+  void showPreLembrete() async {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Text("Notificar cliente?"),
+            content: Text(
+                "O Cliente receberá uma mensagem para lembrar do horário, com opção para desmarcar"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Cancelar",
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey.shade300,
+                    ),
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await Provider.of<Twilio_messagesFunction>(context,
+                          listen: false)
+                      .sendWhatsMessageLembrete(
+                          numberPhone: widget.Corte.numeroContato);
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  "Notificar Agora",
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     Color _randomColor = _generateRandomLightColor();
@@ -363,10 +410,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                       widget.Corte.numeroContato.isEmpty
                           ? Container()
                           : InkWell(
-                              onTap: () {
-                                _launchURL(
-                                    "https://api.whatsapp.com/send?phone=55${widget.Corte.numeroContato}");
-                              },
+                              onTap: showPreLembrete,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 5, vertical: 1),
@@ -377,7 +421,7 @@ class _ItemComponentHourState extends State<ItemComponentHour> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      "Entrar em contato",
+                                      "Enviar Lembrete",
                                       style: GoogleFonts.openSans(
                                         textStyle: const TextStyle(
                                           fontWeight: FontWeight.w400,

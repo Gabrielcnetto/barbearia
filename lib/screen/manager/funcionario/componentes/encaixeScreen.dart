@@ -16,14 +16,14 @@ import 'package:provider/provider.dart';
 import '../../../../classes/horarios.dart';
 import '../../../../functions/managerScreenFunctions.dart';
 
-class EncaixeScreen extends StatefulWidget {
-  const EncaixeScreen({super.key});
+class EncaixeScreenFuncionario extends StatefulWidget {
+  const EncaixeScreenFuncionario({super.key});
 
   @override
-  State<EncaixeScreen> createState() => _EncaixeScreenState();
+  State<EncaixeScreenFuncionario> createState() => _EncaixeScreenState();
 }
 
-class _EncaixeScreenState extends State<EncaixeScreen> {
+class _EncaixeScreenState extends State<EncaixeScreenFuncionario> {
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
@@ -535,7 +535,7 @@ class _EncaixeScreenState extends State<EncaixeScreen> {
                     onTap: () {
                       CreateAgendamento();
                       Navigator.of(context).pushReplacementNamed(
-                          AppRoutesApp.ConfirmScreenCorteManager);
+                          AppRoutesApp.ConfirmScreenCorteEncaixeFuncionario);
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15),

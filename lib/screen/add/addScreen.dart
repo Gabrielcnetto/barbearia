@@ -7,6 +7,7 @@ import 'package:barbershop2/classes/profissionais.dart';
 import 'package:barbershop2/functions/CorteProvider.dart';
 import 'package:barbershop2/functions/managerScreenFunctions.dart';
 import 'package:barbershop2/functions/profileScreenFunctions.dart';
+import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -291,6 +292,23 @@ class _AddScreenState extends State<AddScreen> {
       ),
       selectDateForUser: dataSelectedInModal!,
     );
+    if (phoneNumber != null) {
+      int year = dataSelectedInModal!.year;
+      int month = dataSelectedInModal!.month;
+      int day = dataSelectedInModal!.day;
+
+      DateFormat horaFormat = DateFormat('HH:mm');
+      DateTime hora = horaFormat.parse(hourSetForUser!);
+
+// Incluir minuto da hora extraída
+      DateTime finalDatetime =
+          DateTime(year, month, day, hora.hour, hora.minute);
+      await Provider.of<Twilio_messagesFunction>(context, listen: false)
+          .sendWhatsMessage(numberPhone: numberControler.text);
+      await Provider.of<Twilio_messagesFunction>(context, listen: false)
+          .agendarMensagemWhatsApp(
+              numberPhone: numberControler.text, dataFinal: finalDatetime);
+    }
     try {
       await analytics.logEvent(
         name: "scheduled_appointmen",
