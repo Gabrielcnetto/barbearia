@@ -8,7 +8,6 @@ import 'package:barbershop2/functions/providerFilterStrings.dart';
 import 'package:barbershop2/functions/rankingProviderHome.dart';
 import 'package:barbershop2/functions/twilio_messagesFunctions.dart';
 import 'package:barbershop2/functions/userLogin.dart';
-import 'package:barbershop2/notifications/firebase_notifications.dart';
 import 'package:barbershop2/rotas/Approutes.dart';
 import 'package:barbershop2/screen/add/confirmscreen/ConfirmScreenCorte.dart';
 import 'package:barbershop2/screen/home/homeScreen01.dart';
@@ -35,8 +34,6 @@ import 'screen/login/registerAccount.dart';
 import 'rotas/verificationLogin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
 Future<void> main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // Chame primeiro aqui ele inicia os widgets
@@ -44,17 +41,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  try {
-    await FirebaseNotifications().initNotifications();
-  } catch (e) {
-    print("erro ao iniciar as mensagens");
-  }
-  try {
-    analytics.setAnalyticsCollectionEnabled(true);
-    print("Inicializamos o ga4 no app");
-  } catch (e) {
-    print("run app ativando GA4 deu este erro: ${e}");
-  }
+  
   //Crashlist para enviar erros que acontecem no cll do usuario
   FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
